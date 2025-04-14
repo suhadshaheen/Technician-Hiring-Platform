@@ -1,0 +1,28 @@
+.card {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(64, 24, 157, 0.2);
+}
+.salary {
+  color: #40189d;
+  font-weight: bold;
+}
+
+.s-btn {
+  border-top-left-radius: 2px;
+  border: solid #40189d 1px;
+  color: #40189d;
+  background-color: white;
+}
+
+.s-btn:hover {
+  background-color: #40189d;
+  color: white;
+}

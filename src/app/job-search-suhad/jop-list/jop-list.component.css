@@ -1,0 +1,104 @@
+body{
+  background-color: #f2f2f2;
+}
+
+
+input.search-ss  {
+  border-radius: 25px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  outline-color: #40189d;
+}
+
+.pagination {
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+.s-btn {
+  border-top-left-radius: 2px;
+  border: solid #40189d 1px;
+  color: #40189d;
+  background-color: white;
+}
+.s-btn:hover {
+  background-color: #40189d;
+  color: white;
+}
+
+.salary {
+  color: #40189d;
+  font-weight: bold;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #40189d;
+  color: white;
+  border: none;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
+}
+
+/* .btn-pur{
+  border-radius: 1px;
+  border-color: #40189d;
+} */
+.fa-backward{
+  color:#40189d;
+}
+.fa-forward{
+  color: #40189d;
+}
+.filter-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  transition: all 0.3s ease-in-out;
+  max-width: 400px;
+}
+
+.filter-dropdown .ss-r {
+  margin-bottom: 10px;
+}
+
+.filter-dropdown .ss-select {
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+
+.custom-search-bar {
+  position: relative;
+}
+
+.filter-dropdown {
+  display: none;
+}
+
+.filter-dropdown.show {
+  display: block;
+}
+
+.filter-dropdown .su-s {
+  margin-bottom: 20px;
+}
+button.btn-outline-purble {
+  border-color: #40189d;
+  color: #40189d;
+  background-color: transparent;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button.btn-outline-purble:hover {
+  background-color: #40189d;
+  color: white;
+  border-color: #40189d;
+}
