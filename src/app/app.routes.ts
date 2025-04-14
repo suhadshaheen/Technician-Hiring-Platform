@@ -10,3 +10,4 @@ export const routes: Routes = [
   {path: 'Sign' , component:SignInPageComponent},
   {path:'Forgot-page' ,component:ForgotPasswordPageComponent}
 ];
+
