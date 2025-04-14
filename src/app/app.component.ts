@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 
-import {LoginPageComponent} from '../User Roles & Authentication-yousef/Login/login-page/login-page.component';
-import {HomePageYComponent} from '../home-page-yousef/home-page-y/home-page-y.component';
+import {LoginPageComponent} from './user-roles-yousef/login/login-page/login-page.component';
+import {HomePageYComponent} from './home-page-yousef/home-page-y/home-page-y.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
 @Component({
