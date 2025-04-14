@@ -1,0 +1,27 @@
+.job-card {
+    background-color: #fff;
+    border: 1px solid rgba(51, 51, 51, 0.69);
+    margin-left: 250px;
+    margin-right: 50px;
+    margin-top: 30px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    background: #4f1ebf;
+    color: white;
+  }
+  
+  .bids-button{
+    background: #40189D;
+    color: white;
+    width: 70px;
+  }
+  .bids-button:hover{
+    background: #32137a;
+    color: white;
+    width: 70px;
+  }
+  
