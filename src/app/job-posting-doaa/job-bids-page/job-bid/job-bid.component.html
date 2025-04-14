@@ -1,0 +1,17 @@
+<div class="job-card d-flex justify-content-between align-items-center p-3 rounded-3 shadow-sm mb-3">
+    <div class="d-flex align-items-center">
+      <div class="avatar   fw-bold rounded-circle me-3 d-flex justify-content-center align-items-center">
+        J
+      </div>
+      <h5 class="mb-0">{{ title }}</h5>
+    </div>
+  
+    <div class="d-flex gap-2">
+      <button class="btn bids-button " (click)="onBids()">Bids</button>
+      <div class="d-flex flex-column gap-2">
+        <button class="btn btn-secondary" [disabled]="!canEdit" (click)="onEdit()">Edit</button>
+        <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+  
