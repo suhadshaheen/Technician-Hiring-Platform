@@ -1,0 +1,62 @@
+<form (ngSubmit)="onLogin()" #loginForm="ngForm">
+
+  <div class="d-flex justify-content-center mb-4 ">
+    <div class="position-relative" style="max-width: 300px; width: 100%;">
+
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="position-absolute"
+           style="left: 12px; top: 50%; transform: translateY(-50%);"
+
+           height="20" width="20" viewBox="0 0 512 512">
+        <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zM313.6 288h-14.1c-22.4
+          10.3-47.3 16-75.5 16s-53.1-5.7-75.5-16h-14.1C60.2 288 0 348.2 0
+          422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5
+          48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/>
+      </svg>
+
+      <input
+        type="text"
+        name="username"
+        [(ngModel)]="username"
+        class="form-control px-5 py-2 rounded-pill shadow border-black"
+        placeholder="Username"
+        required
+        style="font-size: 0.95rem; color: #A8A8A8;"
+      />
+    </div>
+  </div>
+
+
+  <div class="d-flex justify-content-center mb-4">
+    <div class="position-relative" style="max-width: 300px; width: 100%;">
+
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="position-absolute"
+
+           style="left: 12px; top: 50%; transform: translateY(-50%);"
+           height="20" width="20" viewBox="0 0 448 512">
+        <path d="M400 192h-24v-72C376 53.7 322.3 0 256 0S136 53.7 136
+          120v72H112c-26.5 0-48 21.5-48 48v224c0 26.5 21.5 48 48
+          48h288c26.5 0 48-21.5 48-48V240c0-26.5-21.5-48-48-48zM184
+          120c0-39.8 32.2-72 72-72s72 32.2 72 72v72H184v-72z"/>
+      </svg>
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        class="form-control px-5 py-2 rounded-pill shadow border-black"
+        placeholder="Password"
+        required
+
+        style="font-size: 0.95rem;"
+      />
+    </div>
+  </div>
+
+
+  <button type="submit"
+          class="btn custom-login-btn px-4 py-2 rounded-pill mx-auto d-block">
+    Login now
+  </button>
+
+</form>

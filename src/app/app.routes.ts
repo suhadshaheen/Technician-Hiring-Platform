@@ -1,9 +1,13 @@
 import { Routes } from '@angular/router';
-import { JopListComponent } from './job-search-suhad/jop-list/jop-list.component';
-import { JobDetailsComponent } from './job-search-suhad/job-details/job-details.component';
-import { ChatComponent } from './job-search-suhad/chat/chat.component';
+import {SignInPageComponent} from '../User Roles & Authentication-yousef/Sign-in/sign-in-page/sign-in-page.component';
+import {LoginPageComponent} from '../User Roles & Authentication-yousef/Login/login-page/login-page.component';
+import {
+  ForgotPasswordPageComponent
+} from '../User Roles & Authentication-yousef/Forgot-password/forgot-password-page/forgot-password-page.component';
+
 export const routes: Routes = [
-  { path: 'job-list', component: JopListComponent },
-  { path: 'job-details/:id', component: JobDetailsComponent },
-  {path: 'chat',component: ChatComponent,},
-]
+
+  {path: 'Sign' , component:SignInPageComponent},
+  {path:'Forgot-page' ,component:ForgotPasswordPageComponent}
+];
+
