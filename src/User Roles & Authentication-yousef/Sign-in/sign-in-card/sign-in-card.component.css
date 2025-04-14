@@ -1,0 +1,18 @@
+input::placeholder {
+  color: #A8A8A8;
+  opacity: 1;
+}
+input{
+  border-color: #d3d3d3;
+}
+.custom-login-btn {
+  background-color: #4e36e2;
+  color: white;
+  border: none;
+
+}
+
+.custom-login-btn:hover {
+  transition: 0.5s all ease ;
+  background-color: #3e2bb4 ;
+}

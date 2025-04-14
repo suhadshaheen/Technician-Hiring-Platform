@@ -1,0 +1,39 @@
+.hero-section {
+  padding: 60px 0;
+  background-color: #f1f1f6;
+}
+
+.hero-text h1 {
+  color: #10055d;
+  font-weight: 700;
+}
+
+.hero-text p {
+  color: #717293;
+  font-weight: 500;
+}
+
+.custom-login-btn {
+  background-color: #4e36e2;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.custom-login-btn:hover {
+  background-color: #3e2bb4;
+}
+
+.outline {
+  border: 2px solid #5038ed;
+  color: #5038ed;
+  background: transparent;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.outline:hover {
+  transition: 0.5s all ease ;
+  background-color: #3e2bb4 ;
+  color: #fff;
+}

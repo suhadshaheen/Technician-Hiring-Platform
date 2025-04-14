@@ -1,0 +1,24 @@
+<div class="card p-4 shadow rounded-5 text-center" style="width: 95rem; z-index: 1; height: 49rem;">
+  <h1 class="text-center fw-bold" style="font-family: 'Baloo 2', cursive;">Welcome to Hirely</h1>
+  <hr class="border border-primary border-1 opacity-50 mt-0">
+  <h1 class="text-center fw-bold" style="font-family: 'Baloo 2', cursive;">LOGIN</h1>
+  <p class="text-center" style="color: #A8A8A8">How I get started?</p>
+
+  <app-login-form></app-login-form>
+
+  <p class="text-center mt-2" style="color: #A8A8A8">
+    <a href="#" class="text-decoration-none" style="color: #A8A8A8" [routerLink]="'Forgot-page'">Forgot your password?</a>
+  </p>
+
+  <div class="d-flex align-items-center justify-content-center mb-5">
+    <hr class="flex-grow-1 border border-primary border-1 opacity-50 mx-3" style="max-width: 39rem;" />
+    <span class="text-muted fs-4" style="color: #000000">Login with others</span>
+    <hr class="flex-grow-1 border border-primary border-1 opacity-50 mx-3 fw-bold" style="max-width: 39rem;" />
+  </div>
+
+  <app-social-login></app-social-login>
+
+  <p class="text-muted mt-4">
+    Don't have an account? <a  class="fw-semibold text-decoration-none" [routerLink]="'Sign'" >Sign up</a>
+  </p>
+</div>

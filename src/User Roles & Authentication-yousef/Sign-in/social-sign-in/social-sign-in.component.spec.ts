@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { SocialSignInComponent } from './social-sign-in.component';
+
+describe('SocialSignInComponent', () => {
+  let component: SocialSignInComponent;
+  let fixture: ComponentFixture<SocialSignInComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [SocialSignInComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(SocialSignInComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
