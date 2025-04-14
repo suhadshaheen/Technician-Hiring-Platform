@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {SocialLoginComponent} from '../social-login/social-login.component';
 import {LoginFormComponent} from '../login-form/login-form.component';
 import {RouterLink} from '@angular/router';
-import {SignInPageComponent} from '../../Sign-in/sign-in-page/sign-in-page.component';
+import {SignInPageComponent} from '../../sign-in/sign-in-page/sign-in-page.component';
 
 @Component({
   selector: 'app-login-card',

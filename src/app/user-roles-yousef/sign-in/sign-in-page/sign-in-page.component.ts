@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {DecorativeCirclesComponent} from '../../Login/decorative-circles/decorative-circles.component';
+import {DecorativeCirclesComponent} from '../../login/decorative-circles/decorative-circles.component';
 import {SignInCardComponent} from '../sign-in-card/sign-in-card.component';
 
 @Component({
