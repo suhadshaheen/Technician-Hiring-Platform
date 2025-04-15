@@ -1,0 +1,31 @@
+.top-left-circle {
+  top: 70px;
+  left: 150px;
+  background-color: #1bcf85;
+}
+
+.bottom-right-circle {
+  bottom: 70px;
+  right: 150px;
+}
+
+
+@media (max-width: 768px) {
+  .top-left-circle {
+    top: 40px;
+    left: 40px;
+  }
+
+  .bottom-right-circle {
+    bottom: 40px;
+    right: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-left-circle,
+  .bottom-right-circle {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
