@@ -1,0 +1,23 @@
+.card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  } 
+  .table-wrapper {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .header h5 {
+    font-weight: 600;
+  }
+  .bg-purple {
+    background-color: #40189D;
+    color: white;}
+  .btn-purple{
+    background-color: #5e4596c9;
+    color: white;
+  }
+  
+ 

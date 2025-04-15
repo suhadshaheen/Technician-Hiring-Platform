@@ -12,7 +12,11 @@ import { ChatComponent } from './job-search-suhad/chat/chat.component';
 import { HomePageYComponent } from './home-page-yousef/home-page-y/home-page-y.component';
 import { JobBidsPageComponent } from './job-posting-doaa/job-bids-page/job-bids-page.component';
 import { OwnerJobsPageComponent } from './job-posting-doaa/owner-jobs-page/owner-jobs-page.component';
+import { AdminLayoutComponent } from './admin-dashboard-sarah/admin-layout/admin-layout.component';
+import { UsersComponent } from './admin-dashboard-sarah/users/users.component';
 export const routes: Routes = [
+  {path:'dashboard',component:AdminLayoutComponent},
+  {path:'users',component:UsersComponent},
   { path: 'job-list', component: JopListComponent },
   { path: 'job-details/:id', component: JobDetailsComponent },
   {path: 'chat',component: ChatComponent,},
