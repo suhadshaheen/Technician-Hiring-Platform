@@ -26,8 +26,8 @@
           <label for="skills" class="form-label">Skills</label>
         </div>
         <div class="col-6 d-flex flex-column">
-          <input id="experience" type="text" formControlName="experience" class="form-control">
-          <label for="experience" class="form-label">Experience</label>
+          <input id="Location" type="text" formControlName="Location" class="form-control">
+          <label for="Location" class="form-label">Location</label>
         </div>
     </div>
   
@@ -57,9 +57,10 @@
         <label for="employeeType" class="form-label">Employee Type</label>
       </div>
     </div>
-  
-    <button type="submit" class="btn">Post</button>
-  
+   <div class="buttons d-flex">
+        <button type="button" class="btn btn-secondary" [routerLink]="['/OwnerJobs']">Cancel</button>
+        <button type="submit" class="btn btn-success">Re-Post</button>
+  </div>
   <!--  <div class="dropzone">-->
   <!--    <div class="col">-->
   <!--      <form id="myDropzone"  action="https://httpbin.org/post"></form>-->
