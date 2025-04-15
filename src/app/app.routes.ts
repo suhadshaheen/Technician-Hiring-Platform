@@ -10,6 +10,8 @@ import { JopListComponent } from './job-search-suhad/jop-list/jop-list.component
 import { JobDetailsComponent } from './job-search-suhad/job-details/job-details.component';
 import { ChatComponent } from './job-search-suhad/chat/chat.component';
 import { HomePageYComponent } from './home-page-yousef/home-page-y/home-page-y.component';
+import { JobBidsPageComponent } from './job-posting-doaa/job-bids-page/job-bids-page.component';
+import { OwnerJobsPageComponent } from './job-posting-doaa/owner-jobs-page/owner-jobs-page.component';
 export const routes: Routes = [
   { path: 'job-list', component: JopListComponent },
   { path: 'job-details/:id', component: JobDetailsComponent },
@@ -19,6 +21,8 @@ export const routes: Routes = [
   {path:'Forgot-page' ,component:ForgotPasswordPageComponent},
   {path: 'adit' , component:AditJobPageComponent},
   {path:'',component:HomePageYComponent},
-  {path:'login',component:LoginPageComponent}
+  {path:'login',component:LoginPageComponent},
+  {path: 'Bids', component:JobBidsPageComponent},
+  {path:'OwnerJobs', component:OwnerJobsPageComponent}
 ];
 

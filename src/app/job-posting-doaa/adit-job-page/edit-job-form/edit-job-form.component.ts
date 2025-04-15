@@ -1,10 +1,10 @@
 import {AfterViewInit, Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import Dropzone from 'dropzone';
-
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-edit-job-form',
-  imports: [ReactiveFormsModule ],
+  imports: [ReactiveFormsModule,RouterModule ],
   templateUrl: './edit-job-form.component.html',
   styleUrl: './edit-job-form.component.css'
 })
@@ -32,7 +32,7 @@ export class EditJobFormComponent {
       paramName: 'file',
       maxFilesize: 2,
       acceptedFiles: '.png,.jpg,.jpeg,.pdf',
-      dictDefaultMessage: 'اسحبي الملفات هنا أو اضغطي للرفع',
+      dictDefaultMessage: 'upload',
     });
   }
   onSubmit() {

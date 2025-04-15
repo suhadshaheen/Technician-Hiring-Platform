@@ -8,21 +8,19 @@ import { Component , Input, Output, EventEmitter} from '@angular/core';
 })
 export class JobBidComponent {
   @Input() title: string = '';
+  @Input() date: string = '';
   @Input() canEdit: boolean = true;
 
   @Output() edit = new EventEmitter<void>();
   @Output() delete = new EventEmitter<void>();
   @Output() bids = new EventEmitter<void>();
 
-  onEdit() {
-    this.edit.emit();
+  approve() {
+    // this.edit.emit();
   }
 
-  onDelete() {
-    this.delete.emit();
+  reject() {
+    // this.delete.emit();
   }
 
-  onBids() {
-    this.bids.emit();
-  }
 }
