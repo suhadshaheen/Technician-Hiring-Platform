@@ -3,12 +3,14 @@ import {ForgotPasswordFormComponent} from '../forgot-password-form/forgot-passwo
 import {DecorativeCirclesComponent} from '../../login/decorative-circles/decorative-circles.component';
 import {SignInCardComponent} from '../../sign-in/sign-in-card/sign-in-card.component';
 import {LoginFormComponent} from '../../login/login-form/login-form.component';
+import {ForgotCirclesComponent} from '../forgot-circles/forgot-circles.component';
 
 @Component({
   selector: 'app-forgot-password-page',
   imports: [
     ForgotPasswordFormComponent,
     DecorativeCirclesComponent,
+    ForgotCirclesComponent,
 
   ],
   templateUrl: './forgot-password-page.component.html',

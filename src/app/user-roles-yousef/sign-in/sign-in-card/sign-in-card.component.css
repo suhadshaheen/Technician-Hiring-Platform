@@ -1,18 +1,111 @@
-input::placeholder {
-  color: #A8A8A8;
-  opacity: 1;
-}
-input{
-  border-color: #d3d3d3;
-}
-.custom-login-btn {
-  background-color: #4e36e2;
-  color: white;
-  border: none;
-
+body {
+  background-color: #f8f9fa;
+  font-family: 'Baloo 2', cursive;
 }
 
-.custom-login-btn:hover {
-  transition: 0.5s all ease ;
-  background-color: #3e2bb4 ;
+
+
+.form-check-label {
+  margin-left: 0.5rem;
+}
+
+.radio-group {
+  gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  .radio-group {
+    flex-direction: column !important;
+    align-items: center;
+  }
+  .sign-in-card {
+    width: 100%;
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 2rem;
+  }
+
+  .form-check-label {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .form-check-label {
+    font-size: 1rem;
+  }
+  .sign-in-card {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 1rem;
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1279px) {
+
+  .sign-in-card {
+    width: 60rem;
+    height: 40rem;
+    z-index: 1;
+
+
+  }
+
+
+
+  .form-check-input {
+    width: 1.2rem;
+    height: 1.2rem;
+
+  }
+
+  .form-check-label {
+    font-size: 1rem;
+    margin-left: 0.8rem;
+  }
+
+  .radio-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  h1, h2 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+
+
+
+
+  app-social-sign-in {
+    margin-top: 1rem;
+
+  }
+
+
+  .text-muted {
+    font-size: 0.9rem;
+  }
+}
+
+
+@media (min-width: 1280px) {
+  .form-check-label {
+    font-size: 1.1rem;
+  }
+  .sign-in-card{
+  width: 95rem;
+    z-index: 1;
+    height: 49rem;
+  }
+  .title{
+    margin-top: 2rem;
+  }
 }

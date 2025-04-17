@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {SocialSignInComponent} from '../../../../User Roles & Authentication-yousef/Sign-in/social-sign-in/social-sign-in.component';
+import {SocialSignInComponent} from '../social-sign-in/social-sign-in.component';
 
 @Component({
   selector: 'app-sign-in-form',

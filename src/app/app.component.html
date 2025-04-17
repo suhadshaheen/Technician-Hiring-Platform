@@ -1,7 +1,8 @@
 <div class="app-wrapper">
-  <app-sidenav class="sidenav"></app-sidenav>
+  <!-- Show sidebar only on non-auth routes -->
+  <app-sidenav class="sidenav" *ngIf="!isAuthRoute()"></app-sidenav>
 
-  <main class="page-content">
+  <main class="page-content" [ngStyle]="{ 'margin-left': isAuthRoute() ? '0' : '210px' }">
     <router-outlet></router-outlet>
   </main>
 </div>

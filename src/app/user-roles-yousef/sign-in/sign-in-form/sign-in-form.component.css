@@ -1,15 +1,16 @@
-.bg-purple {
-  background-color: #40189d;
+.sign-input {
+  font-size: 0.95rem;
+  color: #A8A8A8;
+  max-width: 300px;
+  width: 100%;
 }
 
-.top-left-circle {
-  top: 70px;
-  left: 150px;
-}
 
-.bottom-right-circle {
-  bottom: 70px;
-  right: 150px;
+
+.form-icon {
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .custom-Sign-btn {
