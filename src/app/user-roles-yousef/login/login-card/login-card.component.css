@@ -1,0 +1,116 @@
+
+
+
+.d-flex {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+@media (max-width: 768px) {
+  .login-in-card {
+    padding: 1.5rem;
+  }
+  .login-in-card {
+    width: 100%;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-in-card h1, .login-in-card h2 {
+    font-size: 1.5rem;
+  }
+
+  .login-in-card p {
+    font-size: 1rem;
+  }
+
+  .d-flex {
+    flex-direction: column;
+  }
+
+  .d-flex .mx-3 {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .login-divider {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-in-card {
+    padding: 1rem;
+  }
+
+  .login-in-card h1, .login-in-card h2 {
+    font-size: 1.2rem;
+  }
+
+  .login-in-card p {
+    font-size: 0.9rem;
+  }
+
+  .login-divider {
+    min-width: 120px;
+  }
+  .login-in-card {
+    width: 100%;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+}
+@media (min-width: 769px) and (max-width: 1279px) {
+  .login-in-card {
+    width: 60rem;
+    height: auto;
+    z-index: 1;
+    padding: 2.5rem;
+  }
+
+
+  .login-divider {
+    display: inline-block;
+    width: 20rem;
+    height: 1px;
+  }
+
+  .login-in-card h1,
+  .login-in-card h2 {
+    font-size: 2rem;
+  }
+
+  .login-in-card p {
+    font-size: 1rem;
+  }
+
+  .text-muted.fs-4 {
+    font-size: 1.1rem !important;
+  }
+
+  .d-flex.justify-content-center {
+    flex-wrap: wrap;
+  }
+}
+
+
+
+
+@media (min-width: 1280px) {
+  .form-check-label {
+    font-size: 1.1rem;
+  }
+  .login-in-card{
+    width: 95rem;
+    z-index: 1;
+    height: 49rem;
+  }
+}

@@ -1,6 +1,9 @@
 .bg-purple {
   background-color: #40189d;
 }
+
 :host {
+  display: block;
+  height: 100%;
   font-family: 'Baloo 2', cursive;
 }
