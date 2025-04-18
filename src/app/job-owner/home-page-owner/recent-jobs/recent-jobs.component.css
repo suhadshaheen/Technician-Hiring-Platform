@@ -1,0 +1,55 @@
+.recent-jobs-heading {
+  color: #10055d;
+  font-weight: 700;
+}
+
+.recent-job-card {
+  background-color: #f3f3fe;
+  padding: 16px 20px;
+  border-radius: 14px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.recent-job-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.job-description {
+  color: #333452;
+  font-size: 15px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.job-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.comment-count {
+  color: #717293;
+}
+
+.icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 14px;
+  color: #5038ed;
+}
+
+.bg-light-purple {
+  background-color: #e2e1fc;
+}
+
+@media (max-width: 767px) {
+  .hero-text h1 {
+    font-size: 1.75rem;
+  }
+}

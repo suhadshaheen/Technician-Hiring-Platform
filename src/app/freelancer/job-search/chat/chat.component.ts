@@ -2,8 +2,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RecentMessage } from '../models/RecentMessage';
-import { ChatService } from '../services/chat.service';
+import { RecentMessage } from '../../models/RecentMessage';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-chat',

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { JobService } from '../services/Jobservice.service';
+import { JobService } from '../../services/Jobservice.service';
 
 @Component({
   standalone: true,

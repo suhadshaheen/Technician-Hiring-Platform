@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { RecentMessage } from '../models/RecentMessage';
+import { RecentMessage } from '../../freelancer/models/RecentMessage';
 
 @Injectable({
   providedIn: 'root'
