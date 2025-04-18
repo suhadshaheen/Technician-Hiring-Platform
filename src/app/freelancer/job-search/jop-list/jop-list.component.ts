@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { NgForOf, NgIf, CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { JobCardComponent } from './job-card/job-card.component';
-import { JobService } from '../services/Jobservice.service';
+import { JobService } from '../../services/Jobservice.service';
 
 @Component({
   selector: 'app-jop-list',

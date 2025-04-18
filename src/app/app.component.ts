@@ -3,8 +3,8 @@ import {Router, RouterOutlet} from '@angular/router';
 
 
 import {LoginPageComponent} from './user-roles-yousef/login/login-page/login-page.component';
-import {HomePageYComponent} from './home-page-yousef/home-page-y/home-page-y.component';
-import { SidenavComponent } from './sidenav/sidenav.component';
+import {HomePageYComponent} from './job-owner/home-page-owner/home-page-y/home-page-y.component';
+import { SidenavComponent } from './admin/sidenav/sidenav.component';
 import {NgIf, NgStyle} from '@angular/common';
 
 @Component({
