@@ -1,3 +1,11 @@
 <header>Your Jobs</header>
-<app-your-job  [title]="'Your Job number 1'"></app-your-job>
-<app-your-job  [title]="'Your Job number 2'"></app-your-job>
+<div *ngFor="let job of jobs">
+    <app-your-job  [title]="job.title" [jobId]="job.id"></app-your-job>
+</div>
+
+
+
+
+
+
+

@@ -1,10 +1,11 @@
+<div class="container-fluid px-3 overflow-hidden">
 <form [formGroup]="jobForm" class="JobForm bg-body-secondary text-start rounded-5" (ngSubmit)="onSubmit()">
     <div class="row ">
-      <div class="col-6 d-flex flex-column">
+      <div class="col-12 col-md-6 d-flex flex-column">
         <input id="jobTitle" type="text" formControlName="title" class="form-control ">
         <label for="jobTitle" class="form-label">Job Title</label>
       </div>
-      <div class="col-6 d-flex flex-column">
+      <div class="col-12 col-md-6 d-flex flex-column">
         <select id="category" formControlName="category" class="form-control ">
           <option value=""></option>
           <option value="tech">Technology</option>
@@ -22,33 +23,33 @@
     </div>
   
     <div class="row">
-        <div class="col-6 d-flex flex-column">
+        <div class="col-12 col-md-6 d-flex flex-column">
           <input id="skills" type="text" formControlName="skills" class="form-control ">
           <label for="skills" class="form-label">Skills</label>
         </div>
-        <div class="col-6 d-flex flex-column">
+        <div class="col-12 col-md-6 d-flex flex-column">
           <input id="Location" type="text" formControlName="Location" class="form-control">
           <label for="Location" class="form-label">Location</label>
         </div>
     </div>
   
     <div class="row">
-      <div class="col-6 d-flex flex-column">
+      <div class="col-12 col-md-6 d-flex flex-column">
         <input id="minBudget" type="number" formControlName="minBudget" class="form-control ">
         <label for="minBudget" class="form-label">Budget From</label>
       </div>
-      <div class="col-6 d-flex flex-column">
+      <div class="col-12 col-md-6 d-flex flex-column">
         <input id="maxBudget" type="number" formControlName="maxBudget" class="form-control ">
         <label for="maxBudget" class="form-label">Budget To</label>
       </div>
     </div>
   
     <div class="row">
-      <div class="col-6 d-flex flex-column">
+      <div class="col-12 col-md-6 d-flex flex-column">
         <input id="endDate" type="date" formControlName="endDate" class="form-control ">
         <label for="endDate" class="form-label">End Date</label>
       </div>
-      <div class="col-6 d-flex flex-column">
+      <div class="col-12 col-md-6 d-flex flex-column">
         <select id="employeeType" formControlName="employeeType" class="form-control ">
           <option value=""></option>
           <option value="full-time">Full-time</option>
@@ -58,14 +59,16 @@
         <label for="employeeType" class="form-label">Employee Type</label>
       </div>
     </div>
+    <button type="submit" class="btn" (click)="onSubmit()">Post</button>
   
-    <button type="submit" class="btn">Post</button>
-  
-  <!--  <div class="dropzone">-->
-  <!--    <div class="col">-->
-  <!--      <form id="myDropzone"  action="https://httpbin.org/post"></form>-->
-  <!--    </div>-->
-  <!--  </div>-->
+   <!-- <div class="dropzone">
+     <div class="col">
+       <form id="myDropzone"  action="https://httpbin.org/post"></form>
+     </div>
+   </div> -->
   
   </form>
   
+</div>
+
+

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import Dropzone from 'dropzone';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-edit-job-form',
   imports: [ReactiveFormsModule,RouterModule ],
@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 export class EditJobFormComponent {
   jobForm: FormGroup;
 
-  constructor(private formBuild: FormBuilder) {
+  constructor(private formBuild: FormBuilder, private router: Router) {
     this.jobForm = this.formBuild.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
       category: ['', Validators.required],
@@ -37,7 +37,10 @@ export class EditJobFormComponent {
   }
   onSubmit() {
 
-
-
   }
+  
+  confirmCancel() {
+    this.router.navigate(['/jobOwner/OwnerJobs']);
+  }
+  
 }

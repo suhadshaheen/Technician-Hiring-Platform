@@ -1,0 +1,15 @@
+:host {
+    display: flex;
+  }
+
+  .main-content {
+    margin-left: 200px;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .main-content.expanded {
+    margin-left: 70px;
+  }

@@ -1,1 +1,4 @@
-<p>freelancer works!</p>
+<app-freelancer-sidebar (collapsedChange)="onSidebarToggle($event)"></app-freelancer-sidebar>
+<div class="main-content" [class.expanded]="isCollapsed">
+    <router-outlet></router-outlet>
+</div>

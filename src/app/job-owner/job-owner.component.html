@@ -1,1 +1,4 @@
-<p>job-owner works!</p>
+<app-owner-sidebar (collapsedChange)="onSidebarToggle($event)"></app-owner-sidebar>
+<div class="main-content" [class.expanded]="isCollapsed">
+    <router-outlet></router-outlet>
+</div>
