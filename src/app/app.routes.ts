@@ -14,6 +14,10 @@ import { JobBidsPageComponent } from './job-owner/job-posting/job-bids-page/job-
 import { OwnerJobsPageComponent } from './job-owner/job-posting/owner-jobs-page/owner-jobs-page.component';
 import { AdminLayoutComponent } from './admin/dashboard/admin-layout/admin-layout.component';
 import { UsersComponent } from './admin/dashboard/users/users.component';
+import { AdminComponent } from './admin/admin.component';
+import { GuestComponent } from './guest/guest.component';
+import { JobOwnerComponent } from './job-owner/job-owner.component';
+import { FreelancerComponent } from './freelancer/freelancer.component';
 export const routes: Routes = [
   {path:'dashboard',component:AdminLayoutComponent},
   {path:'users',component:UsersComponent},
@@ -27,6 +31,26 @@ export const routes: Routes = [
   {path:'',component:HomePageYComponent},
   {path:'login',component:LoginPageComponent},
   {path: 'Bids', component:JobBidsPageComponent},
-  {path:'OwnerJobs', component:OwnerJobsPageComponent}
+  {path:'OwnerJobs', component:OwnerJobsPageComponent},
+  {path:'admin', component:AdminComponent},
+  {path:'guest', component:GuestComponent},
+  {path:'jobOwner', component:JobOwnerComponent , 
+    children : [ 
+      {path: '',component:HomePageYComponent},
+      {path: 'PostJob',component:PostJobPageComponent},
+      {path:'OwnerJobs', component:OwnerJobsPageComponent},
+      {path: 'Bids', component:JobBidsPageComponent},
+      {path: 'Edit' , component:AditJobPageComponent},
+      {path: 'chat',component: ChatComponent}
+     ]
+  },
+  {path:'freelancer', component:FreelancerComponent , 
+    children : [ 
+      {path: '',component:HomePageYComponent},
+      { path: 'job-list', component: JopListComponent},
+      { path: 'job-details/:id', component: JobDetailsComponent },
+      {path: 'chat',component: ChatComponent}
+     ]
+  }
 ];
 

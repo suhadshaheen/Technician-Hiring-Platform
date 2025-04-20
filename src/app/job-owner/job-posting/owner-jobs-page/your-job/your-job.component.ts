@@ -7,7 +7,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './your-job.component.css'
 })
 export class YourJobComponent {
-  @Input() title: string = '';
+  @Input() title!: string ;
+  @Input() jobId!: number;
   @Input() canEdit: boolean = true;
 
   @Output() edit = new EventEmitter<void>();
@@ -18,8 +19,10 @@ export class YourJobComponent {
     this.edit.emit();
   }
 
-  onDelete() {
-    this.delete.emit();
+  confirmDelete() {
+    // Perform actual delete logic here
+    console.log("Deleting job...");
+    
   }
-
+  
 }

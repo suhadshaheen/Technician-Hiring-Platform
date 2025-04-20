@@ -1,7 +1,6 @@
 import {AfterViewInit, Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import Dropzone from 'dropzone';
-
 @Component({
   selector: 'app-create-job-form',
   imports: [ ReactiveFormsModule],
@@ -35,9 +34,11 @@ export class CreateJobFormComponent {
       dictDefaultMessage: 'اسحبي الملفات هنا أو اضغطي للرفع',
     });
   }
+
+
+
   onSubmit() {
+   
 
-
-
-  }
+}
 }
