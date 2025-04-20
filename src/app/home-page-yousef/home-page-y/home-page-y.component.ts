@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
-import {HowItWorksComponent} from '../how-it-works/how-it-works.component';
+
 import {TopArtisansComponent} from '../top-artisans/top-artisans.component';
 import {RecentJobsComponent} from '../recent-jobs/recent-jobs.component';
 import {RouterLink} from '@angular/router';
 import {HeroSectionComponent} from '../hero-section/hero-section.component';
+import {HowItWorksJComponent} from '../how-it-works-j/how-it-works-j.component';
 
 @Component({
   selector: 'app-home-page-y',
   imports: [
-    HowItWorksComponent,
+
     TopArtisansComponent,
     RecentJobsComponent,
     RouterLink,
-    HeroSectionComponent
+    HeroSectionComponent,
+    HowItWorksJComponent
   ],
   templateUrl: './home-page-y.component.html',
   styleUrl: './home-page-y.component.css'
