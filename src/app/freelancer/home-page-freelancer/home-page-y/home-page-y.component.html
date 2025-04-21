@@ -1,4 +1,10 @@
 <app-hero-section></app-hero-section>
-<app-how-it-works></app-how-it-works>
-<app-top-artisans></app-top-artisans>
-<app-recent-jobs></app-recent-jobs>
+<app-active-jobs></app-active-jobs>
+<app-recent-msg></app-recent-msg>
+<app-rating-summary [averageRating]="4.6"
+                    [totalJobs]="18"
+                    [reviewsTitle]="'Your Ratings'"
+                    [showAverage]="true"
+                    [showButton]="true"
+                    [reviews]="freelancerReviews">
+  </app-rating-summary>

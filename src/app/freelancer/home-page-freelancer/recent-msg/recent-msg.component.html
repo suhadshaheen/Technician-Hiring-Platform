@@ -1,0 +1,23 @@
+<div class="container mt-4">
+  <h4 class="fw-bold mb-3">Recent Messages</h4>
+
+  <div *ngIf="recentMessages.length > 0; else noMsgs">
+    <div *ngFor="let msg of recentMessages"
+         class="d-flex align-items-center mb-3 p-2 rounded shadow-sm bg-light">
+      <img [src]="msg.avatar" class="rounded-circle me-3" width="45" height="45" />
+      <div class="flex-grow-1">
+        <div class="fw-bold">{{ msg.name }}</div>
+        <div class="text-muted small text-truncate" style="max-width: 250px;">{{ msg.text }}</div>
+        <div class="small fst-italic text-muted">{{ msg.time }}</div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class = "text-center"><button [routerLink]="['/chat']" class="btn custom-login-btn px-4 py-2">See All Messages </button></div>
+
+  <ng-template #noMsgs>
+    <p class="text-muted">No recent messages.</p>
+  </ng-template>
+
+</div>

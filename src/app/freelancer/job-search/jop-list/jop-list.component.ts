@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgForOf, NgIf, CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
@@ -13,7 +13,9 @@ import { JobService } from '../../services/Jobservice.service';
   styleUrls: ['./jop-list.component.css']
 })
 export class JopListComponent {
-  jobs: any[] = [];
+  @Input() jobs: any[] = [];
+  @Input() showSearchBar: boolean = true;
+
 
   constructor(private jobService: JobService, private router: Router) {}
 

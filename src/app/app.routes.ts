@@ -14,6 +14,9 @@ import { JobBidsPageComponent } from './job-owner/job-posting/job-bids-page/job-
 import { OwnerJobsPageComponent } from './job-owner/job-posting/owner-jobs-page/owner-jobs-page.component';
 import { AdminLayoutComponent } from './admin/dashboard/admin-layout/admin-layout.component';
 import { UsersComponent } from './admin/dashboard/users/users.component';
+import {FreelancerHomePageYComponent} from './freelancer/home-page-freelancer/home-page-y/home-page-y.component';
+import {GuestHomePageYComponent} from './guest/home-page-guest/home-page-y/home-page-y.component';
+
 export const routes: Routes = [
   {path:'dashboard',component:AdminLayoutComponent},
   {path:'users',component:UsersComponent},
@@ -27,6 +30,8 @@ export const routes: Routes = [
   {path:'',component:HomePageYComponent},
   {path:'login',component:LoginPageComponent},
   {path: 'Bids', component:JobBidsPageComponent},
-  {path:'OwnerJobs', component:OwnerJobsPageComponent}
+  {path:'OwnerJobs', component:OwnerJobsPageComponent},
+  {path: 'FreelancerHome', component:FreelancerHomePageYComponent},
+  {path: 'GuestHomePage', component:GuestHomePageYComponent},
 ];
 
