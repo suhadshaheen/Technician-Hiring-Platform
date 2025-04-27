@@ -1,0 +1,24 @@
+.suhad-bid {
+  border-top-left-radius: 2px;
+  border: solid #40189d 1px;
+  color: #40189d;
+  background-color: white;
+  transition: 0.3s;
+}
+
+.suhad-bid:hover {
+  background-color: #40189d;
+  color: white;
+}
+
+.card-body {
+  border-bottom: 1px solid #40189d;
+}
+
+.card-footer {
+  background-color: #f9f9f9;
+}
+
+.card-title {
+  color: س#40189d;
+}

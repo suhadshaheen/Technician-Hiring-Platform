@@ -1,4 +1,3 @@
-// src/app/job.service.ts
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -56,11 +55,29 @@ export class JobService {
     }
   ];
 
+  private bids = [
+    { jobId: 1, freelancerId: 101, status: 'Accepted' },
+    { jobId: 2, freelancerId: 101, status: 'Pending' },
+    { jobId: 3, freelancerId: 101, status: 'Rejected' }
+  ];
+
   getAllJobs() {
     return this.jobs;
   }
 
   getJobById(id: number) {
     return this.jobs.find(job => job.id === id);
+  }
+
+  getMyBids(freelancerId: number) {
+    return this.bids
+      .filter(bid => bid.freelancerId === freelancerId)
+      .map(bid => {
+        const job = this.jobs.find(j => j.id === bid.jobId);
+        return {
+          ...job,
+          bidStatus: bid.status
+        };
+      });
   }
 }
