@@ -3,15 +3,16 @@ import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { FreelancerSidebarComponent } from '../freelancer/freelancer-sidebar/freelancer-sidebar.component';
 @Component({
   selector: 'app-user-profile',
-  imports: [FormsModule,NgFor,RouterModule,NgIf],
+  imports: [FormsModule,NgFor,RouterModule,NgIf,FreelancerSidebarComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
   isEditMode: boolean = false;
-
+  // role: string = 'freelancer';
   userData = {
     fullName: 'Suhad Shaheen',
     role: 'Developer',
@@ -38,5 +39,10 @@ export class UserProfileComponent {
   saveChanges() {
     this.isEditMode = false;
     console.log('User data saved:', this.userData);
+  }
+  isCollapsed = false;
+
+  onSidebarToggle(state: boolean) {
+    this.isCollapsed = state;
   }
 }
