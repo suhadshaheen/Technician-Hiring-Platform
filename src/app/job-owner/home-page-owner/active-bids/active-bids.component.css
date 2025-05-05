@@ -1,0 +1,15 @@
+.custom-login-btn {
+  background-color: #4e36e2;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.custom-login-btn:hover {
+  background-color: #3e2bb4;
+}
+.avatar {
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+}

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GuestHomePageYComponent } from './home-page-y.component';
+import { RatingSummaryComponent } from './rating-summary.component';
 
-describe('GuestHomePageYComponent', () => {
-  let component: GuestHomePageYComponent;
-  let fixture: ComponentFixture<GuestHomePageYComponent>;
+describe('RatingSummaryComponent', () => {
+  let component: RatingSummaryComponent;
+  let fixture: ComponentFixture<RatingSummaryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GuestHomePageYComponent]
+      imports: [RatingSummaryComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GuestHomePageYComponent);
+    fixture = TestBed.createComponent(RatingSummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

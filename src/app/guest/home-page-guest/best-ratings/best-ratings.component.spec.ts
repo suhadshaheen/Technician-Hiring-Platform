@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GuestHomePageYComponent } from './home-page-y.component';
+import { BestRatingsComponent } from './best-ratings.component';
 
-describe('GuestHomePageYComponent', () => {
-  let component: GuestHomePageYComponent;
-  let fixture: ComponentFixture<GuestHomePageYComponent>;
+describe('BestRatingsComponent', () => {
+  let component: BestRatingsComponent;
+  let fixture: ComponentFixture<BestRatingsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GuestHomePageYComponent]
+      imports: [BestRatingsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GuestHomePageYComponent);
+    fixture = TestBed.createComponent(BestRatingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

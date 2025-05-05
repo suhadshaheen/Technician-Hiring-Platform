@@ -20,6 +20,7 @@ import { JobOwnerComponent } from './job-owner/job-owner.component';
 import { FreelancerComponent } from './freelancer/freelancer.component';
 import { FreelancerBidsComponent } from './freelancer/freelancer-bids/freelancer-bids.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import {FreelancerHomePageYComponent} from './freelancer/home-page-freelancer/home-page-y/home-page-y.component';
 export const routes: Routes = [
   { path: 'profile', component: UserProfileComponent },
   {path:'dashboard',component:AdminLayoutComponent},
@@ -49,7 +50,7 @@ export const routes: Routes = [
   },
   {path:'freelancer', component:FreelancerComponent ,
     children : [
-      {path: '',component:HomePageYComponent},
+      {path: '',component:FreelancerHomePageYComponent},
       { path: 'job-list', component: JopListComponent},
       { path: 'job-details/:id', component: JobDetailsComponent },
       {path: 'chat',component: ChatComponent},

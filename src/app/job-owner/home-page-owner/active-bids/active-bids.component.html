@@ -1,0 +1,28 @@
+<div class="container my-5">
+  <h4 class="fw-bold mb-4 ">Your Job Posts</h4>
+
+  <div class="row g-4">
+    <div class="col-md-4" *ngFor="let job of jobPosts">
+      <div class="p-3 bg-light rounded shadow-sm h-100 d-flex flex-column justify-content-between">
+        <div class="d-flex align-items-center mb-3">
+
+          <div>
+            <h6 class="mb-1">{{ job.title }}</h6>
+            <small class="text-muted">Budget: ${{ job.budget }}</small><br />
+            <small class="text-muted">Deadline: {{ job.deadline }}</small>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button class="btn custom-login-btn px-2 py-1" [routerLink]="['/Bids']">Bids</button>
+          <button class="btn custom-login-btn px-2 py-1" [disabled]="!job.canEdit" [routerLink]="['/adit']">Edit</button>
+          <button class="btn custom-login-btn px-2 py-1" (click)="onDelete(job.title)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="text-center mt-4">
+    <button class="btn custom-login-btn px-4 py-2" [routerLink]="['/OwnerJobs']">View All</button>
+  </div>
+</div>

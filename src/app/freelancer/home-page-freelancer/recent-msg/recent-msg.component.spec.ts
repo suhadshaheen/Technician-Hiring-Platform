@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GuestHomePageYComponent } from './home-page-y.component';
+import { RecentMsgComponent } from './recent-msg.component';
 
-describe('GuestHomePageYComponent', () => {
-  let component: GuestHomePageYComponent;
-  let fixture: ComponentFixture<GuestHomePageYComponent>;
+describe('RecentMsgComponent', () => {
+  let component: RecentMsgComponent;
+  let fixture: ComponentFixture<RecentMsgComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GuestHomePageYComponent]
+      imports: [RecentMsgComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GuestHomePageYComponent);
+    fixture = TestBed.createComponent(RecentMsgComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
