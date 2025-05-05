@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GuestHomePageYComponent } from './home-page-y.component';
+import { ActiveJobsComponent } from './active-jobs.component';
 
-describe('GuestHomePageYComponent', () => {
-  let component: GuestHomePageYComponent;
-  let fixture: ComponentFixture<GuestHomePageYComponent>;
+describe('ActiveJobsComponent', () => {
+  let component: ActiveJobsComponent;
+  let fixture: ComponentFixture<ActiveJobsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GuestHomePageYComponent]
+      imports: [ActiveJobsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GuestHomePageYComponent);
+    fixture = TestBed.createComponent(ActiveJobsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
