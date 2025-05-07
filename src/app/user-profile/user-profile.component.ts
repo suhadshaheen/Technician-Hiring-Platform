@@ -1,18 +1,22 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+import { NgFor, NgSwitchCase } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { FreelancerSidebarComponent } from '../freelancer/freelancer-sidebar/freelancer-sidebar.component';
+import { SidenavComponent } from '../admin/sidenav/sidenav.component';
+import { OwnerSidebarComponent } from '../job-owner/owner-sidebar/owner-sidebar.component';
+import { NgSwitch } from '@angular/common';
+import { NgSwitchDefault } from '@angular/common';
 @Component({
   selector: 'app-user-profile',
-  imports: [FormsModule,NgFor,RouterModule,NgIf,FreelancerSidebarComponent],
+  imports: [FormsModule,NgFor,RouterModule,NgSwitchCase,NgSwitchDefault,NgIf,FreelancerSidebarComponent,NgSwitch,SidenavComponent,OwnerSidebarComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
   isEditMode: boolean = false;
-  // role: string = 'freelancer';
+  role: string = 'admin';
   userData = {
     fullName: 'Suhad Shaheen',
     role: 'Developer',
