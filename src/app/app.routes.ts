@@ -21,6 +21,7 @@ import { FreelancerComponent } from './freelancer/freelancer.component';
 import { FreelancerBidsComponent } from './freelancer/freelancer-bids/freelancer-bids.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import {FreelancerHomePageYComponent} from './freelancer/home-page-freelancer/home-page-y/home-page-y.component';
+import { FreelancerProfileComponent } from './freelancer/freelancer-profile/freelancer-profile.component';
 export const routes: Routes = [
   { path: 'profile', component: UserProfileComponent },
   {path:'dashboard',component:AdminLayoutComponent},
@@ -54,7 +55,13 @@ export const routes: Routes = [
       { path: 'job-list', component: JopListComponent},
       { path: 'job-details/:id', component: JobDetailsComponent },
       {path: 'chat',component: ChatComponent},
-      { path: 'freelancer-bids', component: FreelancerBidsComponent }
+      { path: 'freelancer-bids', component: FreelancerBidsComponent },
+      {
+        path: 'freelancers/:id',
+        component: FreelancerProfileComponent
+      }
+
+
      ]
   },
 
