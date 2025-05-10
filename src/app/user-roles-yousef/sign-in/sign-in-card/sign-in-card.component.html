@@ -7,7 +7,7 @@
     <p class="fw-bold fs-5">What do you want to do?</p>
 
 
-    <div class="d-flex flex-wrap justify-content-center radio-group mb-4">
+    <div class="d-flex justify-content-center gap-4 my-3">
       <div class="form-check d-flex align-items-center">
         <input class="form-check-input shadow border border-black" type="radio" name="exampleRadios" id="radio1" value="option1" />
         <label class="form-check-label fw-bold" for="radio1">I want to work</label>
@@ -26,15 +26,13 @@
     <app-sign-in-form></app-sign-in-form>
 
 
-    <div class="d-flex align-items-center justify-content-center mt-4 mb-3 flex-wrap">
-      <hr class="flex-grow-1 border border-primary border-1 opacity-50 mx-3" style="max-width: 39rem;" />
-      <span class="text-muted fs-5">Sign in with others</span>
-      <hr class="flex-grow-1 border border-primary border-1 opacity-50 mx-3" style="max-width: 39rem;" />
-    </div>
 
-    <app-social-sign-in></app-social-sign-in>
+      <hr class="border border-primary border-1 opacity-50 mt-2" />
 
-    <p class="text-muted mt-4">
+
+
+
+    <p class="text-muted mt-2 mb-2">
       Already have an account?
       <a href="#" class="fw-semibold text-decoration-none" [routerLink]="['/login']">Login</a>
     </p>
