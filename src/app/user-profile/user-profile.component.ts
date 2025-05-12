@@ -1,22 +1,36 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgSwitchCase } from '@angular/common';
+import { NgFor, NgSwitchCase, NgSwitch, NgIf, NgSwitchDefault } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
 import { FreelancerSidebarComponent } from '../freelancer/freelancer-sidebar/freelancer-sidebar.component';
 import { SidenavComponent } from '../admin/sidenav/sidenav.component';
 import { OwnerSidebarComponent } from '../job-owner/owner-sidebar/owner-sidebar.component';
-import { NgSwitch } from '@angular/common';
-import { NgSwitchDefault } from '@angular/common';
+
 @Component({
   selector: 'app-user-profile',
-  imports: [FormsModule,NgFor,RouterModule,NgSwitchCase,NgSwitchDefault,NgIf,FreelancerSidebarComponent,NgSwitch,SidenavComponent,OwnerSidebarComponent],
+  standalone: true,
+  imports: [
+    FormsModule,
+    NgFor,
+    RouterModule,
+    NgSwitchCase,
+    NgSwitchDefault,
+    NgIf,
+    NgSwitch,
+    FreelancerSidebarComponent,
+    SidenavComponent,
+    OwnerSidebarComponent
+  ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
   isEditMode: boolean = false;
   role: string = 'admin';
+  isCollapsed = false;
+
+  profileImage: string | ArrayBuffer | null = 'assets/default.jpg';
+
   userData = {
     fullName: 'Suhad Shaheen',
     role: 'Developer',
@@ -25,15 +39,11 @@ export class UserProfileComponent {
     username: 'Suhadsh.12',
     phone: '0595955264',
     whatsapp: '+972-595955264',
-    email: 'suhadsh.12@gmail.come',
+    email: 'suhadsh.12@gmail.com',
     city: 'Nablus',
-    country: 'palestine',
+    country: 'Palestine',
     about: 'Passionate technician with 5+ years of experience in electrical systems, maintenance, and home repairs.',
-    skills: [
-      { name: 'c++', percent: 80 },
-      { name: 'Angular', percent: 70 },
-      { name: 'react', percent: 40},
-    ]
+    skills: ['C++', 'Angular', 'React']
   };
 
   toggleEdit() {
@@ -41,12 +51,65 @@ export class UserProfileComponent {
   }
 
   saveChanges() {
+    this.userData.fullName = `${this.userData.firstName} ${this.userData.lastName}`;
     this.isEditMode = false;
     console.log('User data saved:', this.userData);
   }
-  isCollapsed = false;
 
   onSidebarToggle(state: boolean) {
     this.isCollapsed = state;
+  }
+
+  onImageSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.profileImage = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  showPasswordForm = false;
+  currentPassword = '';
+  newPassword = '';
+  confirmNewPassword = '';
+  passwordChangeSuccess = '';
+  passwordChangeError = '';
+
+  togglePasswordForm() {
+    this.showPasswordForm = !this.showPasswordForm;
+    this.passwordChangeSuccess = '';
+    this.passwordChangeError = '';
+    this.currentPassword = '';
+    this.newPassword = '';
+    this.confirmNewPassword = '';
+  }
+
+  changePassword() {
+    const actualPassword = '123456';
+
+    if (this.currentPassword !== actualPassword) {
+      this.passwordChangeError = 'Current password is incorrect.';
+      this.passwordChangeSuccess = '';
+      return;
+    }
+
+    if (this.newPassword !== this.confirmNewPassword) {
+      this.passwordChangeError = 'New passwords do not match.';
+      this.passwordChangeSuccess = '';
+      return;
+    }
+
+    if (this.newPassword.length < 6) {
+      this.passwordChangeError = 'New password must be at least 6 characters.';
+      this.passwordChangeSuccess = '';
+      return;
+    }
+
+    this.passwordChangeSuccess = 'Password changed successfully!';
+    this.passwordChangeError = '';
+    this.togglePasswordForm();
   }
 }

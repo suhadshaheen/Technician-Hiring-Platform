@@ -14,7 +14,7 @@
         </div>
 
         <div class="d-flex justify-content-between">
-          <button class="btn custom-login-btn px-2 py-1" [routerLink]="['/Bids']">Bids</button>
+          <button class="btn custom-login-btn px-2 py-1" [routerLink]="['./Bids']">Bids</button>
           <button class="btn custom-login-btn px-2 py-1" [disabled]="!job.canEdit" [routerLink]="['/adit']">Edit</button>
           <button class="btn custom-login-btn px-2 py-1" (click)="onDelete(job.title)">Delete</button>
         </div>
@@ -23,6 +23,6 @@
 
   </div>
   <div class="text-center mt-4">
-    <button class="btn custom-login-btn px-4 py-2" [routerLink]="['/OwnerJobs']">View All</button>
+    <button class="btn custom-login-btn px-4 py-2" [routerLink]="['./OwnerJobs']">View All</button>
   </div>
 </div>

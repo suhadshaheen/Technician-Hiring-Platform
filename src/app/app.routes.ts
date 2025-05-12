@@ -27,7 +27,7 @@ export const routes: Routes = [
   {path:'dashboard',component:AdminLayoutComponent},
   {path:'users',component:UsersComponent},
   { path: 'job-list', component: JopListComponent },
-  { path: 'job-details/:id', component: JobDetailsComponent },
+  // { path: 'job-details/:id', component: JobDetailsComponent },
   {path: 'chat',component: ChatComponent,},
   {path: 'PostPage' , component:PostJobPageComponent},
   {path: 'Sign' , component:SignInPageComponent},
