@@ -1,15 +1,15 @@
 .navbar {
     transition: all 0.3s ease;
   }
-  
+
   .navbar-collapsed {
     margin-left: 70px;
   }
-  
+
   .navbar-expanded {
     margin-left: 200px;
   }
-  
+
   .nav-icon-link {
     width: 35px;
     height: 35px;
@@ -18,17 +18,17 @@
     background-color: rgb(170, 167, 182,0.5);
     transition: background-color 0.2s ease, color 0.2s ease;
   }
-  
+
   .nav-icon-link:hover {
-    color: #ffffff; 
+    color: #ffffff;
   }
-  
+
   .guest-navbar {
     margin-left: 0;
     justify-content: center;
-    
+
   }
-  
+
   .guest-navbar .logo img {
     height: 50px;
   }
