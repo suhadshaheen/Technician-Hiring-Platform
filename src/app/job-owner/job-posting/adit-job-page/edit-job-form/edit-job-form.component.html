@@ -8,11 +8,9 @@
         <div class="col-12 col-md-6 d-flex flex-column">
           <select id="category" formControlName="category" class="form-control ">
             <option value=""></option>
-            <option value="tech">Technology</option>
-            <option value="tech">Translation</option>
-            <option value="design">Design</option>
-            <option value="marketing">Marketing</option>
-            <option value="sales">Sales</option>
+            <option value="Plumbing">Plumbing</option>
+            <option value="Painting">Painting</option>
+            <option value="Electrical">Electrical</option>
           </select>
           <label for="category" class="form-label">Category</label>
         </div>
@@ -24,8 +22,8 @@
     
       <div class="row">
           <div class="col-12 col-md-6 d-flex flex-column">
-            <input id="skills" type="text" formControlName="skills" class="form-control ">
-            <label for="skills" class="form-label">Skills</label>
+            <input id="overview" type="text" formControlName="overview" class="form-control ">
+          <label for="overview" class="form-label">Overview</label>
           </div>
           <div class="col-12 col-md-6 d-flex flex-column">
             <input id="Location" type="text" formControlName="Location" class="form-control">
@@ -50,13 +48,13 @@
           <label for="endDate" class="form-label">End Date</label>
         </div>
         <div class="col-12 col-md-6 d-flex flex-column">
-          <select id="employeeType" formControlName="employeeType" class="form-control ">
+          <select id="workLevel" formControlName="workLevel" class="form-control ">
             <option value=""></option>
-            <option value="full-time">Full-time</option>
-            <option value="part-time">Part-time</option>
-            <option value="freelancer">Freelancer</option>
+            <option value="full-time">Beginner</option>
+          <option value="part-time">Intermediate</option>
+          <option value="freelancer">Expert</option>
           </select>
-          <label for="employeeType" class="form-label">Employee Type</label>
+          <label for="workLevel" class="form-label">Work Level</label>
         </div>
       </div>
       
@@ -79,16 +77,12 @@
           </div>
         </div>
       </div>
-
+      <div class="attach_file ">
+        <input type="file" class="form-control" (change)="onImageSelected($event)">
+      </div>
       <button class="btn btn-secondary Cancel" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
       <button type="submit" class="btn btn-secondary Re-Post">Re-Post</button>
 
-    <!--  <div class="dropzone">-->
-    <!--    <div class="col">-->
-    <!--      <form id="myDropzone"  action="https://httpbin.org/post"></form>-->
-    <!--    </div>-->
-    <!--  </div>-->
-    
     </form>
     
   </div>

@@ -1,6 +1,6 @@
 <header>Your Jobs</header>
 <div *ngFor="let job of jobs">
-    <app-your-job  [title]="job.title" [jobId]="job.id"></app-your-job>
+    <app-your-job  [title]="job.title" [jobId]="job.id" (delete)="deleteJob($event)"></app-your-job>
 </div>
 
 

@@ -4,6 +4,7 @@
 
   .main-content {
     margin-left: 200px;
+    margin-top: 45px;
     padding: 20px;
     transition: margin-left 0.3s ease;
     width: 100%;

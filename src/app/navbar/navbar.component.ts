@@ -24,13 +24,16 @@ export class NavbarComponent implements OnInit{
                 this.router.events.pipe(
                   filter(event => event instanceof NavigationEnd)
                 ).subscribe((event: NavigationEnd) => {
-                  const url = event.urlAfterRedirects || event.url;
-                  this.isGuest = url === '/' || url.startsWith('/guest');
+                    this.updateGuestStatus(event.urlAfterRedirects || event.url); 
                 });
-                
+                this.updateGuestStatus(this.router.url);
               }
 
-  onToggleSidebar() {
-    this.sidebarService.toggleSidebar();
-  }
+              updateGuestStatus(url: string): void {
+                 const guestPaths = ['/', '/login', '/register', '/forgot-password'];
+                 this.isGuest = guestPaths.includes(url) || url.startsWith('/home');
+              }
+              onToggleSidebar() {
+                this.sidebarService.toggleSidebar();
+            }
 }

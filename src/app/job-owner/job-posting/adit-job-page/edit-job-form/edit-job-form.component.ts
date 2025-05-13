@@ -1,6 +1,5 @@
 import {AfterViewInit, Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import Dropzone from 'dropzone';
 import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-edit-job-form',
@@ -16,25 +15,27 @@ export class EditJobFormComponent {
       title: ['', [Validators.required, Validators.minLength(5)]],
       category: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(50), Validators.maxLength(1000)]],
-      skills: ['', [Validators.required, Validators.pattern('^[a-zA-Z, ]*$')]],
-      experience: ['', [Validators.required, Validators.min(0)]],
-      minBudget: ['', [Validators.required, Validators.min(1)]],
+      overview: ['', [Validators.required, Validators.pattern('^[a-zA-Z, ]*$')]],
+      Location: ['', [Validators.required]],
+      minBudget: ['', [Validators.min(1)]],
       maxBudget: ['', [Validators.required, Validators.min(1)]],
       endDate: ['', Validators.required],
-      employeeType: ['', Validators.required]
+      workLevel: ['', Validators.required]
     });
 
   }
-  ngAfterViewInit(): void {
-    Dropzone.autoDiscover = false;
-
-    new Dropzone('#myDropzone', {
-      paramName: 'file',
-      maxFilesize: 2,
-      acceptedFiles: '.png,.jpg,.jpeg,.pdf',
-      dictDefaultMessage: 'upload',
-    });
+  onImageSelected(event: Event): void {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (file) {
+   
+    const reader = new FileReader();
+    reader.onload = () => {
+      const imagePreview = reader.result;
+      console.log('Preview Image: ', imagePreview);
+    };
+    reader.readAsDataURL(file);
   }
+}
   onSubmit() {
 
   }

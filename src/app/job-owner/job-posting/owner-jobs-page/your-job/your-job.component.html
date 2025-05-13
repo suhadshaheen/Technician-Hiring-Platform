@@ -10,13 +10,13 @@
       <button class="btn bids-button " [routerLink]="['/jobOwner/Bids']">Bids</button>
       <div class="d-flex flex-column gap-2">
         <button class="btn btn-secondary" [disabled]="!canEdit" [routerLink]="['/jobOwner/Edit']">Edit</button>
-        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">Delete</button>
+        <button class="btn btn-danger" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteConfirmModal' + jobId">Delete</button>
       </div>
     </div>
   </div>
 
   <!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" [id]="'deleteConfirmModal' + jobId" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
