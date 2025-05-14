@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgSwitchCase, NgSwitch, NgIf, NgSwitchDefault } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FreelancerSidebarComponent } from '../freelancer/freelancer-sidebar/freelancer-sidebar.component';
-import { SidenavComponent } from '../admin/sidenav/sidenav.component';
-import { OwnerSidebarComponent } from '../job-owner/owner-sidebar/owner-sidebar.component';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -13,20 +11,14 @@ import { OwnerSidebarComponent } from '../job-owner/owner-sidebar/owner-sidebar.
     FormsModule,
     NgFor,
     RouterModule,
-    NgSwitchCase,
-    NgSwitchDefault,
     NgIf,
-    NgSwitch,
-    FreelancerSidebarComponent,
-    SidenavComponent,
-    OwnerSidebarComponent
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent {
   isEditMode: boolean = false;
-  role: string = 'admin';
+
   isCollapsed = false;
 
   profileImage: string | ArrayBuffer | null = 'assets/default.jpg';

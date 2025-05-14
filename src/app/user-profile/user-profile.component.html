@@ -1,9 +1,4 @@
-<ng-container [ngSwitch]="role">
-  <app-freelancer-sidebar *ngSwitchCase="'freelancer'" (collapsedChange)="onSidebarToggle($event)"></app-freelancer-sidebar>
-  <app-owner-sidebar *ngSwitchCase="'jobOwner'" (collapsedChange)="onSidebarToggle($event)"></app-owner-sidebar>
-  <app-sidenav *ngSwitchCase="'admin'" (collapsedChange)="onSidebarToggle($event)"></app-sidenav>
-  <div *ngSwitchDefault class="alert alert-warning">Sidebar</div>
-</ng-container>
+
 
 <div class="main-content" [class.expanded]="isCollapsed">
   <div class="container py-4">

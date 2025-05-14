@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarServiceService } from '../sidebar-service.service';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 import { Router, RouterModule , NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 @Component({
@@ -12,6 +12,9 @@ import { filter } from 'rxjs/operators';
 export class NavbarComponent implements OnInit{
   isSidebarCollapsed = false;
   isGuest = false;
+  isFreelancer = false;
+  isJobOwner = false;
+  isAdmin = false;
 
   constructor(private sidebarService: SidebarServiceService,
               private router: Router
@@ -24,7 +27,7 @@ export class NavbarComponent implements OnInit{
                 this.router.events.pipe(
                   filter(event => event instanceof NavigationEnd)
                 ).subscribe((event: NavigationEnd) => {
-                    this.updateGuestStatus(event.urlAfterRedirects || event.url); 
+                    this.updateGuestStatus(event.urlAfterRedirects || event.url);
                 });
                 this.updateGuestStatus(this.router.url);
               }
