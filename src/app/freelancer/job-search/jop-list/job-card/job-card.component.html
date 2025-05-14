@@ -10,7 +10,7 @@
   </div>
   <p class="text-muted small">{{ job.description }}</p>
   <div class="d-flex justify-content-between align-items-center">
-    <button class="btn btn-sm rounded-pill px-3 s-btn" [routerLink]="['../job-details', job.id]">
+    <button class="btn btn-sm rounded-pill px-3 s-btn" [routerLink]="['../job-details', job.id]" *ngIf="showSearchBar">
       More Details
     </button>
     <span class="text-muted small">{{ job.location }}</span>

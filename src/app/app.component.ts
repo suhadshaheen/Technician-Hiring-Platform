@@ -14,6 +14,7 @@ import { NavbarComponent } from './navbar/navbar.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+
   title = 'thp-platform';
   constructor(public router: Router) {}
   isAuthRoute(): boolean {
@@ -21,7 +22,7 @@ export class AppComponent {
     return authRoutes.includes(this.router.url);}
 
     isSidebarCollapsed = false;
-    
+
     handleSidebarToggle() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
