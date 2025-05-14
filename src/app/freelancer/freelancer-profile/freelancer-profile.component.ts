@@ -1,35 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-freelancer-profile',
-  imports: [CommonModule, NgIf, NgFor],
+  standalone: true,
+  imports: [NgIf, NgFor],
   templateUrl: './freelancer-profile.component.html',
-  styleUrl: './freelancer-profile.component.css'
+  styleUrls: ['./freelancer-profile.component.css']
 })
-export class FreelancerProfileComponent implements OnInit {
-  userData: any;
+export class FreelancerProfileComponent {
+  profileImage: string | ArrayBuffer | null = 'assets/default.jpg';
 
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.userData = {
-      fullName: 'Suhad Shaheen',
-      role: 'freelancer',
-      username: 'suhadsh.12',
-      phone: '0595955264',
-      email: 'suhadsh.12@gmail.com',
-      city: 'Nablus',
-      country: 'Palestine',
-      about: 'Experienced electrician with 5+ years in home installations and systems.',
-      skills: [
-        { name: 'c++', percent: 80 },
-        { name: 'Angular', percent: 70 },
-        { name: 'Laravel', percent: 60 }
-      ]
-    };
-  }
+  userData = {
+    fullName: 'Suhad Shaheen',
+    role: 'Freelancer',
+    username: 'Suhadsh.12',
+    phone: '0595955264',
+    email: 'suhadsh.12@gmail.com',
+    city: 'Nablus',
+    country: 'Palestine',
+    about: 'Passionate technician with 5+ years of experience in electrical systems, maintenance, and home repairs.',
+    skills: ['C++', 'Angular', 'React']
+  };
 }
