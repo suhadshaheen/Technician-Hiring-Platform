@@ -57,10 +57,10 @@ export const routes: Routes = [
       {path: 'chat',component: ChatComponent},
       { path: 'freelancer-bids', component: FreelancerBidsComponent },
       {path: 'profile', component: UserProfileComponent},
-      // {
-      //   path: 'freelancers/:id',
-      //   component: FreelancerProfileComponent
-      // }
+      {
+        path: 'freelancers/:id',
+        component: FreelancerProfileComponent
+      }
 
 
      ]
