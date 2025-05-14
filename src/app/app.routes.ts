@@ -33,12 +33,11 @@ export const routes: Routes = [
   {path: 'Sign' , component:SignInPageComponent},
   {path:'Forgot-page' ,component:ForgotPasswordPageComponent},
   {path: 'adit' , component:AditJobPageComponent},
-  {path:'',component:HomePageYComponent},
+  {path:'',component:GuestComponent},
   {path:'login',component:LoginPageComponent},
   {path: 'Bids', component:JobBidsPageComponent},
   {path:'OwnerJobs', component:OwnerJobsPageComponent},
   {path:'admin', component:AdminComponent},
-  {path:'guest', component:GuestComponent},
   {path:'jobOwner', component:JobOwnerComponent ,
     children : [
       {path: '',component:HomePageYComponent},
@@ -46,6 +45,7 @@ export const routes: Routes = [
       {path:'OwnerJobs', component:OwnerJobsPageComponent},
       {path: 'Bids', component:JobBidsPageComponent},
       {path: 'Edit' , component:AditJobPageComponent},
+      {path: 'profile', component: UserProfileComponent},
       {path: 'chat',component: ChatComponent}
      ]
   },
@@ -56,10 +56,11 @@ export const routes: Routes = [
       { path: 'job-details/:id', component: JobDetailsComponent },
       {path: 'chat',component: ChatComponent},
       { path: 'freelancer-bids', component: FreelancerBidsComponent },
-      {
-        path: 'freelancers/:id',
-        component: FreelancerProfileComponent
-      }
+      {path: 'profile', component: UserProfileComponent},
+      // {
+      //   path: 'freelancers/:id',
+      //   component: FreelancerProfileComponent
+      // }
 
 
      ]

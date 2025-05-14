@@ -9,8 +9,12 @@ import { YourJobComponent } from './your-job/your-job.component';
 })
 export class OwnerJobsPageComponent {
   jobs = [
-    {id : 1 , title :'job 1'},
-    {id : 2 , title :'job 2'},
-    {id : 3 , title :'job 3'},
+    {id : 1 , title :'Fix Plumbing Issue'},
+    {id : 2 , title :'Paint the Living Room'},
+    {id : 3 , title :'Electrical Maintenance'},
   ];
+
+  deleteJob(id: number) {
+    this.jobs = this.jobs.filter(job => job.id !== id);
+  }
 }

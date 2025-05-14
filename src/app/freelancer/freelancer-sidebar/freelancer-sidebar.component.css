@@ -11,6 +11,11 @@
   .sidebar.collapsed {
     width: 70px;
   }
+ 
+  .logo{
+    margin-top: 50px;
+    margin-bottom: 40px;
+  }
 
   .sidebar-link {
     display: block;

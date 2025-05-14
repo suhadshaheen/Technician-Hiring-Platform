@@ -51,7 +51,10 @@
     width: 100px;
     font-size: 20px;
   }
-  
+  .attach_file{
+    padding-left: 55px;
+    padding-top: 15px;
+  }
   
   .dropzone{
     width: 200px;
