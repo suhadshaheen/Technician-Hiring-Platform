@@ -1,26 +1,26 @@
 import { Component , Input, Output, EventEmitter} from '@angular/core';
-
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-job-bid',
-  imports: [],
+  imports: [CommonModule , RouterModule],
   templateUrl: './job-bid.component.html',
   styleUrl: './job-bid.component.css'
 })
 export class JobBidComponent {
-  @Input() title: string = '';
-  @Input() date: string = '';
-  @Input() canEdit: boolean = true;
+  @Input() name!: string ;
+  @Input() date!: string ;
+  @Input() bidId!: number;
 
-  @Output() edit = new EventEmitter<void>();
-  @Output() delete = new EventEmitter<void>();
-  @Output() bids = new EventEmitter<void>();
-
+  @Output() delete = new EventEmitter<number>();
   approve() {
     // this.edit.emit();
   }
-
+  canEdit(){
+    
+  }
   reject() {
-    // this.delete.emit();
+     this.delete.emit(this.bidId);
   }
 
 }

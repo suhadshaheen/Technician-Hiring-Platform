@@ -18,7 +18,7 @@ export class JobDetailsComponent implements OnInit {
   bidAmount: number = 0;
   workTimeline: string = '';
   bids: any[] = [];
-
+  userId: number = 3;
   constructor(private route: ActivatedRoute, private jobService: JobService) {}
 
   ngOnInit(): void {
@@ -28,11 +28,17 @@ export class JobDetailsComponent implements OnInit {
   }
 
   onSubmitBid() {
+    if (this.hasBid()) {
+      alert("You have already placed a bid for this job.");
+      return;
+    }
+
     const newBid = {
-      name: 'Freelancer 3',
+      userId: this.userId,
       amount: this.bidAmount,
       workTimeline: this.workTimeline
     };
+
     this.bids.push(newBid);
     if (!this.job.bids) {
       this.job.bids = [];
@@ -42,6 +48,10 @@ export class JobDetailsComponent implements OnInit {
     // Reset form inputs
     this.bidAmount = 0;
     this.workTimeline = '';
+  }
+
+  hasBid() {
+    return this.bids.some(bid => bid.userId === this.userId);
   }
 
   updateStatus() {

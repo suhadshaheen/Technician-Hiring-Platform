@@ -6,11 +6,15 @@
     width: 200px;
     background:#40189D ;
     overflow: hidden;
-    /* border-left: 5px solid #40189D; */
     transition: all 0.3s ease;
   }
   .sidebar.collapsed {
     width: 70px;
+  }
+ 
+  .logo{
+    margin-top: 50px;
+    margin-bottom: 40px;
   }
 
   .sidebar-link {

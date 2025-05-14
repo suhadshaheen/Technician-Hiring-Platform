@@ -21,23 +21,23 @@ import { FreelancerComponent } from './freelancer/freelancer.component';
 import { FreelancerBidsComponent } from './freelancer/freelancer-bids/freelancer-bids.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import {FreelancerHomePageYComponent} from './freelancer/home-page-freelancer/home-page-y/home-page-y.component';
+import { FreelancerProfileComponent } from './freelancer/freelancer-profile/freelancer-profile.component';
 export const routes: Routes = [
   { path: 'profile', component: UserProfileComponent },
   {path:'dashboard',component:AdminLayoutComponent},
   {path:'users',component:UsersComponent},
   { path: 'job-list', component: JopListComponent },
-  { path: 'job-details/:id', component: JobDetailsComponent },
+  // { path: 'job-details/:id', component: JobDetailsComponent },
   {path: 'chat',component: ChatComponent,},
   {path: 'PostPage' , component:PostJobPageComponent},
   {path: 'Sign' , component:SignInPageComponent},
   {path:'Forgot-page' ,component:ForgotPasswordPageComponent},
   {path: 'adit' , component:AditJobPageComponent},
-  {path:'',component:HomePageYComponent},
+  {path:'',component:GuestComponent},
   {path:'login',component:LoginPageComponent},
   {path: 'Bids', component:JobBidsPageComponent},
   {path:'OwnerJobs', component:OwnerJobsPageComponent},
   {path:'admin', component:AdminComponent},
-  {path:'guest', component:GuestComponent},
   {path:'jobOwner', component:JobOwnerComponent ,
     children : [
       {path: '',component:HomePageYComponent},
@@ -45,6 +45,7 @@ export const routes: Routes = [
       {path:'OwnerJobs', component:OwnerJobsPageComponent},
       {path: 'Bids', component:JobBidsPageComponent},
       {path: 'Edit' , component:AditJobPageComponent},
+      {path: 'profile', component: UserProfileComponent},
       {path: 'chat',component: ChatComponent}
      ]
   },
@@ -54,7 +55,14 @@ export const routes: Routes = [
       { path: 'job-list', component: JopListComponent},
       { path: 'job-details/:id', component: JobDetailsComponent },
       {path: 'chat',component: ChatComponent},
-      { path: 'freelancer-bids', component: FreelancerBidsComponent }
+      { path: 'freelancer-bids', component: FreelancerBidsComponent },
+      {path: 'profile', component: UserProfileComponent},
+      {
+        path: 'freelancers/:id',
+        component: FreelancerProfileComponent
+      }
+
+
      ]
   },
 

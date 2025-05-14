@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {NgForOf} from '@angular/common';
 
@@ -22,5 +22,12 @@ export class ActiveBidsComponent {
   onDelete(jobTitle: string) {
     console.log(`Delete clicked for ${jobTitle}`);
 
+  }
+  @Output() delete = new EventEmitter<void>();
+
+  confirmDelete() {
+    // Perform actual delete logic here
+    console.log("Deleting job...");
+    
   }
 }
