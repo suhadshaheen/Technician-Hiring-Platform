@@ -7,6 +7,7 @@ import {HeroSectionComponent} from '../hero-section/hero-section.component';
 import {ActiveJobsComponent} from '../active-jobs/active-jobs.component';
 import {RecentMsgComponent} from '../recent-msg/recent-msg.component';
 import {RatingSummaryComponent} from '../rating-summary/rating-summary.component';
+import {GuestJobsComponent} from '../../../guest/home-page-guest/guest-jobs/guest-jobs.component';
 
 @Component({
   selector: 'app-home-page-y',
@@ -16,7 +17,8 @@ import {RatingSummaryComponent} from '../rating-summary/rating-summary.component
     HeroSectionComponent,
     ActiveJobsComponent,
     RecentMsgComponent,
-    RatingSummaryComponent
+    RatingSummaryComponent,
+    GuestJobsComponent
   ],
   templateUrl: './home-page-y.component.html',
   styleUrl: './home-page-y.component.css'

@@ -15,6 +15,7 @@ import { filter } from 'rxjs';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+
   title = 'thp-platform';
   // constructor(public router: Router) {}
   // isAuthRoute(): boolean {
@@ -38,7 +39,7 @@ constructor(public router: Router) {
 }
 
     isSidebarCollapsed = false;
-    
+
     handleSidebarToggle() {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
    }

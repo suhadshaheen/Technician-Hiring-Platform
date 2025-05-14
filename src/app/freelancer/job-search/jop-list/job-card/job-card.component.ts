@@ -11,4 +11,5 @@ import { RouterModule } from '@angular/router';
 })
 export class JobCardComponent {
   @Input() job: any;
+  @Input() showSearchBar: boolean = true;
 }
