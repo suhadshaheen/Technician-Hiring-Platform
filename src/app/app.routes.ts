@@ -22,12 +22,14 @@ import { FreelancerBidsComponent } from './freelancer/freelancer-bids/freelancer
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import {FreelancerHomePageYComponent} from './freelancer/home-page-freelancer/home-page-y/home-page-y.component';
 import { FreelancerProfileComponent } from './freelancer/freelancer-profile/freelancer-profile.component';
+import { JobsComponent } from './admin/dashboard/jobs/jobs.component';
 export const routes: Routes = [
   { path: 'profile', component: UserProfileComponent },
   {path:'dashboard',component:AdminLayoutComponent},
   {path:'users',component:UsersComponent},
+  {path:'jobs',component:JobsComponent},
   { path: 'job-list', component: JopListComponent },
-  // { path: 'job-details/:id', component: JobDetailsComponent },
+   { path: 'job-details/:id', component: JobDetailsComponent },
   {path: 'chat',component: ChatComponent,},
   {path: 'PostPage' , component:PostJobPageComponent},
   {path: 'Sign' , component:SignInPageComponent},

@@ -1,0 +1,48 @@
+<div class="container mt-4">
+    <div class="row g-4">
+        <div class="col-12 mb-4">
+            <h2 class="fw-bold text-center mb-4">Manage Jobs</h2>
+            <input type="text" (input)="onSearch($event)" class="form-control" placeholder="Search for a job" />
+        </div>
+
+        <div class="col-md-4" *ngFor="let job of filteredJobs">
+            <div class="card shadow rounded h-100 position-relative">
+                <button routerLink="/job-details/:id" class="btn btn-sm bg-white text-purple-600 border border-purple-600 rounded-pill position-absolute top-0 end-0 m-2">
+                    Details
+                </button>
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="card-title">{{ job.title }}</h5>
+                        <p class="card-text">{{ job.description }}</p>
+                        <p class="card-text"><i class="bi bi-geo-alt-fill text-primary"></i> {{ job.location }}</p>
+                    </div>
+
+                    <div class="d-flex flex-column gap-2 mt-3">
+                        <button class="btn btn-success" (click)="updateStatus(job, 'filled')">Mark as Filled</button>
+                        <button class="btn btn-danger" (click)="updateStatus(job, 'closed')">Close Job</button>
+                    </div>
+
+                    <div class="mt-3 text-center">
+                        <span class="badge"
+                              [ngClass]="{
+                                'bg-success': job.status === 'filled',
+                                'bg-warning text-dark': job.status === 'open',
+                                'bg-danger': job.status === 'closed'
+                              }">
+                            {{ job.status }}
+                        </span>
+                    </div>
+
+                    <div class="mt-3 d-flex justify-content-between">
+                        <button class="btn btn-outline-primary btn-sm" (click)="updateStatus(job, 'open')">Reopen</button>
+                        <button class="btn btn-outline-danger btn-sm" (click)="deleteJob(job)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="filteredJobs.length === 0" class="alert alert-warning mt-4">
+            No jobs found.
+        </div>
+    </div>
+</div>
