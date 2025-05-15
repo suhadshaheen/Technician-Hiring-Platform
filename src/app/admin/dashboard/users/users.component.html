@@ -1,17 +1,29 @@
-
 <div class="container mt-4">
-    <div class="row">
-      
-      <div class="col-12 mb-4">
-        <input type="text" (input)="onSearch($event)" class="form-control" placeholder="Search for an artisan" />
-      </div>
+  <h2 class="fw-bold text-center mb-4">Manage Artisans</h2>
   
-      <div class="col-md-4" *ngFor="let artisan of filteredArtisans">
-        <div class="card shadow rounded">
-          <div class="card-body">
+  <div class="row g-4"> 
+    <div class="col-12 mb-4">
+      <input type="text" (input)="onSearch($event)" class="form-control" placeholder="Search for an artisan" />
+    </div>
+
+    <div class="col-md-4" *ngFor="let artisan of filteredArtisans">
+      <div class="card shadow rounded h-100 position-relative"> 
+        <button routerLink="freelancers/:id" class="btn btn-sm bg-white text-purple-600 border border-purple-600 rounded-pill position-absolute top-0 end-0 m-2">
+          Details
+        </button>
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
             <h5 class="card-title">{{ artisan.name }}</h5>
             <p class="card-text">Skill: {{ artisan.skill }}</p>
             <p class="card-text">Location: {{ artisan.location }}</p>
+          </div>
+
+          <div class="d-flex flex-column gap-2 mt-3">
+            <button class="btn btn-success" (click)="updateStatus(artisan, 'approved')">Accept</button>
+            <button class="btn btn-danger" (click)="updateStatus(artisan, 'rejected')">Reject</button>
+          </div>
+
+          <div class="mt-3 text-center">
             <span class="badge"
                   [ngClass]="{
                     'bg-success': artisan.status === 'approved',
@@ -25,4 +37,4 @@
       </div>
     </div>
   </div>
-  
+</div>

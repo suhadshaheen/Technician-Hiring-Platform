@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { NgForOf, NgClass, NgIf } from '@angular/common';
-
+import { CommonModule } from '@angular/common';
 import {
   Chart,
   registerables,
@@ -15,8 +15,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-import { RouterModule } from '@angular/router';
-
+import { RouterModule, RouterLink } from '@angular/router';
 
 Chart.register(
   ...registerables,
@@ -35,11 +34,12 @@ Chart.register(
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [NgForOf, NgClass,RouterModule,NgIf],
+  imports: [NgForOf, NgClass, RouterModule, RouterLink, NgIf,CommonModule],
   templateUrl: './admin-layout.component.html',
   styleUrls: ['./admin-layout.component.css']
 })
-export class AdminLayoutComponent {
+export class AdminLayoutComponent implements AfterViewInit {
+  
   cards = [
     { number: '1,250', name: 'Job Requests', icon: 'bi-briefcase-fill', color: 'primary' },
     { number: '980', name: 'Approved Artisans', icon: 'bi-person-check-fill', color: 'success' },
@@ -48,80 +48,117 @@ export class AdminLayoutComponent {
   ];
 
   artisans = [
-    { name: 'Ahmed Khaled', skill: 'Electrician', location: 'Cairo', status: 'approved' },
-    { name: 'Fatima Nour', skill: 'Plumber', location: 'Amman', status: 'pending' },
-    { name: 'Mohammed Zain', skill: 'Painter', location: 'Riyadh', status: 'rejected' },
-    { name: 'Layla Hassan', skill: 'Carpenter', location: 'Beirut', status: 'approved' },
-    { name: 'Omar Fathi', skill: 'AC Technician', location: 'Dubai', status: 'pending' }
+    { id: 1, name: 'Ahmed Khaled', skill: 'Electrician', location: 'Cairo', status: 'approved' },
+    { id: 2, name: 'Fatima Nour', skill: 'Plumber', location: 'Amman', status: 'pending' },
+    { id: 3, name: 'Mohammed Zain', skill: 'Painter', location: 'Riyadh', status: 'rejected' },
+    { id: 4, name: 'Layla Hassan', skill: 'Carpenter', location: 'Beirut', status: 'approved' },
+    { id: 5, name: 'Omar Fathi', skill: 'AC Technician', location: 'Dubai', status: 'pending' }
   ];
 
-  companies = [
-    { name: 'FixIt Co.', country: 'UAE', jobsPosted: 14 },
-    { name: 'CraftMasters', country: 'Jordan', jobsPosted: 11 },
-    { name: 'HomeCare Ltd.', country: 'Saudi Arabia', jobsPosted: 9 },
-    { name: 'BuildPro', country: 'Egypt', jobsPosted: 7 },
-    { name: 'Vision Renovators', country: 'Kuwait', jobsPosted: 5 }
-  ];
+ recentJobs = [
+  { title: 'Electrician Needed', location: 'Cairo', postedDate: new Date('2025-05-10') },
+  { title: 'Plumbing Repair', location: 'Amman', postedDate: new Date('2025-05-12') },
+  { title: 'House Painter', location: 'Riyadh', postedDate: new Date('2025-05-13') },
+  { title: 'AC Installation', location: 'Dubai', postedDate: new Date('2025-05-14') },
+  { title: 'Carpenter Needed', location: 'Beirut', postedDate: new Date('2025-05-15') }
+];
 
-  ngAfterViewInit(): void {
-    // Count artisan status dynamically
-    const approved = this.artisans.filter(a => a.status === 'approved').length;
-    const pending = this.artisans.filter(a => a.status === 'pending').length;
-    const rejected = this.artisans.filter(a => a.status === 'rejected').length;
+  polarChart: any;
+  linearChart: any;
 
-    // Polar Chart
-    new Chart('polarChart', {
-      type: 'polarArea',
-      data: {
-        labels: ['Approved', 'Pending', 'Rejected'],
-        datasets: [{
-          label: 'Artisan Status',
-          data: [approved, pending, rejected],
-          backgroundColor: ['rgb(0, 123, 255)', 'rgb(255, 193, 7)', 'rgb(220, 53, 69)']
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
+  constructor() {}
 
-    // Line Chart
-    new Chart('linearChart', {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [
-          {
-            label: 'Job Postings',
-            data: [12, 19, 3, 5, 2, 3],
-            borderColor: 'rgba(9, 244, 56, 0.98)',
-            backgroundColor: 'rgba(0, 239, 48, 0.3)',
-            borderWidth: 3,
-            fill: false,
-            tension: 0.4
-          },
-          {
-            label: 'Transactions',
-            data: [10, 13, 5, 8, 6, 4],
-            borderColor: 'rgb(89, 0, 255)',
-            backgroundColor: 'rgba(89, 0, 255, 0.3)',
-            borderWidth: 3,
-            fill: false,
-            tension: 0.4
+  ngAfterViewInit() {
+    this.loadCharts();
+  }
+
+  loadCharts() {
+    const ctxPolar = (document.getElementById('polarChart') as HTMLCanvasElement).getContext('2d');
+    const ctxLinear = (document.getElementById('linearChart') as HTMLCanvasElement).getContext('2d');
+
+    if (ctxPolar) {
+      this.polarChart = new Chart(ctxPolar, {
+        type: 'polarArea',
+        data: {
+          labels: ['Pending', 'Approved', 'Rejected'],
+          datasets: [{
+            data: [
+              this.artisans.filter(a => a.status === 'pending').length,
+              this.artisans.filter(a => a.status === 'approved').length,
+              this.artisans.filter(a => a.status === 'rejected').length
+            ],
+            backgroundColor: [
+              'rgba(255, 206, 86, 0.6)', // warning yellow
+              'rgba(75, 192, 192, 0.6)', // success green
+              'rgba(255, 99, 132, 0.6)'  // danger red
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'right' },
+            tooltip: { enabled: true }
           }
-        ]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              stepSize: 5
+        }
+      });
+    }
+
+    if (ctxLinear) {
+      this.linearChart = new Chart(ctxLinear, {
+        type: 'line',
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          datasets: [
+            {
+              label: 'Jobs Posted',
+              data: [30, 45, 50, 60, 70, 75, 80],
+              borderColor: 'rgba(54, 162, 235, 0.7)',
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              fill: true,
+              tension: 0.3
+            },
+            {
+              label: 'New Artisans',
+              data: [15, 20, 25, 30, 35, 40, 42],
+              borderColor: 'rgba(153, 102, 255, 0.7)',
+              backgroundColor: 'rgba(153, 102, 255, 0.2)',
+              fill: true,
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
             }
           }
         }
-      }
-    });
+      });
+    }
   }
+
+  // updateStatus(artisan: any, newStatus: string) {
+  //   const confirmMsg = Are you sure you want to ${newStatus} artisan "${artisan.name}"?;
+  //   if (confirm(confirmMsg)) {
+  //     artisan.status = newStatus;
+  //     alert(Artisan "${artisan.name}" status updated to "${newStatus}".);
+  //     this.refreshCharts();
+  //   }
+  // }
+
+  refreshCharts() {
+    if (this.polarChart) {
+      this.polarChart.data.datasets[0].data = [
+        this.artisans.filter(a => a.status === 'pending').length,
+        this.artisans.filter(a => a.status === 'approved').length,
+        this.artisans.filter(a => a.status === 'rejected').length
+      ];
+      this.polarChart.update();
+    }
+  }
+
 }
