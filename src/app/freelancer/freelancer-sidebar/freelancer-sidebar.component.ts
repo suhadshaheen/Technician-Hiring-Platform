@@ -1,6 +1,6 @@
 import { Component,EventEmitter,OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SidebarServiceService } from '../../sidebar-service.service';
 @Component({
   selector: 'app-freelancer-sidebar',
@@ -12,7 +12,7 @@ export class FreelancerSidebarComponent implements OnInit{
   @Output() collapsedChange = new EventEmitter<boolean>();
   isCollapsed = false;
 
-  constructor(private sidebarService: SidebarServiceService) {}
+  constructor(private sidebarService: SidebarServiceService , private router: Router) {}
 
   // ngOnInit() {
   //   this.sidebarService.toggleSidebar$.subscribe(() => {
@@ -53,4 +53,8 @@ handleResize() {
     this.collapsedChange.emit(this.isCollapsed);
   }
 }
+
+ confirmSignOut() {
+    this.router.navigate(['/login']);
+  }
 }

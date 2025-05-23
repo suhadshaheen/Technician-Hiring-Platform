@@ -39,7 +39,15 @@ export const routes: Routes = [
   {path:'login',component:LoginPageComponent},
   {path: 'Bids', component:JobBidsPageComponent},
   {path:'OwnerJobs', component:OwnerJobsPageComponent},
-  {path:'admin', component:AdminComponent},
+  {path:'admin', component:AdminComponent,
+    children : [
+      {path: '',component:AdminLayoutComponent},
+      {path:'jobs',component:JobsComponent},
+      {path:'users',component:UsersComponent},
+      {path: 'job-details/:id', component: JobDetailsComponent},
+      {path: 'freelancers/:id', component: FreelancerProfileComponent}
+    ]
+  },
   {path:'jobOwner', component:JobOwnerComponent ,
     children : [
       {path: '',component:HomePageYComponent},

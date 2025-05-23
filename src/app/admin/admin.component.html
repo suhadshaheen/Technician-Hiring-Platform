@@ -1,5 +1,4 @@
 <app-sidenav (collapsedChange)="onSidebarToggle($event)"></app-sidenav>
 <div class="main-content" [class.expanded]="isCollapsed">
-    <app-admin-layout></app-admin-layout>
-    <!-- <router-outlet></router-outlet> -->
+    <router-outlet></router-outlet>
 </div>
