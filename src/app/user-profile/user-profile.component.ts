@@ -41,6 +41,12 @@ export class UserProfileComponent {
   toggleEdit() {
     this.isEditMode = !this.isEditMode;
   }
+deleteAccount() {
+  // بعدين بنربطه فالباك
+  console.log('Account deletion confirmed');
+  alert('Your account has been deleted.');  // وبنقله ع صفحة تسجيل الدخول
+  // this.router.navigate(['/login']); // يعدين بس نربطه فالباك
+}
 
   saveChanges() {
     this.userData.fullName = `${this.userData.firstName} ${this.userData.lastName}`;
