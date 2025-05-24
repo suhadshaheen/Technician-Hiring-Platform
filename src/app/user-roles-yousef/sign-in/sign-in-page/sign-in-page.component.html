@@ -1,5 +1,8 @@
 <div class="container-fluid bg-purple min-vh-100 d-flex justify-content-center align-items-center">
   <app-sign-in-circles></app-sign-in-circles>
-  <app-sign-in-card></app-sign-in-card>
+  <app-sign-in-card
+    [selectedRole]="selectedRole"
+    (roleSelected)="onRoleSelected($event)">
+  </app-sign-in-card>
 
 </div>

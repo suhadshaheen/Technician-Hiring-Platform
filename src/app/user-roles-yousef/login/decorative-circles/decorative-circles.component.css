@@ -40,3 +40,14 @@
     right: 1rem;
   }
 }
+@media (min-width: 1440px) and (max-width: 3700px) {
+  .top-left-circle {
+    top: rem;
+    left: 1rem;
+  }
+
+  .bottom-right-circle {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}

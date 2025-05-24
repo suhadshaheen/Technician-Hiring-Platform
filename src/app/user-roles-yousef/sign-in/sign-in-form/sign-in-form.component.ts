@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {SocialSignInComponent} from '../social-sign-in/social-sign-in.component';
 import {NgForOf} from '@angular/common';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-in-form',
   imports: [
     FormsModule,
     NgForOf,
-
+    HttpClientModule
   ],
   templateUrl: './sign-in-form.component.html',
   styleUrl: './sign-in-form.component.css'
@@ -19,12 +20,12 @@ export class SignInFormComponent {
   password: string = '';
   confirmPassword: string = '';
 
-
-  firstName: string = '';
-  secondName: string = '';
+  @Input() role: string = '';
+  firstname: string = '';
+  lastname: string = '';
   country: string = '';
   city: string = '';
-  phoneNumber: string = '';
+  phone: string = '';
   countries: string[] = [
     'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola',
     'Argentina', 'Australia', 'Austria', 'Bahrain', 'Bangladesh',
@@ -40,10 +41,15 @@ export class SignInFormComponent {
     'United Arab Emirates', 'United Kingdom', 'United States',
     'Yemen'
   ];
+  constructor(private http: HttpClient ,private router: Router) {}
 
   onRegister(): void {
     if (this.password !== this.confirmPassword) {
       alert('Passwords do not match!');
+      return;
+    }
+    if (!this.role) {
+      alert('Please select a role!');
       return;
     }
 
@@ -51,26 +57,41 @@ export class SignInFormComponent {
       username: this.username,
       email: this.email,
       password: this.password,
-      firstName: this.firstName,
-      secondName: this.secondName,
+      password_confirmation: this.confirmPassword,
+      firstname: this.firstname,
+      lastname: this.lastname,
       country: this.country,
       city: this.city,
-      phoneNumber: this.phoneNumber
+      phone: this.phone,
+      role: this.role
     };
+    console.log('Registering user:', userData);
+    this.http.post('http://127.0.0.1:8000/api/register', userData).subscribe({
+      next: () => {
+        alert('Registration successful!');
+        this.ClearForm();
+        this.router.navigate(['/login']);
+      },
 
-    console.log('User registered:', userData);
-    alert('Registration successful!');
+      error: (err) => {
+        console.error('Error:', err);
+        alert('Registration failed:\n' + JSON.stringify(err.error.errors, null, 2));
+      }
+    });
+    }
 
 
+    ClearForm():void{
     this.username = '';
     this.email = '';
     this.password = '';
     this.confirmPassword = '';
-    this.firstName = '';
-    this.secondName = '';
+    this.firstname = '';
+    this.lastname = '';
     this.country = '';
     this.city = '';
-    this.phoneNumber = '';
+    this.phone = '';
   }
+
 
 }
