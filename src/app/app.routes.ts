@@ -45,7 +45,8 @@ export const routes: Routes = [
       {path:'jobs',component:JobsComponent},
       {path:'users',component:UsersComponent},
       {path: 'job-details/:id', component: JobDetailsComponent},
-      {path: 'freelancers/:id', component: FreelancerProfileComponent}
+      {path: 'freelancers/:id', component: FreelancerProfileComponent},
+      {path: 'profile', component: UserProfileComponent},
     ]
   },
   {path:'jobOwner', component:JobOwnerComponent ,

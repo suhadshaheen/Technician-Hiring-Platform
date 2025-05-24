@@ -28,9 +28,23 @@ export class NavbarComponent implements OnInit{
                   filter(event => event instanceof NavigationEnd)
                 ).subscribe((event: NavigationEnd) => {
                     this.updateGuestStatus(event.urlAfterRedirects || event.url);
+                    this.updateUserRole(event.urlAfterRedirects || event.url);
                 });
                 this.updateGuestStatus(this.router.url);
+                this.updateUserRole(this.router.url);
+
               }
+  updateUserRole(url: string) {
+    const userRolePaths = {
+      freelancer: ['/freelancer', '/freelancer/job-search', '/freelancer/profile'],
+      jobOwner: ['/jobOwner', '/jobOwner/home-page', '/jobOwner/job-posting'],
+      admin: ['/admin', '/admin/dashboard']
+    };
+    this.isFreelancer = userRolePaths.freelancer.some(path => url.startsWith(path));
+    this.isJobOwner = userRolePaths.jobOwner.some(path => url.startsWith(path));
+    this.isAdmin = userRolePaths.admin.some(path => url.startsWith(path));
+    throw new Error('Method not implemented.');
+  }
 
               updateGuestStatus(url: string): void {
                  const guestPaths = ['/', '/login', '/register', '/forgot-password'];

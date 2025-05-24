@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { JobService } from '../../services/Jobservice.service';
 
 @Component({
-  standalone: true,
   selector: 'app-job-details',
   templateUrl: './job-details.component.html',
   styleUrls: ['./job-details.component.css'],
@@ -20,6 +19,7 @@ export class JobDetailsComponent implements OnInit {
   bids: any[] = [];
   userId: number = 3;
   constructor(private route: ActivatedRoute, private jobService: JobService) {}
+  userRole: string = 'freelancer';
 
   ngOnInit(): void {
     this.jobId = Number(this.route.snapshot.paramMap.get('id'));
