@@ -49,7 +49,7 @@
     <button class="btn btn-outline-success" (click)="updateStatus()">Update Status</button>
   </div>
 
-  <div class="d-flex gap-3 mb-4" *ngIf="userRole === 'freelancer'">
+  <div class="d-flex gap-3 mb-4" *ngIf="userRole === 'freelancer'|| userRole === 'guest'">
     <button class="btn btn-bids" data-bs-toggle="modal" data-bs-target="#bidModal">Place a Bid</button>
   </div>
 
