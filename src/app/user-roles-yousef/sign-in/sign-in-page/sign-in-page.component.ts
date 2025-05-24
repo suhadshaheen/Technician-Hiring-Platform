@@ -15,5 +15,9 @@ import {SignInCirclesComponent} from '../sign-in-circles/sign-in-circles.compone
   styleUrl: './sign-in-page.component.css'
 })
 export class SignInPageComponent {
+  selectedRole: string = '';
 
+  onRoleSelected(role: string) {
+    this.selectedRole = role;
+  }
 }
