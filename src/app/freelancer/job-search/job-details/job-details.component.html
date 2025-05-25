@@ -1,18 +1,20 @@
 <div class="container my-5 p-4 bg-white shadow rounded">
   <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-4">
     <div>
-      <h2 class="fw-bold ss-details">{{ job.title }}</h2>
-      <p class="text-muted">Posted at : {{ job.time }}</p>
+      <h2 class="fw-bold ss-details">{{ job?.title }}</h2>
+      <p class="text-muted">Posted at : {{ job?.posting_date }}</p>
     </div>
   </div>
 
   <div class="row text-center mb-4">
-    <div class="col-md-3 mb-3" *ngFor="let field of [
-        { icon: 'fa-layer-group', label: 'Work Level', value: job.level },
-        { icon: 'fa-object-group', label: 'Experience', value: job.experience },
-        { icon: 'fa-clock', label: 'Deadline', value: job.deadline },
-        { icon: 'fa-coins', label: 'Salary', value: job.salary }
-      ]">
+    <div
+      class="col-md-3 mb-3"
+      *ngFor="let field of [
+
+        { icon: 'fa-clock', label: 'Deadline', value: job?.deadline },
+        { icon: 'fa-coins', label: 'Salary', value: job?.budget }
+      ]"
+    >
       <div class="p-3 bg-light rounded">
         <p class="text-muted mb-1">
           <i class="fa-solid {{ field.icon }}" style="color: #40189d;"></i> {{ field.label }}
@@ -24,36 +26,50 @@
 
   <div class="mb-5">
     <h4 class="fw-bold mb-3 ss-details">Job Description</h4>
-    <p class="text-muted">{{ job.description }}</p>
+    <p class="text-muted">{{ job?.description }}</p>
   </div>
 
-  <div class="mb-5">
-    <h4 class="fw-bold mb-3 ss-details">Overview</h4>
-    <ul class="list-unstyled">
-      <li *ngFor="let point of job.points" class="mb-2 d-flex align-items-center">
-        <i class="bi bi-check-circle-fill text-success me-2"></i>
-        <span>{{ point }}</span>
-      </li>
-    </ul>
-  </div>
+<div class="mb-5">
+  <h4 class="fw-bold mb-3 ss-details">Overview</h4>
+  <ul class="list-unstyled">
+    <li *ngFor="let point of jobPoints" class="mb-2 d-flex align-items-center">
+      <i class="bi bi-check-circle-fill text-success me-2"></i>
+      <span>{{ point }}</span>
+    </li>
+  </ul>
+</div>
 
-  <div *ngIf="userRole === 'jobOwner'" class="d-flex justify-content-between align-items-center bg-light p-3 rounded mb-4">
+
+  <div
+    *ngIf="userRole === 'jobOwner'"
+    class="d-flex justify-content-between align-items-center bg-light p-3 rounded mb-4"
+  >
     <p class="mb-0 fw-bold">
       Status:
-      <span [ngClass]="{
-        'text-danger': job.status === 'Pending',
-        'text-warning': job.status === 'In Progress',
-        'text-success': job.status === 'Completed'
-      }">{{ job.status }}</span>
+      <span
+        [ngClass]="{
+          'text-danger': job?.status === 'Pending',
+          'text-warning': job?.status === 'In Progress',
+          'text-success': job?.status === 'Completed'
+        }"
+        >{{ job?.status }}</span
+      >
     </p>
     <button class="btn btn-outline-success" (click)="updateStatus()">Update Status</button>
   </div>
 
-  <div class="d-flex gap-3 mb-4" *ngIf="userRole === 'freelancer'|| userRole === 'guest'">
+  <div class="d-flex gap-3 mb-4" *ngIf="userRole === 'freelancer' || userRole === 'guest'">
     <button class="btn btn-bids" data-bs-toggle="modal" data-bs-target="#bidModal">Place a Bid</button>
   </div>
 
-  <div *ngIf="userRole === 'freelancer'" class="modal fade" id="bidModal" tabindex="-1" aria-labelledby="bidModalLabel" aria-hidden="true">
+  <div
+    *ngIf="userRole === 'freelancer'"
+    class="modal fade"
+    id="bidModal"
+    tabindex="-1"
+    aria-labelledby="bidModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
       <div class="modal-content p-3">
         <form (ngSubmit)="onSubmitBid()">
@@ -64,15 +80,35 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="bidAmount" class="form-label">Bid Amount</label>
-              <input type="number" id="bidAmount" class="form-control" [(ngModel)]="bidAmount" name="bidAmount" required>
+              <input
+                type="number"
+                id="bidAmount"
+                class="form-control"
+                [(ngModel)]="bidAmount"
+                name="bidAmount"
+                required
+              />
             </div>
             <div class="mb-3">
               <label for="workTimeline" class="form-label">Work Timeline</label>
-              <textarea id="workTimeline" class="form-control" [(ngModel)]="workTimeline" name="workTimeline" rows="3" required></textarea>
+              <textarea
+                id="workTimeline"
+                class="form-control"
+                [(ngModel)]="workTimeline"
+                name="workTimeline"
+                rows="3"
+                required
+              ></textarea>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" data-bs-dismiss="modal" [disabled]="!bidAmount || !workTimeline || hasBid()">Submit Bid</button>
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="!bidAmount || !workTimeline || hasBid()"
+            >
+              Submit Bid
+            </button>
           </div>
         </form>
       </div>

@@ -29,7 +29,6 @@ export const routes: Routes = [
   {path:'users',component:UsersComponent},
   {path:'jobs',component:JobsComponent},
   { path: 'job-list', component: JopListComponent },
-   { path: 'job-details/:id', component: JobDetailsComponent },
   {path: 'chat',component: ChatComponent,},
   {path: 'PostPage' , component:PostJobPageComponent},
   {path: 'Sign' , component:SignInPageComponent},
