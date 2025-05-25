@@ -2,8 +2,9 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RecentMessage } from '../../models/RecentMessage';
-import { ChatService } from '../../services/chat.service';
+import { RecentMessage } from '../../../../models/RecentMessage';
+import { ChatService } from '../../../../services/ChatService.service';
+import { Message } from '../../../../models/message';
 
 @Component({
   selector: 'app-chat',
@@ -15,28 +16,41 @@ import { ChatService } from '../../services/chat.service';
 export class ChatComponent implements OnInit {
   newMessage = '';
   isTyping = false;
-  messages: any[] = [];//كل الرسائل
-  recentMessages: RecentMessage[] = [];//المحادثات
-  currentChatId: number | null = null;//الشات الحالي
+  messages: Message[] = [];
+  recentMessages: RecentMessage[] = [];
+  currentChatId: number | null = null;
 
   currentOwnerAvatar: string = '';
   currentOwnerName: string = '';
+  currentReceiverId: number = 0;
+
+ currentUserId: number = Number(localStorage.getItem('user_id') || '0');
 
   sidebarOpen: boolean = true;
   isMobile = false;
 
   constructor(private chatService: ChatService) {}
 
-  ngOnInit(): void {
-    this.chatService.getRecentMessages().subscribe((data) => {
-      this.recentMessages = data;
-      if (data.length > 0) {
-        this.openChat(Number(data[0].id));
-      }
-    });
+ ngOnInit(): void {
+  this.chatService.getRecentMessages().subscribe((data) => {
+    this.recentMessages = data;
+    if (data.length > 0) {
+      this.openChat(data[0].id);
+    } else {
+      console.log('No recent messages found for user:', this.currentUserId);
 
-    this.checkScreenSize();
-  }
+
+      this.currentReceiverId = 2;
+      this.currentOwnerName = 'Test User';
+      this.currentOwnerAvatar = 'assets/default-avatar.png';
+
+      this.chatService.getChatMessagesById(2).subscribe((msgs) => {
+        this.messages = msgs;
+      });
+    }
+  });
+}
+
 
   @HostListener('window:resize')
   checkScreenSize() {
@@ -48,16 +62,26 @@ export class ChatComponent implements OnInit {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
-  openChat(id: string | number) {
-    const chatId = Number(id);
-    this.currentChatId = chatId;
+  openChat(receiverId: string | number) {
+    const id = Number(receiverId);
+    if (!id) {
+      console.warn('Invalid receiverId:', receiverId);
+      return;
+    }
 
-    const owner = this.recentMessages.find(msg => +msg.id === chatId);
-    this.currentOwnerAvatar = owner?.avatar || '';
-    this.currentOwnerName = owner?.name || '';
+    this.currentReceiverId = id;
+    this.currentChatId = id;
 
-    this.chatService.getChatMessagesById(chatId).subscribe(msgs => {
-      this.messages = msgs;
+    const owner = this.recentMessages.find(msg => +msg.id === id);
+    this.currentOwnerAvatar = owner?.User_Photo || '';
+    this.currentOwnerName = owner?.firstname|| '';
+
+    this.chatService.getChatMessagesById(id).subscribe((msgs) => {
+      this.messages = msgs.map(msg => ({
+        ...msg,
+        from: msg.sender_id === this.currentUserId ? 'me' : 'owner',
+        avatar: msg.sender_id !== this.currentUserId ? this.currentOwnerAvatar : ''
+      }));
       setTimeout(() => this.scrollToBottom(), 100);
     });
 
@@ -65,35 +89,29 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    if (this.newMessage.trim()) {
-      this.messages.push({
-        from: 'me',
-        text: this.newMessage,
-        timestamp: new Date().toLocaleTimeString()
-      });
-
-      this.newMessage = '';
-      setTimeout(() => this.scrollToBottom(), 100);
-      this.simulateOwnerReply();
+    if (!this.currentReceiverId) {
+      alert('Please select a chat to send a message.');
+      return;
     }
-  }
 
-  simulateOwnerReply() {
-    this.isTyping = true;
-
-    setTimeout(() => {
-      const replyText = this.chatService.getRandomReply();
-
-      this.messages.push({
-        from: 'owner',
-        text: replyText,
-        avatar: this.currentOwnerAvatar,
-        timestamp: new Date().toLocaleTimeString()
+    if (this.newMessage.trim()) {
+      this.chatService.sendMessage(this.currentReceiverId, this.newMessage).subscribe({
+        next: (sentMessage: Message) => {
+          const msg: Message = {
+            ...sentMessage,
+            firstname: sentMessage.sender_id === this.currentUserId ? 'me' : 'owner',
+            User_photo: sentMessage.sender_id !== this.currentUserId ? this.currentOwnerAvatar : ''
+          };
+          this.messages.push(msg);
+          this.newMessage = '';
+          setTimeout(() => this.scrollToBottom(), 100);
+        },
+        error: err => {
+          console.error('Error sending message', err);
+          alert('Failed to send message. Please try again.');
+        }
       });
-
-      this.isTyping = false;
-      setTimeout(() => this.scrollToBottom(), 100);
-    }, 1500);
+    }
   }
 
   scrollToBottom() {
