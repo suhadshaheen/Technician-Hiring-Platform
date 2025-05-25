@@ -38,6 +38,7 @@ export const routes: Routes = [
   {path:'login',component:LoginPageComponent},
   {path: 'Bids', component:JobBidsPageComponent},
   {path:'OwnerJobs', component:OwnerJobsPageComponent},
+  {path: 'job-details/:id', component: JobDetailsComponent},
   {path:'admin', component:AdminComponent,
     children : [
       {path: '',component:AdminLayoutComponent},
