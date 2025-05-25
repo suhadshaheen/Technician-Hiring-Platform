@@ -1,66 +1,145 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { JobService, Job } from '../../../../services/Jobservice.service';
+import { BidService } from '../../../../services/Bid.service';
+import { AuthService } from '../../../user-roles-yousef/services/AuthService';
 import { FormsModule } from '@angular/forms';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { JobService } from '../../services/Jobservice.service';
+declare var bootstrap: any;
+
+interface Bid {
+  id?: number;
+  job_id: number;
+  freelancer_id: number;
+  bid_amount: number;
+  work_time_line: string;
+}
 
 @Component({
   selector: 'app-job-details',
   templateUrl: './job-details.component.html',
   styleUrls: ['./job-details.component.css'],
-  imports: [FormsModule, NgClass, NgForOf, NgIf, RouterModule]
+  standalone: true,
+  imports: [FormsModule, NgClass, NgForOf, NgIf, RouterModule],
 })
 export class JobDetailsComponent implements OnInit {
   jobId: number = 0;
-  job: any = {};
+  job: Job | null = null;
   bidAmount: number = 0;
   workTimeline: string = '';
-  bids: any[] = [];
-  userId: number = 3;
-  constructor(private route: ActivatedRoute, private jobService: JobService) {}
-  userRole: string = 'freelancer';
+  bids: Bid[] = [];
+  userId!: number;
+  userRole!: string;
 
-  ngOnInit(): void {
-    this.jobId = Number(this.route.snapshot.paramMap.get('id'));
-    this.job = this.jobService.getJobById(this.jobId);
-    this.bids = this.job.bids || [];
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private jobService: JobService,
+    private bidService: BidService,
+    private authService: AuthService
+  ) {}
+
+ ngOnInit(): void {
+  this.jobId = Number(this.route.snapshot.paramMap.get('id'));
+  console.log('Job ID:', this.jobId);
+console.log('Job ID:', this.jobId);
+  this.loadJob();
+ this.userId = 23;
+  this.userRole = 'freelancer';
+}
+jobPoints: string[] = [];
+
+loadJob() {
+  this.jobService.getJobById(this.jobId).subscribe({
+    next: (data) => {
+      this.job = data;
+
+      try {
+        const requirementsObj = JSON.parse(this.job.job_requirements ?? '{}');
+        // بس بدي القيم
+        this.jobPoints = Object.values(requirementsObj);
+      } catch (e) {
+        this.jobPoints = this.job.job_requirements ? [this.job.job_requirements] : [];
+      }
+    },
+    error: (err) => {
+      console.error('Failed to load job:', err);
+    }
+  });
+}
+
+//بشوف اذا بدي ياها
+  // loadBids() {
+  //   this.bidService.getBidsForJob(this.jobId).subscribe({
+  //     next: (data) => {
+  //       this.bids = data;
+  //     },
+  //     error: (err) => {
+  //       console.error('Failed to load bids:', err);
+  //     },
+  //   });
+  // }
 
   onSubmitBid() {
     if (this.hasBid()) {
-      alert("You have already placed a bid for this job.");
+      alert('You have already placed a bid for this job.');
       return;
     }
 
-    const newBid = {
-      userId: this.userId,
-      amount: this.bidAmount,
-      workTimeline: this.workTimeline
+    const newBid: Bid = {
+      job_id: this.jobId,
+      freelancer_id: this.userId,
+      bid_amount: this.bidAmount,
+      work_time_line: this.workTimeline,
     };
 
-    this.bids.push(newBid);
-    if (!this.job.bids) {
-      this.job.bids = [];
-    }
-    this.job.bids.push(newBid);
+    this.bidService.submitBid(newBid).subscribe({
+      next: (response: Bid) => {
+        alert('Bid submitted successfully!');
+        this.bids.push(response);
+        this.bidAmount = 0;
+        this.workTimeline = '';
 
-    // Reset form inputs
-    this.bidAmount = 0;
-    this.workTimeline = '';
+        const modalEl = document.getElementById('bidModal');
+        if (modalEl) {
+          const modal = bootstrap.Modal.getInstance(modalEl);
+          modal?.hide();
+        }
+      },
+      error: (error: any) => {
+        console.error('Bid submission failed:', error);
+        alert('Failed to submit bid. Please try again.');
+      },
+    });
   }
 
-  hasBid() {
-    return this.bids.some(bid => bid.userId === this.userId);
+  hasBid(): boolean {
+    return this.bids.some((bid) => bid.freelancer_id === this.userId);
   }
 
   updateStatus() {
+    if (!this.job) return;
+
+    let newStatus = '';
     if (this.job.status === 'Pending') {
-      this.job.status = 'In Progress';
+      newStatus = 'In Progress';
     } else if (this.job.status === 'In Progress') {
-      this.job.status = 'Completed';
+      newStatus = 'Completed';
     } else if (this.job.status === 'Completed') {
-      this.job.status = 'Pending';
+      newStatus = 'Pending';
+    }
+
+    if (newStatus) {
+      this.jobService.updateJobStatus(this.jobId, newStatus).subscribe({
+        next: () => {
+          if (this.job) this.job.status = newStatus;
+          alert(`Job status updated to ${newStatus}`);
+        },
+        error: (err) => {
+          console.error('Failed to update job status:', err);
+          alert('Failed to update status. Please try again.');
+        },
+      });
     }
   }
 }

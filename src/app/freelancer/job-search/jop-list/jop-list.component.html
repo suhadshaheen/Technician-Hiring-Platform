@@ -1,9 +1,13 @@
 <div class="container mt-4">
-  <div class="row mb-4">
-    <div class="col-md-8 ss-searchbar d-flex align-items-center gap-2 custom-search-bar p-2 rounded-pill">
-      <div class="flex-grow-1 position-relative" *ngIf="showSearchBar">
-        <input type="text" class="form-control search-ss border-0 rounded-pill ps-4 pe-5" [(ngModel)]="searchText" placeholder="Search For Job...">
-      </div>
+ <div class="row mb-4">
+    <input
+  type="text"
+  class="form-control search-ss border-0 rounded-pill ps-4 pe-5"
+  [(ngModel)]="searchText"
+  (ngModelChange)="onFilterChange()"
+  placeholder="Search For Job..."
+>
+</div>
 
       <div class="d-flex justify-content-end mb-3" *ngIf="showSearchBar">
         <button class="btn btn-outline-purble rounded-pill px-3 fw-bold" (click)="toggleFilterDropdown()">
@@ -15,7 +19,9 @@
         <div class="row ss-r">
           <div class="col-md-4 mb-3 su-s">
             <label class="form-label fw-semibold">Category</label>
-            <select class="form-select ss-select rounded-pill" [(ngModel)]="selectedCategory">
+            <select class="form-select ss-select rounded-pill"
+                    [(ngModel)]="selectedCategory"
+                    (change)="onFilterChange()">
               <option value="">All Categories</option>
               <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
             </select>
@@ -23,7 +29,9 @@
 
           <div class="col-md-4 mb-3">
             <label class="form-label fw-semibold">Location</label>
-            <select class="form-select rounded-pill" [(ngModel)]="selectedLocation">
+            <select class="form-select rounded-pill"
+                    [(ngModel)]="selectedLocation"
+                    (change)="onFilterChange()">
               <option value="">All Locations</option>
               <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
             </select>
@@ -31,7 +39,9 @@
 
           <div class="col-md-4 mb-3">
             <label class="form-label fw-semibold">Budget</label>
-            <select class="form-select rounded-pill" [(ngModel)]="selectedBudget">
+            <select class="form-select rounded-pill"
+                    [(ngModel)]="selectedBudget"
+                    (change)="onFilterChange()">
               <option value="">All Budgets</option>
               <option *ngFor="let budget of budgets" [value]="budget">{{ budget }}</option>
             </select>
@@ -39,7 +49,7 @@
         </div>
       </div>
     </div>
-  </div>
+<div class="row mb-4">
 
   <div class="row" *ngIf="paginatedJobs.length > 0; else notFound">
     <div class="col-md-4 mb-4" *ngFor="let job of paginatedJobs">

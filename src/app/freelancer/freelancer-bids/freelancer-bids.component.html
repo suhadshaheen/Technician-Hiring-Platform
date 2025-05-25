@@ -2,26 +2,33 @@
   <h2 class="text-center mb-5" style="color: #40189d;">My Bids</h2>
 
   <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let job of myBids">
+    <div class="col-md-4 mb-4" *ngFor="let bid of myBids">
       <div class="card shadow-sm h-100">
-        <!-- <img [src]="" class="card-img-top" alt="{{ job.title }}"> -->
         <div class="card-body">
-          <h5 class="card-title" style="color: #40189d;">{{ job.title }}</h5>
-          <p class="card-text">{{ job.description }}</p>
+          <h5 class="card-title" style="color: #40189d;">{{ bid.job?.title }}</h5>
+          <p class="card-text">{{ bid.job?.description }}</p>
+
+          <p class="mb-1"><strong>Bid Amount:</strong> {{ bid.bid_amount }} $</p>
+          <p class="mb-2"><strong>Timeline:</strong> {{ bid.work_time_line }}</p>
 
           <span
             class="badge"
             [ngClass]="{
-              'bg-success': job.bidStatus === 'Accepted',
-              'bg-danger': job.bidStatus === 'Rejected',
-              'bg-warning text-dark': job.bidStatus === 'Pending'
+              'bg-success': bid.status === 'accepted',
+              'bg-danger': bid.status === 'rejected',
+              'bg-warning text-dark': bid.status === 'pending'
             }"
           >
-            {{ job.bidStatus }}
+            {{ bid.status | titlecase }}
           </span>
         </div>
         <div class="card-footer bg-transparent">
-          <button class="btn suhad-bid w-100 "[routerLink]="['/freelancer/job-details', job.id]">View Job</button>
+          <button
+            class="btn suhad-bid w-100"
+            [routerLink]="['/freelancer/job-details', bid.job?.id]"
+          >
+            View Job
+          </button>
         </div>
       </div>
     </div>

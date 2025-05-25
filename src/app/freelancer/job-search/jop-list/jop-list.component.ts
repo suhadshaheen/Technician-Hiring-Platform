@@ -1,9 +1,9 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgForOf, NgIf, CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { JobCardComponent } from './job-card/job-card.component';
-import { JobService } from '../../services/Jobservice.service';
+import { JobService } from '../../../../services/Jobservice.service';
 
 @Component({
   selector: 'app-jop-list',
@@ -12,68 +12,78 @@ import { JobService } from '../../services/Jobservice.service';
   templateUrl: './jop-list.component.html',
   styleUrls: ['./jop-list.component.css']
 })
-export class JopListComponent {
+export class JopListComponent implements OnInit {
   @Input() jobs: any[] = [];
   @Input() showSearchBar: boolean = true;
+
+  showFilters = false;
+
+  selectedCategory = '';
+  selectedLocation = '';
+  selectedBudget = '';
+  searchText = '';
+
+  currentPage = 1;
+  jobsPerPage = 9;
 
   constructor(private jobService: JobService, private router: Router) {}
 
   ngOnInit(): void {
-    this.jobs = this.jobService.getAllJobs();
+    this.loadJobs();
+  }
+
+  loadJobs() {
+    const filters: any = {};
+
+    if (this.selectedCategory) filters.category = this.selectedCategory;
+    if (this.selectedLocation) filters.location = this.selectedLocation;
+    if (this.selectedBudget) filters.budget = this.selectedBudget;
+    if (this.searchText) filters.search = this.searchText;
+
+    this.jobService.getAllJobs(filters).subscribe({
+      next: (jobs: any[]) => {
+        this.jobs = jobs;
+        this.currentPage = 1; //عشان كل مرة بحمل يرجع لاول صفحة
+      },
+      error: (err) => {
+        console.error('Failed to load jobs:', err);
+      }
+    });
+  }
+
+  toggleFilterDropdown() {
+    this.showFilters = !this.showFilters;
   }
 
   goToDetails(id: number) {
     this.router.navigate(['/job-details', id]);
   }
 
-  showFilters = false;
-
-  toggleFilterDropdown() {
-    this.showFilters = !this.showFilters;
-  }
-
-  selectedCategory: string = '';
-  selectedLocation: string = '';
-  selectedBudget: string = '';
-  searchText: string = '';
-
-  currentPage: number = 1;
-  jobsPerPage: number = 9;
-
   get categories(): string[] {
-    return Array.from(new Set(this.jobs.map(job => job.category)));
-  }
+  return Array.from(new Set(this.jobs
+    .filter(job => job.category)
+    .map(job => job.category)));
+}
 
-  get locations(): string[] {
-    return Array.from(new Set(this.jobs.map(job => job.location)));
-  }
+get locations(): string[] {
+  return Array.from(new Set(this.jobs
+    .filter(job => job.location)
+    .map(job => job.location)));
+}
 
-  get budgets(): string[] {
-    return Array.from(new Set(this.jobs.map(job => job.salary)));
-  }
 
+get budgets(): string[] {
+  return Array.from(new Set(this.jobs
+    .filter(job => job.budget !== null && job.budget !== undefined)
+    .map(job => job.budget.toString())));
+}
+
+
+  // فلترة السيرش
   get filteredJobs() {
-    const text = this.searchText.toLowerCase().replace(/,/g, '').trim();
-
-    return this.jobs.filter(job => {
-      const jobTitle = job.title.toLowerCase();
-      const jobDesc = job.description.toLowerCase();
-      const jobSalary = job.salary.toLowerCase().replace(/,/g, '');
-      const jobLocation = job.location.toLowerCase();
-
-      return (
-        (!this.selectedCategory || job.category === this.selectedCategory) &&
-        (!this.selectedLocation || job.location === this.selectedLocation) &&
-        (!this.selectedBudget || job.salary === this.selectedBudget) &&
-        (
-          jobTitle.includes(text) ||
-          jobDesc.includes(text) ||
-          jobSalary.includes(text) ||
-          jobLocation.includes(text)
-        )
-      );
-    });
+    return this.jobs; //بترجع الجوبس اللي من السيرفر
   }
+
   get totalPages(): number {
     return Math.ceil(this.filteredJobs.length / this.jobsPerPage);
   }
@@ -97,5 +107,11 @@ export class JopListComponent {
 
   get paginationPages() {
     return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  }
+
+  // لما الفلترة تتغير بستدعي هاد الميثود
+  // عشان تحمل الجوبس من السيرفر حسب الفلتر
+  onFilterChange() {
+    this.loadJobs();
   }
 }

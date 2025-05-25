@@ -4,7 +4,7 @@ import {  JobDetailsComponent } from '../../../freelancer/job-search/job-details
 import { RouterLink, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-jobs',
-  imports: [RouterModule,RouterLink, NgClass, NgForOf,JobDetailsComponent],
+  imports: [RouterModule,RouterLink, NgClass, NgForOf],
   templateUrl: './jobs.component.html',
   styleUrl: './jobs.component.css'
 })
