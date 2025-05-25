@@ -2,6 +2,7 @@ import { Component,EventEmitter,OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { SidebarServiceService } from '../../sidebar-service.service';
+import {AuthService} from '../../user-roles-yousef/services/AuthService';
 @Component({
   selector: 'app-freelancer-sidebar',
   imports: [CommonModule , RouterModule],
@@ -12,7 +13,7 @@ export class FreelancerSidebarComponent implements OnInit{
   @Output() collapsedChange = new EventEmitter<boolean>();
   isCollapsed = false;
 
-  constructor(private sidebarService: SidebarServiceService , private router: Router) {}
+  constructor(private sidebarService: SidebarServiceService , private router: Router,private authService: AuthService ) {}
 
   // ngOnInit() {
   //   this.sidebarService.toggleSidebar$.subscribe(() => {
@@ -57,4 +58,22 @@ handleResize() {
  confirmSignOut() {
     this.router.navigate(['/login']);
   }
+  onLogout() {
+    this.authService.logout().subscribe({
+      next: () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+        localStorage.removeItem('user'); // if stored
+        this.router.navigate(['/login']);
+      },
+      error: () => {
+        alert('Logout failed');
+      }
+    });
+  }
+  confirmSignOutAndLogout() {
+    this.confirmSignOut();
+    this.onLogout();
+  }
+
 }

@@ -42,4 +42,24 @@ export class AuthService {
 
     return this.http.get(`${this.API_URL}/me`, { headers });
   }
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.API_URL}/forgot-password`, { email });
+  }
+  resetPassword(data: {
+    email: string;
+    token: string;
+    password: string;
+    password_confirmation: string;
+  }) {
+    return this.http.post(`${this.API_URL}/reset-password`, data);
+  }
+  getUserRole(): string {
+    const role = localStorage.getItem('role');
+    return role ? role : 'guest'; // Treat unauthenticated users as 'guest'
+  }
+
+  getUserId(): number {
+    return Number(localStorage.getItem('userId') || 0);
+  }
+
 }
