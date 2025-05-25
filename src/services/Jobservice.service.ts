@@ -25,7 +25,7 @@ export interface Job {
 })
 export class JobService {
   private apiUrl = 'http://127.0.0.1:8000/api';
-  token = localStorage.getItem('token'); // أو this.authService.getToken()
+  token = localStorage.getItem('token');
 
 
   constructor(private http: HttpClient) {}
