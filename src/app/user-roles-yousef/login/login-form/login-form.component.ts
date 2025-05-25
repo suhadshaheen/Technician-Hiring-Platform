@@ -34,7 +34,9 @@ export class LoginFormComponent {
         console.log('Login successful:', res);
         localStorage.setItem('token', res.access_token);
         localStorage.setItem('role', res.user.role);
-         localStorage.setItem('user_id', res.user.id.toString());
+
+        localStorage.setItem('userId', res.user.id);
+
         const role = (res.user.role || '').toLowerCase();
         localStorage.setItem('role', role);
         if (role === 'admin') {
@@ -42,7 +44,7 @@ export class LoginFormComponent {
         } else if (role === 'jobowner') {
           this.router.navigate(['/jobOwner']);
         } else if (role === 'freelancer') {
-          this.router.navigate(['/freelancer']); // parent loads child with path: ''
+          this.router.navigate(['/freelancer']);
         } else {
           this.router.navigate(['/']);
         }
