@@ -34,7 +34,9 @@ export class LoginFormComponent {
         console.log('Login successful:', res);
         localStorage.setItem('token', res.access_token);
         localStorage.setItem('role', res.user.role);
+
         localStorage.setItem('userId', res.user.id);
+
         const role = (res.user.role || '').toLowerCase();
         localStorage.setItem('role', role);
         if (role === 'admin') {

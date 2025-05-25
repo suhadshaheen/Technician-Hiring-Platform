@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ChatService} from '../../services/chat.service';
+import { ChatService } from '../../../../services/ChatService.service';
 import {NgForOf, NgIf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 

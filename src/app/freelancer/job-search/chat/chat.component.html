@@ -2,10 +2,12 @@
      [ngClass]="{ 'sidebar-closed': !sidebarOpen }"
      style="height: 85vh; max-width: 1100px; width: 100%; overflow: hidden;">
 
+  <!-- زر القائمة في الموبايل -->
   <button class="btn btn-light position-absolute d-md-none" style="z-index: 9999; top: 10px; left: 10px;" (click)="toggleSidebar()">
     <i class="fa-solid fa-bars"></i>
   </button>
 
+  <!-- القائمة الجانبية للمحادثات -->
   <div class="chat-sidebar border-end p-3 overflow-auto bg-light h-100"
        [ngClass]="{ 'd-none': !sidebarOpen && isMobile }"
        style="width: 300px;">
@@ -15,15 +17,16 @@
          role="button"
          [ngClass]="{ 'bg-white border': +msg.id === currentChatId }"
          (click)="openChat(msg.id)">
-      <img [src]="msg.avatar" class="rounded-circle me-2" width="40" height="40" />
+      <img [src]="msg.User_Photo || 'assets/default-avatar.png'" class="rounded-circle me-2" width="40" height="40" />
       <div class="flex-grow-1">
-        <div class="fw-bold">{{ msg.name }}</div>
-        <div class="text-muted small text-truncate" style="max-width: 200px;">{{ msg.text }}</div>
-        <div class="text-muted small fst-italic">{{ msg.time }}</div>
+        <div class="fw-bold text-truncate" style="max-width: 200px;">{{ msg.firstname }}</div>
+        <div class="text-muted small text-truncate" style="max-width: 200px;">{{ msg.content }}</div>
+        <div class="text-muted small fst-italic">{{ msg.timestamp| date:'shortTime' }}</div>
       </div>
     </div>
   </div>
 
+  <!-- نافذة المحادثة -->
   <div class="chat-window flex-grow-1 d-flex flex-column bg-white">
     <div class="chat-header text-white text-center py-2" style="background-color: #40189d;">
       <h5 class="m-0">{{ currentOwnerName || 'Chat' }}</h5>
@@ -33,20 +36,23 @@
       <div *ngFor="let msg of messages"
            class="d-flex fade-in"
            [ngClass]="{
-             'flex-row-reverse align-self-end': msg.from === 'me',
-             'align-self-start': msg.from === 'owner'
+             'flex-row-reverse align-self-end': msg.firstname === 'me',
+             'align-self-start': msg.firstname === 'owner'
            }">
-        <img *ngIf="msg.from === 'owner'" [src]="msg.avatar" class="rounded-circle me-2" width="40" height="40" />
+        <img *ngIf="msg.firstname === 'owner'" [src]="msg.User_photo || 'assets/default-avatar.png'" class="rounded-circle me-2" width="40" height="40" />
         <div class="rounded-pill px-3 py-2 text-white"
-             [ngStyle]="{ 'background-color': '#40189d' }">
-          {{ msg.text }}
-          <div class="small text-light mt-1">{{ msg.timestamp }}</div>
+             [ngStyle]="{ 'background-color': '#40189d', 'max-width': '75%' }">
+          <div class="text-wrap">{{ msg.content }}</div>
+          <div class="small text-light mt-1 text-end">
+            {{ msg.TimeForMessage | date:'shortTime' }}
+          </div>
         </div>
       </div>
 
       <div *ngIf="isTyping" class="text-muted fst-italic small">Typing...</div>
     </div>
 
+    <!-- حقل الإدخال -->
     <div class="chat-input d-flex border-top p-2 bg-white">
       <input type="text"
              class="form-control me-2 rounded-pill"
