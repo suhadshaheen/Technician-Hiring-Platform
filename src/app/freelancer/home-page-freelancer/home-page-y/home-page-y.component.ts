@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {HeroSectionComponent} from '../hero-section/hero-section.component';
 import {ActiveJobsComponent} from '../active-jobs/active-jobs.component';
-import {RecentMsgComponent} from '../recent-msg/recent-msg.component';
+// import {RecentMsgComponent} from '../recent-msg/recent-msg.component';
 import {RatingSummaryComponent} from '../rating-summary/rating-summary.component';
 import {GuestJobsComponent} from '../../../guest/home-page-guest/guest-jobs/guest-jobs.component';
 
@@ -16,7 +16,7 @@ import {GuestJobsComponent} from '../../../guest/home-page-guest/guest-jobs/gues
     RouterLink,
     HeroSectionComponent,
     ActiveJobsComponent,
-    RecentMsgComponent,
+    // RecentMsgComponent,
     RatingSummaryComponent,
     GuestJobsComponent
   ],

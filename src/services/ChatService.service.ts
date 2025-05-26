@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Message } from '../models/message';
-import { RecentMessage } from '../models/RecentMessage';
+import { User } from '../models/User';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,18 +13,19 @@ export class ChatService {
 
   constructor(private http: HttpClient) {}
 
-    private getAuthHeaders(): HttpHeaders {
+  private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
   }
 
-getRecentMessages(): Observable<RecentMessage[]> {
-  return this.http.get<RecentMessage[]>(`${this.apiUrl}/messages/recent`, {
-    headers: this.getAuthHeaders()
-  });
-}
+
+  getRecentContacts(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/messages/Contact`, {
+      headers: this.getAuthHeaders()
+    });
+  }
 
 
   getChatMessagesById(receiver_id: number): Observable<Message[]> {
@@ -38,6 +40,5 @@ getRecentMessages(): Observable<RecentMessage[]> {
       headers: this.getAuthHeaders()
     });
   }
-
 
 }

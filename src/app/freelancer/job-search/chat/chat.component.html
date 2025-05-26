@@ -2,29 +2,26 @@
      [ngClass]="{ 'sidebar-closed': !sidebarOpen }"
      style="height: 85vh; max-width: 1100px; width: 100%; overflow: hidden;">
 
-
   <button class="btn btn-light position-absolute d-md-none" style="z-index: 9999; top: 10px; left: 10px;" (click)="toggleSidebar()">
     <i class="fa-solid fa-bars"></i>
   </button>
 
-
-  <!-- <div class="chat-sidebar border-end p-3 overflow-auto bg-light h-100"
-       [ngClass]="{ 'd-none': !sidebarOpen && isMobile }"
-       style="width: 300px;">
-    <h6 class="fw-bold mb-3">Recent Chats</h6>
-    <div *ngFor="let msg of recentMessages"
-         class="chat-recent-item d-flex align-items-center mb-3 p-2 rounded"
-         role="button"
-         [ngClass]="{ 'bg-white border': +msg.id === currentChatId }"
-         (click)="openChat(msg.id)">
-      <img [src]="msg.User_Photo || 'assets/default-avatar.png'" class="rounded-circle me-2" width="40" height="40" />
-      <div class="flex-grow-1">
-        <div class="fw-bold text-truncate" style="max-width: 200px;">{{ msg.firstname }}</div>
-        <div class="text-muted small text-truncate" style="max-width: 200px;">{{ msg.content }}</div>
-        <div class="text-muted small fst-italic">{{ msg.timestamp| date:'shortTime' }}</div>
-      </div>
+<div class="chat-sidebar border-end p-3 overflow-auto bg-light h-100"
+     [ngClass]="{ 'd-none': !sidebarOpen && isMobile }"
+     style="width: 300px;">
+  <h6 class="fw-bold mb-3">Contacts</h6>
+  <div *ngFor="let contact of recentContacts"
+       class="chat-recent-item d-flex align-items-center mb-3 p-2 rounded"
+       role="button"
+       [ngClass]="{ 'bg-white border': contact.id === currentChatId }"
+       (click)="openChat(contact.id)">
+    <img [src]="contact.profile?.User_photo || 'assets/default-avatar.png'" class="rounded-circle me-2" width="40" height="40" />
+    <div class="flex-grow-1">
+      <div class="fw-bold text-truncate" style="max-width: 200px;">{{ contact.firstname }}</div>
+      <small class="text-muted text-truncate d-block" style="max-width: 200px;">{{ contact.profile?.bio || 'No bio available' }}</small>
     </div>
-  </div> -->
+  </div>
+</div>
 
 
   <div class="chat-window flex-grow-1 d-flex flex-column bg-white">
@@ -39,7 +36,7 @@
              'flex-row-reverse align-self-end': msg.from === 'me',
              'align-self-start': msg.from === 'owner'
            }">
-        <img *ngIf="msg.from === 'owner'" [src]="msg.User_photo || 'assets/default-avatar.png'" class="rounded-circle me-2" width="40" height="40" />
+        <img *ngIf="msg.from === 'owner'" [src]="msg.avatar || 'assets/default-avatar.png'" class="rounded-circle me-2" width="40" height="40" />
         <div class="rounded-pill px-3 py-2 text-white"
              [ngStyle]="{ 'background-color': '#40189d', 'max-width': '75%' }">
           <div class="text-wrap">{{ msg.content }}</div>
