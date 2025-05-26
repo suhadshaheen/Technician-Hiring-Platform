@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Message } from '../models/message'; // تأكد من أن المسار صحيح
+import { Message } from '../models/message';
 import { RecentMessage } from '../models/RecentMessage';
 @Injectable({
   providedIn: 'root'
@@ -45,9 +45,7 @@ getRecentMessages(): Observable<RecentMessage[]> {
 
   getRandomReply(): string {
     const replies = [
-      'Thanks for reaching out!',
-      'I’ll get back to you soon.',
-      'Can you clarify that?',
+      'Thanks',
       '👍'
     ];
     return replies[Math.floor(Math.random() * replies.length)];
