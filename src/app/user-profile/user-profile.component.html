@@ -1,143 +1,127 @@
+<div class="container py-4">
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card profile-card text-center p-3">
+        <img
+          [src]="currentUser?.profile?.User_photo ? ('http://127.0.0.1:8000/storage/' + currentUser?.profile?.User_photo) : 'assets/default.jpg'"
+          class="rounded-circle profile-img mb-3"
+          alt="User Image"
+        />
+        <div *ngIf="isEditMode" class="mb-2">
+          <input type="file" class="form-control" (change)="onImageSelected($event)">
+        </div>
+        <h4>{{ currentUser?.firstname }} {{ currentUser?.lastname }}</h4>
+        <p class="text-muted">{{ currentUser?.role?.name || 'No Role' }}</p> <div class="contact-info mt-3">
+          <p><i class="bi bi-phone"></i> {{ currentUser?.phone }}</p>
+          <p><i class="bi bi-envelope"></i> {{ currentUser?.email }}</p>
+        </div>
 
-  <div class="container py-4">
-    <div class="row">
-      <div class="col-md-4 mb-4">
-        <div class="card profile-card text-center p-3">
-          <img [src]="profileImage" class="rounded-circle profile-img mb-3" alt="User Image" />
-          <div *ngIf="isEditMode" class="mb-2">
-            <input type="file" class="form-control" (change)="onImageSelected($event)">
-          </div>
-          <h4>{{ userData.fullName }}</h4>
-          <p class="text-muted">{{ userData.role }}</p>
-
-          <div class="contact-info mt-3">
-            <p><i class="bi bi-phone"></i> {{ userData.phone }}</p>
-            <p><i class="bi bi-envelope"></i> {{ userData.email }}</p>
-          </div>
-
-              <div class="social-links mt-3">
-          <a href="https://www.instagram.com/anajahuni?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="btn suhad-btn btn-sm me-2">Facebook</a>
-          <a href="https://www.instagram.com/anajahuni?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="btn suhad-btn btn-sm">Instagram</a>
+        <div class="social-links mt-3" *ngIf="!isEditMode">
+          <a *ngIf="currentUser?.profile?.FacebookLink" [href]="currentUser?.profile?.FacebookLink" target="_blank" class="btn suhad-btn btn-sm me-2">Facebook</a>
+          <a *ngIf="currentUser?.profile?.InstagramLink" [href]="currentUser?.profile?.InstagramLink" target="_blank" class="btn suhad-btn btn-sm">Instagram</a>
+          <a *ngIf="currentUser?.profile?.whatsappNumber" [href]="'https://wa.me/' + currentUser?.profile?.whatsappNumber" target="_blank" class="btn suhad-btn btn-sm ms-2">WhatsApp</a>
         </div>
       </div>
     </div>
-      <div class="col-md-8">
-        <div class="card p-4">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5>Profile</h5>
-            <button class="btn btn-primary suhad-btn" (click)="toggleEdit()">
-              {{ isEditMode ? 'Cancel' : 'Edit Profile' }}
-            </button>
+    <div class="col-md-8">
+      <div class="card p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5>Profile</h5>
+          <button class="btn btn-primary suhad-btn" (click)="toggleEdit()">
+            {{ isEditMode ? 'Cancel' : 'Edit Profile' }}
+          </button>
+        </div>
+
+        <div *ngIf="!isEditMode && currentUser">
+          <p><strong>Full Name:</strong> {{ currentUser.firstname }} {{ currentUser.lastname }}</p>
+          <p><strong>Username:</strong> {{ currentUser.username }}</p>
+          <p><strong>Phone:</strong> {{ currentUser.phone }}</p>
+          <p><strong>Email:</strong> {{ currentUser.email }}</p>
+          <p><strong>City:</strong> {{ currentUser.city }}</p>
+          <p><strong>Country:</strong> {{ currentUser.country }}</p>
+          <p><strong>About Me:</strong> {{ currentUser.profile?.bio }}</p>
+          <p *ngIf="currentUser.profile?.whatsappNumber"><strong>WhatsApp:</strong> {{ currentUser.profile?.whatsappNumber }}</p>
+          <p *ngIf="currentUser.profile?.InstagramLink"><strong>Instagram:</strong> <a [href]="currentUser.profile?.InstagramLink" target="_blank">{{ currentUser.profile?.InstagramLink }}</a></p>
+          <p *ngIf="currentUser.profile?.FacebookLink"><strong>Facebook:</strong> <a [href]="currentUser.profile?.FacebookLink" target="_blank">{{ currentUser.profile?.FacebookLink}}</a></p>
+
+          <h6 class="mt-4">Skills</h6>
+          <ul>
+            <li *ngFor="let skill of skillsArray">{{ skill }}</li>
+          </ul>
+        </div>
+
+        <form *ngIf="isEditMode && currentUser" (ngSubmit)="saveChanges()">
+          <div class="row mb-3">
+            <div class="col">
+              <label>First Name</label>
+              <input type="text" class="form-control" [(ngModel)]="editFirstName" name="firstName" required>
+            </div>
+            <div class="col">
+              <label>Last Name</label>
+              <input type="text" class="form-control" [(ngModel)]="editLastName" name="lastName" required>
+            </div>
           </div>
 
-          <div *ngIf="!isEditMode">
-            <p><strong>Full Name:</strong> {{ userData.fullName }}</p>
-            <p><strong>Username:</strong> {{ userData.username }}</p>
-            <p><strong>Phone:</strong> {{ userData.phone }}</p>
-            <p><strong>Email:</strong> {{ userData.email }}</p>
-            <p><strong>City:</strong> {{ userData.city }}</p>
-            <p><strong>Country:</strong> {{ userData.country }}</p>
-            <p><strong>About Me:</strong> {{ userData.about }}</p>
-
-            <h6 class="mt-4">Skills</h6>
-            <ul>
-              <li *ngFor="let skill of userData.skills">{{ skill }}</li>
-            </ul>
+          <div class="mb-3">
+            <label>Username</label>
+            <input type="text" class="form-control" [(ngModel)]="editUsername" name="username" required>
           </div>
 
-          <form *ngIf="isEditMode" (ngSubmit)="saveChanges()">
-            <div class="row mb-3">
-              <div class="col">
-                <label>First Name</label>
-                <input type="text" class="form-control" [(ngModel)]="userData.firstName" name="firstName">
-              </div>
-              <div class="col">
-                <label>Last Name</label>
-                <input type="text" class="form-control" [(ngModel)]="userData.lastName" name="lastName">
-              </div>
+          <div class="row mb-3">
+            <div class="col">
+              <label>Phone</label>
+              <input type="text" class="form-control" [(ngModel)]="editPhone" name="phone">
             </div>
-
-            <div class="mb-3">
-              <label>Username</label>
-              <input type="text" class="form-control" [(ngModel)]="userData.username" name="username">
+            <div class="col">
+              <label>WhatsApp Number</label>
+              <input type="text" class="form-control" [(ngModel)]="editWhatsapp" name="whatsapp">
             </div>
+          </div>
 
-            <div class="row mb-3">
-              <div class="col">
-                <label>Phone</label>
-                <input type="text" class="form-control" [(ngModel)]="userData.phone" name="phone">
-              </div>
-              <div class="col">
-                <label>Whatsapp</label>
-                <input type="text" class="form-control" [(ngModel)]="userData.whatsapp" name="whatsapp">
-              </div>
+          <div class="mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control" [(ngModel)]="editEmail" name="email" required>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label>City</label>
+              <input type="text" class="form-control" [(ngModel)]="editCity" name="city">
             </div>
-
-            <div class="mb-3">
-              <label>Email</label>
-              <input type="email" class="form-control" [(ngModel)]="userData.email" name="email">
+            <div class="col">
+              <label>Country</label>
+              <input type="text" class="form-control" [(ngModel)]="editCountry" name="country">
             </div>
+          </div>
 
-            <div class="row mb-3">
-              <div class="col">
-                <label>City</label>
-                <input type="text" class="form-control" [(ngModel)]="userData.city" name="city">
-              </div>
-              <div class="col">
-                <label>Country</label>
-                <input type="text" class="form-control" [(ngModel)]="userData.country" name="country">
-              </div>
-            </div>
+          <div class="mb-3">
+            <label>About Me (Bio)</label>
+            <textarea class="form-control" rows="4" [(ngModel)]="editBio" name="about"></textarea>
+          </div>
 
-            <div class="mb-3">
-              <label>About Me</label>
-              <textarea class="form-control" rows="4" [(ngModel)]="userData.about" name="about"></textarea>
-            </div>
-            <button type="button" class="btn suhad-btn mt-3 me-2" data-bs-toggle="modal" data-bs-target="#passwordModal"> Change Password</button>
-            <button type="button" class="btn btn-danger mt-3 me-2" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"> Delete Account</button>
+          <div class="mb-3">
+            <label>Skills (comma-separated)</label>
+            <textarea class="form-control" rows="3" [(ngModel)]="editSkills" name="skills"></textarea>
+          </div>
 
+          <div class="mb-3">
+            <label>Instagram Link</label>
+            <input type="url" class="form-control" [(ngModel)]="editInstagram" name="instagramLink">
+          </div>
 
-            <button type="submit" class="btn btn-success mt-3">Save Changes</button>
-          </form>
+          <div class="mb-3">
+            <label>Facebook Link</label>
+            <input type="url" class="form-control" [(ngModel)]="editFacebook" name="facebookLink">
+          </div>
 
-        </div>
-      </div>
-    </div>
-  </div>
-
-<div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content password-card">
-      <div class="modal-header">
-        <h5 class="modal-title" id="passwordModalLabel">Change Password</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label>Current Password</label>
-          <input type="password" class="form-control" [(ngModel)]="currentPassword" name="currentPassword">
-        </div>
-
-        <div class="mb-3">
-          <label>New Password</label>
-          <input type="password" class="form-control" [(ngModel)]="newPassword" name="newPassword">
-        </div>
-
-        <div class="mb-3">
-          <label>Confirm New Password</label>
-          <input type="password" class="form-control" [(ngModel)]="confirmNewPassword" name="confirmNewPassword">
-        </div>
-
-        <div *ngIf="passwordChangeError" class="alert alert-danger">{{ passwordChangeError }}</div>
-        <div *ngIf="passwordChangeSuccess" class="alert alert-success">{{ passwordChangeSuccess }}</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn suhad-btn" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success" (click)="changePassword()">Save Password</button>
+          <button type="button" class="btn btn-danger mt-3 me-2" data-bs-toggle="modal" data-bs-target="#deleteAccountModal"> Delete Account</button>
+          <button type="submit" class="btn btn-success mt-3">Save Changes</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
+
 <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content password-card">
@@ -157,4 +141,3 @@
     </div>
   </div>
 </div>
-

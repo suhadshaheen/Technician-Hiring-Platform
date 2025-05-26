@@ -2,22 +2,22 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RecentMessage } from '../../../../models/RecentMessage';
 import { ChatService } from '../../../../services/ChatService.service';
-import { Message } from '../../../../models/message';
+import { Message, MessageWithMeta } from '../../../../models/message';
+import { User } from '../../../../models/User';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
   imports: [NgClass, FormsModule, CommonModule],
   templateUrl: './chat.component.html',
-  styleUrl: './chat.component.css'
+  styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
   newMessage = '';
   isTyping = false;
-  messages: Message[] = [];
-  recentMessages: RecentMessage[] = [];
+  messages: MessageWithMeta[] = [];
+  recentContacts: User[] = [];
   currentChatId: number | null = null;
 
   currentOwnerAvatar: string = '';
@@ -32,19 +32,23 @@ export class ChatComponent implements OnInit {
   constructor(private chatService: ChatService) {}
 
   ngOnInit(): void {
-    this.chatService.getRecentMessages().subscribe((data) => {
-      this.recentMessages = data;
+    this.chatService.getRecentContacts().subscribe((data) => {
+      this.recentContacts = data;
       if (data.length > 0) {
         this.openChat(data[0].id);
       } else {
-        console.log('No recent messages found for user:', this.currentUserId);
+        console.log('No recent contacts found for user:', this.currentUserId);
 
         this.currentReceiverId = 2;
         this.currentOwnerName = 'Test User';
         this.currentOwnerAvatar = 'assets/default-avatar.png';
 
         this.chatService.getChatMessagesById(2).subscribe((msgs) => {
-          this.messages = msgs;
+          this.messages = msgs.map(msg => ({
+            ...msg,
+            from: msg.sender_id === this.currentUserId ? 'me' : 'owner',
+            avatar: msg.sender_id !== this.currentUserId ? this.currentOwnerAvatar : ''
+          })) as MessageWithMeta[];
         });
       }
     });
@@ -69,19 +73,19 @@ export class ChatComponent implements OnInit {
       return;
     }
 
-    this.currentReceiverId = 2;
+    this.currentReceiverId = id;
     this.currentChatId = id;
 
-    const owner = this.recentMessages.find(msg => +msg.id === id);
-    this.currentOwnerAvatar = owner?.User_Photo || '';
-    this.currentOwnerName = owner?.firstname || '';
+    const owner = this.recentContacts.find(user => user.id === id);
+    this.currentOwnerAvatar = owner?.profile?.User_photo|| 'assets/default-avatar.png';
+    this.currentOwnerName = owner?.firstname || 'Unknown';
 
-    this.chatService.getChatMessagesById(id).subscribe((msgs) => {
+    this.chatService.getChatMessagesById(id).subscribe((msgs: Message[]) => {
       this.messages = msgs.map(msg => ({
         ...msg,
         from: msg.sender_id === this.currentUserId ? 'me' : 'owner',
         avatar: msg.sender_id !== this.currentUserId ? this.currentOwnerAvatar : ''
-      }));
+      })) as MessageWithMeta[];
       setTimeout(() => this.scrollToBottom(), 100);
     });
 
@@ -97,10 +101,10 @@ export class ChatComponent implements OnInit {
     if (this.newMessage.trim()) {
       this.chatService.sendMessage(this.currentReceiverId, this.newMessage).subscribe({
         next: (sentMessage: Message) => {
-          const msg: Message = {
+          const msg: MessageWithMeta = {
             ...sentMessage,
             from: 'me',
-            User_photo: ''
+            avatar: ''
           };
           this.messages.push(msg);
           this.newMessage = '';
