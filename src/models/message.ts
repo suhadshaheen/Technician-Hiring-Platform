@@ -4,6 +4,6 @@ export interface Message {
   receiver_id: number;
   content: string;
   TimeForMessage: string;
-  from?: 'me' | 'owner'; // لتحديد مصدر الرسالة
-  User_photo?: string;   // الصورة الرمزية
+  from?: 'me' | 'owner';
+  User_photo?: string;
 }
