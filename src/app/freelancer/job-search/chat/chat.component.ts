@@ -24,33 +24,33 @@ export class ChatComponent implements OnInit {
   currentOwnerName: string = '';
   currentReceiverId: number = 0;
 
- currentUserId: number = Number(localStorage.getItem('user_id') || '0');
+  currentUserId: number = Number(localStorage.getItem('userId') || '0');
 
   sidebarOpen: boolean = true;
   isMobile = false;
 
   constructor(private chatService: ChatService) {}
 
- ngOnInit(): void {
-  this.chatService.getRecentMessages().subscribe((data) => {
-    this.recentMessages = data;
-    if (data.length > 0) {
-      this.openChat(data[0].id);
-    } else {
-      console.log('No recent messages found for user:', this.currentUserId);
+  ngOnInit(): void {
+    this.chatService.getRecentMessages().subscribe((data) => {
+      this.recentMessages = data;
+      if (data.length > 0) {
+        this.openChat(data[0].id);
+      } else {
+        console.log('No recent messages found for user:', this.currentUserId);
 
+        this.currentReceiverId = 2;
+        this.currentOwnerName = 'Test User';
+        this.currentOwnerAvatar = 'assets/default-avatar.png';
 
-      this.currentReceiverId = 2;
-      this.currentOwnerName = 'Test User';
-      this.currentOwnerAvatar = 'assets/default-avatar.png';
+        this.chatService.getChatMessagesById(2).subscribe((msgs) => {
+          this.messages = msgs;
+        });
+      }
+    });
 
-      this.chatService.getChatMessagesById(2).subscribe((msgs) => {
-        this.messages = msgs;
-      });
-    }
-  });
-}
-
+    this.checkScreenSize();
+  }
 
   @HostListener('window:resize')
   checkScreenSize() {
@@ -69,12 +69,12 @@ export class ChatComponent implements OnInit {
       return;
     }
 
-    this.currentReceiverId = id;
+    this.currentReceiverId = 2;
     this.currentChatId = id;
 
     const owner = this.recentMessages.find(msg => +msg.id === id);
     this.currentOwnerAvatar = owner?.User_Photo || '';
-    this.currentOwnerName = owner?.firstname|| '';
+    this.currentOwnerName = owner?.firstname || '';
 
     this.chatService.getChatMessagesById(id).subscribe((msgs) => {
       this.messages = msgs.map(msg => ({
@@ -89,30 +89,29 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-  if (!this.currentReceiverId) {
-    alert('Please select a chat to send a message.');
-    return;
-  }
+    if (!this.currentReceiverId) {
+      alert('Please select a chat to send a message.');
+      return;
+    }
 
-  if (this.newMessage.trim()) {
-    this.chatService.sendMessage(this.currentReceiverId, this.newMessage).subscribe({
-      next: (sentMessage: Message) => {
-        const msg: Message = {
-          ...sentMessage,
-          from: 'me',
-           User_photo: ''
-        };
-        this.messages.push(msg);
-        this.newMessage = '';
-        setTimeout(() => this.scrollToBottom(), 100);
-      },
-      error: err => {
-        console.error('Error sending message:', err);
-      }
-    });
+    if (this.newMessage.trim()) {
+      this.chatService.sendMessage(this.currentReceiverId, this.newMessage).subscribe({
+        next: (sentMessage: Message) => {
+          const msg: Message = {
+            ...sentMessage,
+            from: 'me',
+            User_photo: ''
+          };
+          this.messages.push(msg);
+          this.newMessage = '';
+          setTimeout(() => this.scrollToBottom(), 100);
+        },
+        error: err => {
+          console.error('Error sending message:', err);
+        }
+      });
+    }
   }
-}
-
 
   scrollToBottom() {
     const container = document.querySelector('.chat-messages');

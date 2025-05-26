@@ -12,42 +12,32 @@ export class ChatService {
 
   constructor(private http: HttpClient) {}
 
-  private getHeaders(): HttpHeaders {
-  const token = localStorage.getItem('token');
-  let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-  if (token) {
-    headers = headers.set('Authorization', `Bearer ${token}`);
+    private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
   }
-
-  return headers;
-}
 
 getRecentMessages(): Observable<RecentMessage[]> {
   return this.http.get<RecentMessage[]>(`${this.apiUrl}/messages/recent`, {
-    headers: this.getHeaders()
+    headers: this.getAuthHeaders()
   });
 }
 
 
-  getChatMessagesById(receiverId: number): Observable<Message[]> {
-    return this.http.get<Message[]>(`${this.apiUrl}/messages/${receiverId}`, {
-      headers: this.getHeaders()
+  getChatMessagesById(receiver_id: number): Observable<Message[]> {
+    return this.http.get<Message[]>(`${this.apiUrl}/messages/${receiver_id}`, {
+      headers: this.getAuthHeaders()
     });
   }
 
   sendMessage(receiverId: number, content: string): Observable<Message> {
     const body = { receiver_id: receiverId, content };
     return this.http.post<Message>(`${this.apiUrl}/messages`, body, {
-      headers: this.getHeaders()
+      headers: this.getAuthHeaders()
     });
   }
 
-  getRandomReply(): string {
-    const replies = [
-      'Thanks',
-      '👍'
-    ];
-    return replies[Math.floor(Math.random() * replies.length)];
-  }
+
 }
