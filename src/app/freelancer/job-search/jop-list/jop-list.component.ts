@@ -79,7 +79,6 @@ get budgets(): string[] {
 }
 
 
-  // فلترة السيرش
   get filteredJobs() {
     return this.jobs; //بترجع الجوبس اللي من السيرفر
   }
