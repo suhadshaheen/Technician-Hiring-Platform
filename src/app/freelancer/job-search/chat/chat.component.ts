@@ -89,30 +89,30 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    if (!this.currentReceiverId) {
-      alert('Please select a chat to send a message.');
-      return;
-    }
-
-    if (this.newMessage.trim()) {
-      this.chatService.sendMessage(this.currentReceiverId, this.newMessage).subscribe({
-        next: (sentMessage: Message) => {
-          const msg: Message = {
-            ...sentMessage,
-            firstname: sentMessage.sender_id === this.currentUserId ? 'me' : 'owner',
-            User_photo: sentMessage.sender_id !== this.currentUserId ? this.currentOwnerAvatar : ''
-          };
-          this.messages.push(msg);
-          this.newMessage = '';
-          setTimeout(() => this.scrollToBottom(), 100);
-        },
-        error: err => {
-          console.error('Error sending message', err);
-          alert('Failed to send message. Please try again.');
-        }
-      });
-    }
+  if (!this.currentReceiverId) {
+    alert('Please select a chat to send a message.');
+    return;
   }
+
+  if (this.newMessage.trim()) {
+    this.chatService.sendMessage(this.currentReceiverId, this.newMessage).subscribe({
+      next: (sentMessage: Message) => {
+        const msg: Message = {
+          ...sentMessage,
+          from: 'me',
+           User_photo: ''
+        };
+        this.messages.push(msg);
+        this.newMessage = '';
+        setTimeout(() => this.scrollToBottom(), 100);
+      },
+      error: err => {
+        console.error('Error sending message:', err);
+      }
+    });
+  }
+}
+
 
   scrollToBottom() {
     const container = document.querySelector('.chat-messages');
