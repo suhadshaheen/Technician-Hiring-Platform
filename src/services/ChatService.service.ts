@@ -29,10 +29,11 @@ export class ChatService {
 
 
   getChatMessagesById(receiver_id: number): Observable<Message[]> {
-    return this.http.get<Message[]>(`${this.apiUrl}/messages/${receiver_id}`, {
+    return this.http.get<Message[]>(`${this.apiUrl}/messages/conversation/${receiver_id}`, {
       headers: this.getAuthHeaders()
     });
   }
+
 
   sendMessage(receiverId: number, content: string): Observable<Message> {
     const body = { receiver_id: receiverId, content };

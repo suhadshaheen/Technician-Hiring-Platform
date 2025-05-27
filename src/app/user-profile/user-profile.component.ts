@@ -11,13 +11,7 @@ import { AuthService } from '../user-roles-yousef/services/AuthService';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [
-    FormsModule,
-    NgFor,
-    RouterModule,
-    NgIf,
-    CommonModule,
-  ],
+  imports: [FormsModule, NgFor, RouterModule, NgIf, CommonModule],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
@@ -54,6 +48,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getCurrentUserProfile(): void {
+
     this.authService.getUser().subscribe(
       (user: User) => {
         this.currentUser = user;
@@ -62,7 +57,6 @@ export class UserProfileComponent implements OnInit {
       },
       error => {
         console.error('Error fetching current user profile:', error);
-
         this.router.navigate(['/login']);
       }
     );
@@ -85,7 +79,6 @@ export class UserProfileComponent implements OnInit {
         this.editInstagram = this.currentUser.profile.InstagramLink || '';
         this.editFacebook = this.currentUser.profile.FacebookLink || '';
       } else {
-
         this.currentUser.profile = {} as Profile;
         this.editBio = '';
         this.editSkills = '';
@@ -119,12 +112,7 @@ export class UserProfileComponent implements OnInit {
         response => {
           console.log('Profile photo updated successfully:', response);
           alert('Profile photo updated successfully!');
-
-          if (this.currentUser) {
-
-            this.currentUser.profile = this.currentUser.profile || {} as Profile;
-            this.currentUser.profile.User_photo = response.User_photo || this.currentUser.profile.User_photo;
-          }
+          this.getCurrentUserProfile();
           this.selectedFile = null;
         },
         error => {
@@ -168,16 +156,7 @@ export class UserProfileComponent implements OnInit {
         userResponse => {
           console.log('User basic info updated successfully:', userResponse);
           alert('User basic information updated!');
-
-          if (this.currentUser) {
-            this.currentUser.firstname = userResponse.firstname;
-            this.currentUser.lastname = userResponse.lastname;
-            this.currentUser.username = userResponse.username;
-            this.currentUser.phone = userResponse.phone;
-            this.currentUser.email = userResponse.email;
-            this.currentUser.city = userResponse.city;
-            this.currentUser.country = userResponse.country;
-          }
+          this.getCurrentUserProfile();
         },
         userError => {
           console.error('Error updating user basic info:', userError);
@@ -186,17 +165,13 @@ export class UserProfileComponent implements OnInit {
       );
     }
 
-    // 2. تحديث البايو (Bio)
+
     if (this.editBio !== (this.currentUser.profile?.bio || '')) {
       this.profileService.updateProfileBio(userId, this.editBio).subscribe(
         bioResponse => {
           console.log('Bio updated successfully:', bioResponse);
           alert('Bio updated successfully!');
-
-          if (this.currentUser) {
-            this.currentUser.profile = this.currentUser.profile || {} as Profile;
-            this.currentUser.profile.bio = bioResponse.bio;
-          }
+          this.getCurrentUserProfile();
         },
         bioError => {
           console.error('Error updating bio:', bioError);
@@ -205,16 +180,13 @@ export class UserProfileComponent implements OnInit {
       );
     }
 
+
     if (this.editSkills !== (this.currentUser.profile?.skills || '')) {
       this.profileService.updateProfileSkills(userId, this.editSkills).subscribe(
         skillsResponse => {
           console.log('Skills updated successfully:', skillsResponse);
           alert('Skills updated successfully!');
-
-          if (this.currentUser) {
-            this.currentUser.profile = this.currentUser.profile || {} as Profile;
-            this.currentUser.profile.skills = skillsResponse.skills;
-          }
+          this.getCurrentUserProfile();
         },
         skillsError => {
           console.error('Error updating skills:', skillsError);
@@ -222,7 +194,6 @@ export class UserProfileComponent implements OnInit {
         }
       );
     }
-
 
     const currentWhatsapp = this.currentUser.profile?.whatsappNumber || '';
     const currentInstagram = this.currentUser.profile?.InstagramLink || '';
@@ -243,13 +214,7 @@ export class UserProfileComponent implements OnInit {
         socialResponse => {
           console.log('Social links updated successfully:', socialResponse);
           alert('Social links updated successfully!');
-
-          if (this.currentUser) {
-            this.currentUser.profile = this.currentUser.profile || {} as Profile;
-            this.currentUser.profile.whatsappNumber = socialResponse.whatsappNumber;
-            this.currentUser.profile.InstagramLink = socialResponse.InstagramLink;
-            this.currentUser.profile.FacebookLink = socialResponse.FacebookLink;
-          }
+          this.getCurrentUserProfile();
         },
         socialError => {
           console.error('Error updating social links:', socialError);
