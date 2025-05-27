@@ -1,38 +1,38 @@
 <div class="container py-4">
-  <div class="row">
-    <div class="col-md-4 mb-4">
+  <div class="row" *ngIf="freelancerProfile"> <div class="col-md-4 mb-4">
       <div class="card profile-card text-center p-3">
-        <img [src]="profileImage" class="rounded-circle profile-img mb-3" alt="User Image" />
-        <h4>{{ userData.fullName }}</h4>
-        <p class="text-muted">{{ userData.role }}</p>
+        <img [src]="getProfileImageUrl()" class="rounded-circle profile-img mb-3" alt="User Image" />
+        <h4>{{ freelancerProfile.firstname }} {{ freelancerProfile.lastname }}</h4>
+        <p class="text-muted">{{ freelancerProfile.role?.name || 'Freelancer' }}</p>
 
         <div class="contact-info mt-3">
-          <p><i class="bi bi-phone"></i> {{ userData.phone }}</p>
-          <p><i class="bi bi-envelope"></i> {{ userData.email }}</p>
+          <p><i class="bi bi-phone"></i> {{ freelancerProfile.phone }}</p>
+          <p><i class="bi bi-envelope"></i> {{ freelancerProfile.email }}</p>
         </div>
 
-        <div class="social-links mt-3">
-          <a href="#https://www.instagram.com/anajahuni?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="btn suhad-btn btn-sm me-2">Facebook</a>
-          <a href="#https://www.instagram.com/anajahuni?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="btn suhad-btn btn-sm">Instagram</a>
+        <div class="social-links mt-3" *ngIf="freelancerProfile.profile">
+          <a *ngIf="freelancerProfile.profile.FacebookLink" [href]="freelancerProfile.profile.FacebookLink" target="_blank" class="btn suhad-btn btn-sm me-2">Facebook</a>
+          <a *ngIf="freelancerProfile.profile.InstagramLink" [href]="freelancerProfile.profile.InstagramLink" target="_blank" class="btn suhad-btn btn-sm">Instagram</a>
+          <a *ngIf="freelancerProfile.profile.whatsappNumber" [href]="'https://wa.me/' + freelancerProfile.profile.whatsappNumber" target="_blank" class="btn suhad-btn btn-sm ms-2">WhatsApp</a>
         </div>
       </div>
     </div>
 
     <div class="col-md-8">
       <div class="card p-4">
-        <h5>Profile</h5>
-        <p><strong>Username:</strong> {{ userData.username }}</p>
-        <p><strong>Phone:</strong> {{ userData.phone }}</p>
-        <p><strong>Email:</strong> {{ userData.email }}</p>
-        <p><strong>City:</strong> {{ userData.city }}</p>
-        <p><strong>Country:</strong> {{ userData.country }}</p>
-        <p><strong>About Me:</strong> {{ userData.about }}</p>
-
-        <h6 class="mt-4">Skills</h6>
+        <h5>Profile Details</h5>
+        <p><strong>Username:</strong> {{ freelancerProfile.username }}</p>
+        <p><strong>Phone:</strong> {{ freelancerProfile.phone }}</p>
+        <p><strong>Email:</strong> {{ freelancerProfile.email }}</p>
+        <p><strong>City:</strong> {{ freelancerProfile.city }}</p>
+        <p><strong>Country:</strong> {{ freelancerProfile.country }}</p>
+        <p><strong>About Me:</strong> {{ freelancerProfile.profile?.bio }}</p> <h6 class="mt-4">Skills</h6>
         <ul>
-          <li *ngFor="let skill of userData.skills">{{ skill }}</li>
-        </ul>
+          <li *ngFor="let skill of skillsArray">{{ skill }}</li> </ul>
       </div>
     </div>
+  </div>
+  <div *ngIf="!freelancerProfile" class="text-center mt-5">
+    <p>Loading freelancer profile or profile not found...</p>
   </div>
 </div>

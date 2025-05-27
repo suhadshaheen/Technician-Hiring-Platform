@@ -6,6 +6,7 @@ import { ChatService } from '../../../../services/ChatService.service';
 import { Message, MessageWithMeta } from '../../../../models/message';
 import { User } from '../../../../models/User';
 
+
 @Component({
   selector: 'app-chat',
   standalone: true,
@@ -39,9 +40,9 @@ export class ChatComponent implements OnInit {
       } else {
         console.log('No recent contacts found for user:', this.currentUserId);
 
-        this.currentReceiverId = 2;
-        this.currentOwnerName = 'Test User';
-        this.currentOwnerAvatar = 'assets/default-avatar.png';
+        this.currentReceiverId = 23;
+        this.currentOwnerName = 'suhad';
+        this.currentOwnerAvatar = 'assets/default.png';
 
         this.chatService.getChatMessagesById(2).subscribe((msgs) => {
           this.messages = msgs.map(msg => ({
