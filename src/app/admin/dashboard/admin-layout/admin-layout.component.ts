@@ -43,8 +43,8 @@ export class AdminLayoutComponent implements AfterViewInit {
   cards = [
     { number: '1,250', name: 'Job Requests', icon: 'bi-briefcase-fill', color: 'primary' },
     { number: '980', name: 'Approved Artisans', icon: 'bi-person-check-fill', color: 'success' },
-    { number: '$12,340', name: 'Platform Earnings', icon: 'bi-currency-dollar', color: 'warning' },
-    { number: '3,200', name: 'Site Visits', icon: 'bi-graph-up-arrow', color: 'info' }
+    { number: '$12,340', name: 'Platform Earnings(static)', icon: 'bi-currency-dollar', color: 'warning' },
+    { number: '3,200', name: 'Site Visits(static)', icon: 'bi-graph-up-arrow', color: 'info' }
   ];
 
   artisans = [
