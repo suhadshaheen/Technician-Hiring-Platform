@@ -1,7 +1,8 @@
 import { NgClass, NgForOf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { FreelancerProfileComponent} from '../../../freelancer/freelancer-profile/freelancer-profile.component';
+import { AdminArtisanService, Artisan } from '../../../../services/adminArtisan.service';
 
 @Component({
   selector: 'app-users',
@@ -9,18 +10,26 @@ import { FreelancerProfileComponent} from '../../../freelancer/freelancer-profil
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent {
+
+ export class UsersComponent implements OnInit {
   searchTerm: string = '';
+  artisans: Artisan[] = [];
+  filteredArtisans: Artisan[] = [];
 
-  artisans = [
-    { name: 'Ahmed Khaled', skill: 'Electrician', location: 'Cairo', status: 'pending' },
-    { name: 'Fatima Nour', skill: 'Plumber', location: 'Amman', status: 'pending' },
-    { name: 'Mohammed Zain', skill: 'Painter', location: 'Riyadh', status: 'pending' },
-    { name: 'Layla Hassan', skill: 'Carpenter', location: 'Beirut', status: 'pending' },
-    { name: 'Omar Fathi', skill: 'AC Technician', location: 'Dubai', status: 'pending' }
-  ];
+  constructor(private artisanService: AdminArtisanService) {}
 
-  filteredArtisans = this.artisans;
+ngOnInit(): void {
+  this.artisanService.getArtisans().subscribe({
+    next: (data) => {
+      console.log('Artisans loaded:', data);
+      this.artisans = data;
+      this.filteredArtisans = data;
+    },
+    error: (err) => {
+      console.error('Error loading artisans:', err);
+    }
+  });
+}
 
   onSearch(event: any): void {
     const query = event.target.value.toLowerCase();
@@ -31,7 +40,52 @@ export class UsersComponent {
     );
   }
 
-  updateStatus(artisan: any, newStatus: string): void {
-    artisan.status = newStatus;
+  updateStatus(artisan: Artisan, newStatus: string): void {
+    this.artisanService.updateStatus(artisan.id, newStatus).subscribe(() => {
+      artisan.status = newStatus;
+    });
   }
 }
+
+
+
+
+// import { Component, OnInit } from '@angular/core';
+// import { AdminArtisanService, Artisan } from 'src/app/services/admin-artisan.service';
+
+// @Component({
+//   selector: 'app-users',
+//   templateUrl: './users.component.html',
+//   styleUrls: ['./users.component.css'],
+//   standalone: true,
+//   imports: [NgClass, NgForOf, RouterModule, RouterLink]
+// })
+// export class UsersComponent implements OnInit {
+//   searchTerm: string = '';
+//   artisans: Artisan[] = [];
+//   filteredArtisans: Artisan[] = [];
+
+//   constructor(private artisanService: AdminArtisanService) {}
+
+//   ngOnInit(): void {
+//     this.artisanService.getArtisans().subscribe((data) => {
+//       this.artisans = data;
+//       this.filteredArtisans = data;
+//     });
+//   }
+
+//   onSearch(event: any): void {
+//     const query = event.target.value.toLowerCase();
+//     this.filteredArtisans = this.artisans.filter(artisan =>
+//       artisan.name.toLowerCase().includes(query) ||
+//       artisan.skill.toLowerCase().includes(query) ||
+//       artisan.location.toLowerCase().includes(query)
+//     );
+//   }
+
+//   updateStatus(artisan: Artisan, newStatus: string): void {
+//     this.artisanService.updateStatus(artisan.id, newStatus).subscribe(() => {
+//       artisan.status = newStatus;
+//     });
+//   }
+// }

@@ -1,25 +1,29 @@
-import { NgClass, NgForOf } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import {  JobDetailsComponent } from '../../../freelancer/job-search/job-details/job-details.component';
 import { RouterLink, RouterModule } from '@angular/router';
+import { JobsService } from '../../../../services/adminJob.service';
+
 @Component({
   selector: 'app-jobs',
-  imports: [RouterModule,RouterLink, NgClass, NgForOf],
+  imports: [RouterModule,RouterLink, NgClass, NgForOf,JobDetailsComponent,NgIf],
   templateUrl: './jobs.component.html',
   styleUrl: './jobs.component.css'
 })
-export class JobsComponent {
-  searchTerm: string = '';
+export class JobsComponent implements OnInit {
+ searchTerm: string = '';
+  jobs: any[] = [];
+  filteredJobs: any[] = [];
+   message: string = '';
+  errorMessage: string = '';
 
-  jobs = [
-    { title: 'Electrician Needed', description: 'Fix house wiring and lighting issues.', location: 'Cairo', status: 'open' },
-    { title: 'Plumber Required', description: 'Install and maintain plumbing systems.', location: 'Amman', status: 'open' },
-    { title: 'Painter Wanted', description: 'Paint interior and exterior surfaces.', location: 'Riyadh', status: 'open' },
-    { title: 'AC Technician', description: 'Install and repair air conditioning units.', location: 'Dubai', status: 'open' }
-  ];
-
-  filteredJobs = this.jobs;
-
+  constructor(private jobsService: JobsService) {}
+  ngOnInit(): void {
+    this.jobsService.getJobs().subscribe(data => {
+      this.jobs = data;
+      this.filteredJobs = data;
+    });
+  }
   onSearch(event: any): void {
     const query = event.target.value.toLowerCase();
     this.filteredJobs = this.jobs.filter(job =>
@@ -29,12 +33,36 @@ export class JobsComponent {
     );
   }
 
-  updateStatus(job: any, newStatus: string): void {
-    job.status = newStatus;
+
+
+
+ updateStatus(job: any, newStatus: string): void {
+    this.jobsService.updateJobStatus(job.id, newStatus).subscribe({
+      next: () => {
+        job.status = newStatus;
+        this.message = 'Job status updated successfully.';
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to update job status.';
+        console.error('Error updating status:', err);
+      }
+    });
   }
 
   deleteJob(job: any): void {
-    this.filteredJobs = this.filteredJobs.filter(j => j !== job);
-    this.jobs = this.jobs.filter(j => j !== job);
+    const confirmed = window.confirm('Are you sure you want to delete this job?');
+    if (!confirmed) return;
+
+    this.jobsService.deleteJob(job.id).subscribe({
+      next: () => {
+        this.jobs = this.jobs.filter(j => j.id !== job.id);
+        this.filteredJobs = this.filteredJobs.filter(j => j.id !== job.id);
+        this.message = 'Job deleted successfully.';
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to delete job.';
+        console.error('Error deleting job:', err);
+      }
+    });
   }
-}
+}   
