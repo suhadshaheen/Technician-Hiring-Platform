@@ -1,91 +1,86 @@
-import { NgClass, NgForOf } from '@angular/common';
+import { CommonModule, NgClass, NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
-import { FreelancerProfileComponent} from '../../../freelancer/freelancer-profile/freelancer-profile.component';
+import { FreelancerProfileComponent } from '../../../freelancer/freelancer-profile/freelancer-profile.component';
 import { AdminArtisanService, Artisan } from '../../../../services/adminArtisan.service';
 
 @Component({
   selector: 'app-users',
-  imports:[NgClass,NgForOf,RouterModule,FreelancerProfileComponent,RouterLink],
+  imports: [NgClass, NgForOf, RouterModule, FreelancerProfileComponent, RouterLink,CommonModule],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
 
- export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit {
   searchTerm: string = '';
   artisans: Artisan[] = [];
   filteredArtisans: Artisan[] = [];
+  newArtisans: Artisan[] = [];
 
-  constructor(private artisanService: AdminArtisanService) {}
+  constructor(private artisanService: AdminArtisanService) { }
 
-ngOnInit(): void {
-  this.artisanService.getArtisans().subscribe({
-    next: (data) => {
-      console.log('Artisans loaded:', data);
-      this.artisans = data;
-      this.filteredArtisans = data;
-    },
-    error: (err) => {
-      console.error('Error loading artisans:', err);
-    }
-  });
-}
-
-  onSearch(event: any): void {
-    const query = event.target.value.toLowerCase();
-    this.filteredArtisans = this.artisans.filter(artisan =>
-      artisan.name.toLowerCase().includes(query) ||
-      artisan.skill.toLowerCase().includes(query) ||
-      artisan.location.toLowerCase().includes(query)
-    );
+  ngOnInit(): void {
+    this.loadArtisans();
   }
 
-  updateStatus(artisan: Artisan, newStatus: string): void {
-    this.artisanService.updateStatus(artisan.id, newStatus).subscribe(() => {
-      artisan.status = newStatus;
+  loadArtisans(): void {
+    this.artisanService.getArtisans().subscribe({
+      next: (artisans) => {
+        this.artisans = artisans;
+
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+        this.newArtisans = artisans.filter(a => new Date(a.created_at) >= oneWeekAgo);
+
+        this.filteredArtisans = [...this.artisans];
+
+      },
+      error: (error) => {
+        console.error('Error loading artisans:', error);
+      }
+    });
+  }
+
+  onSearch(event: any): void {
+    const query = event.target.value.trim().toLowerCase();
+    if (!query) {
+      this.filteredArtisans = [...this.artisans];
+      return;
+    }
+
+    this.artisanService.searchArtisans(query).subscribe({
+      next: (results) => {
+        this.filteredArtisans = results;
+      },
+      error: (error) => {
+        console.error('Search error:', error);
+        this.filteredArtisans = this.artisans.filter(artisan =>
+          artisan.firstname.toLowerCase().includes(query) ||
+          artisan.lastname.toLowerCase().includes(query) ||
+          artisan.username.toLowerCase().includes(query) ||
+          artisan.city?.toLowerCase().includes(query) ||
+          artisan.country?.toLowerCase().includes(query)
+        );
+      }
+    });
+  }
+
+
+
+
+
+  deleteArtisan(artisan: Artisan): void {
+    this.artisanService.deleteArtisan(artisan.id).subscribe({
+      next: () => {
+        this.artisans = this.artisans.filter(a => a.id !== artisan.id);
+        this.filteredArtisans = this.filteredArtisans.filter(a => a.id !== artisan.id);
+        this.newArtisans = this.newArtisans.filter(a => a.id !== artisan.id);
+      },
+      error: (error) => {
+        console.error('Failed to delete artisan:', error);
+      }
     });
   }
 }
 
-
-
-
-// import { Component, OnInit } from '@angular/core';
-// import { AdminArtisanService, Artisan } from 'src/app/services/admin-artisan.service';
-
-// @Component({
-//   selector: 'app-users',
-//   templateUrl: './users.component.html',
-//   styleUrls: ['./users.component.css'],
-//   standalone: true,
-//   imports: [NgClass, NgForOf, RouterModule, RouterLink]
-// })
-// export class UsersComponent implements OnInit {
-//   searchTerm: string = '';
-//   artisans: Artisan[] = [];
-//   filteredArtisans: Artisan[] = [];
-
-//   constructor(private artisanService: AdminArtisanService) {}
-
-//   ngOnInit(): void {
-//     this.artisanService.getArtisans().subscribe((data) => {
-//       this.artisans = data;
-//       this.filteredArtisans = data;
-//     });
-//   }
-
-//   onSearch(event: any): void {
-//     const query = event.target.value.toLowerCase();
-//     this.filteredArtisans = this.artisans.filter(artisan =>
-//       artisan.name.toLowerCase().includes(query) ||
-//       artisan.skill.toLowerCase().includes(query) ||
-//       artisan.location.toLowerCase().includes(query)
-//     );
-//   }
-
-//   updateStatus(artisan: Artisan, newStatus: string): void {
-//     this.artisanService.updateStatus(artisan.id, newStatus).subscribe(() => {
-//       artisan.status = newStatus;
-//     });
-//   }
-// }
