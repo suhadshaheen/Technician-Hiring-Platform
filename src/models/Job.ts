@@ -13,4 +13,6 @@ export interface Job {
   budget: number;
   attempts?: number;
   available_at?: string;
+  work_level ?: string ;
+  experience ?:string
 }

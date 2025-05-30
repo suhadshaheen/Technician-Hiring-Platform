@@ -11,7 +11,9 @@
       class="col-md-3 mb-3"
       *ngFor="let field of [
         { icon: 'fa-clock', label: 'Deadline', value: job?.deadline },
-        { icon: 'fa-coins', label: 'Salary', value: job?.budget }
+        { icon: 'fa-coins', label: 'Salary', value: job?.budget },
+        { icon: 'fa-location-dot', label: 'experience', value: job?.experience},
+        { icon: 'fa-location-dot', label: 'work_level', value: job?.work_level},
       ]"
     >
       <div class="p-3 bg-light rounded">
