@@ -22,31 +22,16 @@
   
     <div class="row">
         <div class="col-12 col-md-6 d-flex flex-column">
-          <input id="overview" type="text" formControlName="overview" class="form-control ">
-          <label for="overview" class="form-label">Overview</label>
+          <input id="job_requirements" type="text" formControlName="job_requirements" class="form-control ">
+          <label for="job_requirements" class="form-label">Job Requirements</label>
         </div>
         <div class="col-12 col-md-6 d-flex flex-column">
-          <input id="Location" type="text" formControlName="Location" class="form-control">
+          <input id="Location" type="text" formControlName="location" class="form-control">
           <label for="Location" class="form-label">Location</label>
         </div>
     </div>
   
     <div class="row">
-      <div class="col-12 col-md-6 d-flex flex-column">
-        <input id="minBudget" type="number" formControlName="minBudget" class="form-control ">
-        <label for="minBudget" class="form-label">Budget From</label>
-      </div>
-      <div class="col-12 col-md-6 d-flex flex-column">
-        <input id="maxBudget" type="number" formControlName="maxBudget" class="form-control ">
-        <label for="maxBudget" class="form-label">Budget To</label>
-      </div>
-    </div>
-  
-    <div class="row">
-      <div class="col-12 col-md-6 d-flex flex-column">
-        <input id="endDate" type="date" formControlName="endDate" class="form-control ">
-        <label for="endDate" class="form-label">End Date</label>
-      </div>
       <div class="col-12 col-md-6 d-flex flex-column">
         <select id="workLevel" formControlName="workLevel" class="form-control ">
           <option value=""></option>
@@ -55,6 +40,21 @@
           <option value="freelancer">Expert</option>
         </select>
         <label for="workLevel" class="form-label">Work Level</label>
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-column">
+        <input id="Experience" type="text" formControlName="experience" class="form-control ">
+        <label for="Experience" class="form-label">Experience</label>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-12 col-md-6 d-flex flex-column">
+        <input id="endDate" type="date" formControlName="deadline" class="form-control ">
+        <label for="endDate" class="form-label">End Date</label>
+      </div>
+      <div class="col-12 col-md-6 d-flex flex-column">
+        <input id="Budget" type="number" formControlName="budget" class="form-control ">
+        <label for="Budget" class="form-label">Budget</label>
       </div>
     </div>
     <div class="attach_file ">

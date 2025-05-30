@@ -11,7 +11,8 @@ export class YourJobComponent {
   @Input() title!: string ;
   @Input() jobId!: number;
   @Input() canEdit: boolean = true;
-
+  @Input() job: any;
+  // @Input() freelancerId: any;
   @Output() edit = new EventEmitter<void>();
   @Output() delete = new EventEmitter<number>();
   @Output() bids = new EventEmitter<void>();
