@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobService } from '../../../../services/Jobservice.service';
-import { Job } from '../../../../models/Job'; 
+import { Job } from '../../../../models/Job';
 import { BidService } from '../../../../services/Bid.service';
 import { AuthService } from '../../../user-roles-yousef/services/AuthService';
 import { FormsModule } from '@angular/forms';
@@ -24,6 +24,8 @@ export class JobDetailsComponent implements OnInit {
   job: Job | null = null;
   bidAmount: number = 0;
   workTimeline: string = '';
+  experience : string = '';
+  work_level : string ='';
   bids: Bid[] = [];
   userId!: number;
   userRole!: string;
