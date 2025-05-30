@@ -6,7 +6,7 @@
     <i class="fa-solid fa-bars"></i>
   </button>
 
-<!-- <div class="chat-sidebar border-end p-3 overflow-auto bg-light h-100"
+<div class="chat-sidebar border-end p-3 overflow-auto bg-light h-100"
      [ngClass]="{ 'd-none': !sidebarOpen && isMobile }"
      style="width: 300px;">
   <h6 class="fw-bold mb-3">Contacts</h6>
@@ -15,13 +15,12 @@
        role="button"
        [ngClass]="{ 'bg-white border': contact.id === currentChatId }"
        (click)="openChat(contact.id)">
-    <img [src]="contact.profile?.User_photo || 'assets/default-avatar.png'" class="rounded-circle me-2" width="40" height="40" />
-    <div class="flex-grow-1">
-      <div class="fw-bold text-truncate" style="max-width: 200px;">{{ contact.firstname }}</div>
-      <small class="text-muted text-truncate d-block" style="max-width: 200px;">{{ contact.profile?.bio || 'No bio available' }}</small>
+<img [src]="contact.profile?.User_photo ? ('http://localhost:8000/storage/' + contact.profile?.User_photo) : 'assets/default.jpg'" class="rounded-circle me-2" width="40" height="40" />    <div class="flex-grow-1">
+      <div class="fw-bold text-truncate" style="max-width: 200px;">{{ contact.firstname }} {{contact.lastname}}</div>
+
     </div>
   </div>
-</div> -->
+</div>
 
 
   <div class="chat-window flex-grow-1 d-flex flex-column bg-white">
@@ -36,8 +35,7 @@
              'flex-row-reverse align-self-end': msg.from === 'me',
              'align-self-start': msg.from === 'owner'
            }">
-        <img *ngIf="msg.from === 'owner'" [src]="msg.avatar || 'assets/default-avatar.png'" class="rounded-circle me-2" width="40" height="40" />
-        <div class="rounded-pill px-3 py-2 text-white"
+<img *ngIf="msg.from === 'owner'" [src]="msg.avatar ? ('http://localhost:8000/storage/' + msg.avatar) : 'assets/default.jpg'" class="rounded-circle me-2" width="40" height="40" />        <div class="rounded-pill px-3 py-2 text-white"
              [ngStyle]="{ 'background-color': '#40189d', 'max-width': '75%' }">
           <div class="text-wrap">{{ msg.content }}</div>
           <div class="small text-light mt-1 text-end">
@@ -45,8 +43,6 @@
           </div>
         </div>
       </div>
-
-      <div *ngIf="isTyping" class="text-muted fst-italic small">Typing...</div>
     </div>
 
     <div class="chat-input d-flex border-top p-2 bg-white">

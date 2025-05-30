@@ -16,18 +16,17 @@ import { User } from '../../../../models/User';
 })
 export class ChatComponent implements OnInit {
   newMessage = '';
-  isTyping = false;
   messages: MessageWithMeta[] = [];
   recentContacts: User[] = [];
   currentChatId: number | null = null;
 
-  currentOwnerAvatar: string = '';
-  currentOwnerName: string = '';
-  currentReceiverId: number = 0;
 
-  currentUserId: number = Number(localStorage.getItem('userId') || '0');
+  currentOwnerName= '';
+  currentReceiverId = 0;
 
-  sidebarOpen: boolean = true;
+  currentUserId= Number(localStorage.getItem('userId') || '0');
+
+  sidebarOpen= true;
   isMobile = false;
 
   constructor(private chatService: ChatService) {}
@@ -40,17 +39,6 @@ export class ChatComponent implements OnInit {
       } else {
         console.log('No recent contacts found for user:', this.currentUserId);
 
-        this.currentReceiverId = 23;
-        this.currentOwnerName = 'suhad';
-        this.currentOwnerAvatar = 'assets/default.png';
-
-        this.chatService.getChatMessagesById(2).subscribe((msgs) => {
-          this.messages = msgs.map(msg => ({
-            ...msg,
-            from: msg.sender_id === this.currentUserId ? 'me' : 'owner',
-            avatar: msg.sender_id !== this.currentUserId ? this.currentOwnerAvatar : ''
-          })) as MessageWithMeta[];
-        });
       }
     });
 
@@ -78,14 +66,17 @@ export class ChatComponent implements OnInit {
     this.currentChatId = id;
 
     const owner = this.recentContacts.find(user => user.id === id);
-    this.currentOwnerAvatar = owner?.profile?.User_photo|| 'assets/default-avatar.png';
     this.currentOwnerName = owner?.firstname || 'Unknown';
+
 
     this.chatService.getChatMessagesById(id).subscribe((msgs: Message[]) => {
       this.messages = msgs.map(msg => ({
         ...msg,
         from: msg.sender_id === this.currentUserId ? 'me' : 'owner',
-        avatar: msg.sender_id !== this.currentUserId ? this.currentOwnerAvatar : ''
+
+        avatar: msg.sender_id !== this.currentUserId
+                  ? (msg.sender?.profile?.User_photo || 'assets/default.jpg')
+                  : ''
       })) as MessageWithMeta[];
       setTimeout(() => this.scrollToBottom(), 100);
     });
