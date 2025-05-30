@@ -10,6 +10,10 @@
   <div class="row g-4 mb-4">
     <div class="col-md-4" *ngFor="let artisan of newArtisans">
       <div class="card shadow rounded h-100 position-relative border border-primary">
+         <button [routerLink]="['/admin/freelancers', artisan.id]"
+          class="btn btn-sm bg-white text-purple-600 border border-purple-600 rounded-pill position-absolute top-0 end-0 m-2">
+          Details
+        </button>
         <div class="card-body d-flex flex-column justify-content-between">
           <div>
             <h5 class="card-title">{{ artisan.firstname }} {{ artisan.lastname }}</h5>
@@ -28,6 +32,10 @@
   <div class="row g-4">
     <div class="col-md-4" *ngFor="let artisan of filteredArtisans">
       <div class="card shadow rounded h-100 position-relative">
+         <button [routerLink]="['/admin/freelancers', artisan.id]"
+          class="btn btn-sm bg-white text-purple-600 border border-purple-600 rounded-pill position-absolute top-0 end-0 m-2">
+          Details
+        </button>
         <div class="card-body d-flex flex-column justify-content-between">
           <div>
             <h5 class="card-title">{{ artisan.firstname }} {{ artisan.lastname }}</h5>
