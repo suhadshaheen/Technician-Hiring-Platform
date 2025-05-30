@@ -11,7 +11,7 @@ export class JobBidComponent {
   @Input() name!: string ;
   @Input() date!: string ;
   @Input() bidId!: number;
-
+  @Input() freelancerId: any;
   @Output() delete = new EventEmitter<number>();
   approve() {
     // this.edit.emit();

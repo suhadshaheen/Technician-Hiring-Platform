@@ -57,7 +57,9 @@ export const routes: Routes = [
       {path: 'Bids', component:JobBidsPageComponent},
       {path: 'Edit' , component:AditJobPageComponent},
       {path: 'profile', component: UserProfileComponent},
-      {path: 'chat',component: ChatComponent}
+      {path: 'chat',component: ChatComponent},
+      {path: 'job-details/:id', component: JobDetailsComponent},
+      {path: 'freelancers/:id', component: FreelancerProfileComponent}
      ]
   },
   {path:'freelancer', component:FreelancerComponent ,

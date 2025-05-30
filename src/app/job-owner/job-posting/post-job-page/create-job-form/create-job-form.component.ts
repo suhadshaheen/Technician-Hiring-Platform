@@ -1,5 +1,7 @@
 import {AfterViewInit, Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { JobService } from '../../../../../services/Jobservice.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-job-form',
@@ -9,17 +11,16 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 })
 export class CreateJobFormComponent {
   jobForm: FormGroup;
-
-  constructor(private formBuild: FormBuilder) {
+  constructor(private formBuild: FormBuilder, private jobService: JobService) {
     this.jobForm = this.formBuild.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
       category: ['', Validators.required],
-      description: ['', [Validators.required, Validators.minLength(50), Validators.maxLength(1000)]],
-      overview: ['', [Validators.required, Validators.pattern('^[a-zA-Z, ]*$')]],
-      Location: ['', [Validators.required]],
-      minBudget: ['', [ Validators.min(1)]],
-      maxBudget: ['', [Validators.required, Validators.min(1)]],
-      endDate: ['', Validators.required],
+      description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1000)]],
+      job_requirements: ['', [Validators.required, Validators.pattern('^[a-zA-Z, ]*$')]],
+      location: ['', [Validators.required]],
+      budget: ['', [ Validators.min(10)]],
+      experience: ['', [Validators.required]],
+      deadline: ['', Validators.required],
       workLevel: ['', Validators.required]
     });
   }
@@ -37,12 +38,32 @@ export class CreateJobFormComponent {
   }
 }
 
+onSubmit(): void {
+  if (this.jobForm.invalid) {
+    alert("Please fill all required fields.");
+    return;
+  }
+  const jobOwnerId = localStorage.getItem('userId');
+  const jobData = {
+  ...this.jobForm.value,
+  job_owner_id: jobOwnerId,
+  experience: String(this.jobForm.value.experience),
+  attempts: 0 
+};
 
-
-  onSubmit() {
-   
-
+  this.jobService.postJob(jobData).subscribe({
+  next: (response: any) => {
+    console.log("Job created successfully:", response);
+    alert("Job posted successfully!");
+    this.jobForm.reset();
+  },
+  error: (error: HttpErrorResponse) => {
+    console.error("Error posting job:", error);
+    alert("Failed to post job.");
+  }
+});
 }
+
 }
 
 

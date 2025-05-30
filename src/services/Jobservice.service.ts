@@ -12,8 +12,13 @@ import { Job } from '../models/Job';
 export class JobService {
   private apiUrl = 'http://127.0.0.1:8000/api';
   token = localStorage.getItem('token');
-
-
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+  }
+  
   constructor(private http: HttpClient) {}
 
   getAllJobs(filters?: any): Observable<Job[]> {
@@ -30,6 +35,12 @@ export class JobService {
 
   }
 
+  postJob(jobData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/jobs`, jobData, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
 getJobById(id: number): Observable<Job> {
   const token = localStorage.getItem('token');
   const headers = new HttpHeaders({
@@ -39,6 +50,25 @@ getJobById(id: number): Observable<Job> {
   return this.http.get<Job>(`${this.apiUrl}/jobs/${id}`, { headers });
 }
 
+updateJob(id: number, jobData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/jobs/${id}`, jobData, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
+  deleteJob(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/jobs/${id}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
+  getJobBids(jobId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/jobs/${jobId}/bids`, {
+      headers: this.getAuthHeaders()
+    });
+  }
 
  updateJobStatus(id: number, status: string): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}/status`, { status });
