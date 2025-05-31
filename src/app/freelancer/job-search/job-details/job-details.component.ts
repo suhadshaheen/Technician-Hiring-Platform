@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobService } from '../../../../services/Jobservice.service';
@@ -8,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Bid} from '../../../../models/Bid';
+import { CommonModule } from '@angular/common';
 
 declare var bootstrap: any;
 
@@ -17,7 +19,7 @@ declare var bootstrap: any;
   templateUrl: './job-details.component.html',
   styleUrls: ['./job-details.component.css'],
   standalone: true,
-  imports: [FormsModule, NgClass, NgForOf, NgIf, RouterModule],
+  imports: [FormsModule, NgClass, NgForOf, NgIf, RouterModule,CommonModule],
 })
 export class JobDetailsComponent implements OnInit {
   jobId: number = 0;
@@ -39,41 +41,32 @@ export class JobDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.jobId = Number(this.route.snapshot.paramMap.get('id'));
-    this.loadJob();
-    // this.loadBids();
+  this.jobId = Number(this.route.snapshot.paramMap.get('id'));
+  this.loadJob();
 
-
-    this.userId = 23;
-    this.userRole = 'freelancer';
-  }
-
-  // loadJob() {
-  //   this.jobService.getJobById(this.jobId).subscribe({
-  //     next: (data) => {
-  //       this.job = data;
-  //       try {
-  //         const requirementsObj = JSON.parse(this.job.job_requirements ?? '{}');
-  //         this.jobPoints = Object.values(requirementsObj);
-  //       } catch (e) {
-  //         this.jobPoints = this.job.job_requirements ? [this.job.job_requirements] : [];
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error('Failed to load job:', err);
-  //     }
-  //   });
-  // }
+  this.userId = this.authService.getUserId();
+  this.userRole = this.authService.getUserRole();
+}
 
   loadJob() {
     this.jobService.getJobById(this.jobId).subscribe({
       next: (data) => {
         this.job = data;
+
         if (this.job?.job_requirements) {
-          this.jobPoints = this.job.job_requirements
-            .split(',')
-            .map(req => req.trim())
-            .filter(req => req.length > 0);
+          try {
+
+            const requirementsObj = JSON.parse(this.job.job_requirements);
+
+            this.jobPoints = Object.values(requirementsObj).map(value => String(value));
+          } catch (e) {
+
+            console.warn('Failed to parse job requirements as JSON, treating as plain string.', e);
+            this.jobPoints = this.job.job_requirements
+              .split(',')
+              .map(req => req.trim())
+              .filter(req => req.length > 0);
+          }
         } else {
           this.jobPoints = [];
         }
@@ -83,55 +76,45 @@ export class JobDetailsComponent implements OnInit {
       }
     });
   }
- 
-  // loadBids() {
-  //   this.bidService.getBidsForJob(this.jobId).subscribe({
-  //     next: (data) => {
-  //       this.bids = data;
-  //     },
-  //     error: (err) => {
-  //       console.error('Failed to load bids:', err);
-  //     },
-  //   });
-  // }
+
 
   onSubmitBid() {
-  if (this.hasBid()) {
-    alert('You have already placed a bid for this job.');
-    return;
+    if (this.hasBid()) {
+      alert('You have already placed a bid for this job.');
+      return;
+    }
+
+    const newBid: Bid = {
+      job_id: this.jobId,
+      freelancer_id: this.userId,
+      bid_amount: this.bidAmount,
+      work_time_line: this.workTimeline,
+    };
+
+    this.bidService.submitBid(newBid).subscribe({
+      next: (response: Bid) => {
+        alert('Bid submitted successfully!');
+        this.bids.push(response);
+        this.bidAmount = 0;
+        this.workTimeline = '';
+
+        const modalEl = document.getElementById('bidModal');
+        if (modalEl) {
+          const modal = bootstrap.Modal.getInstance(modalEl);
+          modal?.hide();
+        }
+      },
+      error: (error: any) => {
+
+        if (error.status === 409 || error.error?.message?.includes('already placed')) {
+          alert('You have already placed a bid for this job.');
+        } else {
+          console.error('Bid submission failed:', error);
+          alert('An unexpected error occurred. Please contact support.');
+        }
+      },
+    });
   }
-
-  const newBid: Bid = {
-    job_id: this.jobId,
-    freelancer_id: this.userId,
-    bid_amount: this.bidAmount,
-    work_time_line: this.workTimeline,
-  };
-
-  this.bidService.submitBid(newBid).subscribe({
-    next: (response: Bid) => {
-      alert('Bid submitted successfully!');
-      this.bids.push(response);
-      this.bidAmount = 0;
-      this.workTimeline = '';
-
-      const modalEl = document.getElementById('bidModal');
-      if (modalEl) {
-        const modal = bootstrap.Modal.getInstance(modalEl);
-        modal?.hide();
-      }
-    },
-    error: (error: any) => {
-
-      if (error.status === 409 || error.error?.message?.includes('already placed')) {
-        alert('You have already placed a bid for this job.');
-      } else {
-        console.error('Bid submission failed:', error);
-        alert('An unexpected error occurred. Please contact support.');
-      }
-    },
-  });
-}
 
 
   hasBid(): boolean {
@@ -142,19 +125,19 @@ export class JobDetailsComponent implements OnInit {
     if (!this.job) return;
 
     let newStatus = '';
-    if (this.job.status === 'Pending') {
-      newStatus = 'In Progress';
-    } else if (this.job.status === 'In Progress') {
-      newStatus = 'Completed';
-    } else if (this.job.status === 'Completed') {
-      newStatus = 'Pending';
+    if (this.job.status === 'pending') {
+      newStatus = 'in_progress';
+    } else if (this.job.status === 'in_progress') {
+      newStatus = 'completed';
+    } else if (this.job.status === 'completed') {
+      newStatus = 'pending';
     }
 
     if (newStatus) {
       this.jobService.updateJobStatus(this.jobId, newStatus).subscribe({
         next: () => {
           if (this.job) this.job.status = newStatus;
-          alert(`Job status updated to ${newStatus}`);
+          alert(`Job status updated to ${newStatus.replace(/_/g, ' ')}`);
         },
         error: (err) => {
           console.error('Failed to update job status:', err);
