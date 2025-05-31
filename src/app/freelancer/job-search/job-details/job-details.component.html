@@ -41,77 +41,88 @@
   </div>
 
   <div
-    *ngIf="userRole === 'jobOwner'"
-    class="d-flex justify-content-between align-items-center bg-light p-3 rounded mb-4"
-  >
-    <p class="mb-0 fw-bold">
-      Status:
-      <span
-        [ngClass]="{
-          'text-danger': job?.status === 'Pending',
-          'text-warning': job?.status === 'In Progress',
-          'text-success': job?.status === 'Completed'
-        }"
-        >{{ job?.status }}</span
-      >
-    </p>
-    <button class="btn btn-outline-success" (click)="updateStatus()">Update Status</button>
-  </div>
+  *ngIf="userRole === 'JobOwner'"
+  class="d-flex justify-content-between align-items-center bg-light p-3 rounded mb-4"
+>
+  <p class="mb-0 fw-bold">
+    Status:
+    <span
+      [ngClass]="{
+        'text-danger': job?.status === 'Pending',
+        'text-warning': job?.status === 'In Progress',
+        'text-success': job?.status === 'Completed'
+      }"
+      >{{ job?.status }}</span
+    >
+  </p>
+  <button class="btn btn-outline-success" (click)="updateStatus()">
+    Update Status
+  </button>
+</div>
 
-  <div class="d-flex gap-3 mb-4" *ngIf="userRole === 'freelancer' || userRole === 'guest'">
-    <button class="btn btn-bids" data-bs-toggle="modal" data-bs-target="#bidModal">Place a Bid</button>
-  </div>
-
-  <div
-    *ngIf="userRole === 'freelancer'"
-    class="modal fade"
-    id="bidModal"
-    tabindex="-1"
-    aria-labelledby="bidModalLabel"
-    aria-hidden="true"
+<div
+  class="d-flex gap-3 mb-4"
+  *ngIf="userRole === 'FreeLancer' || userRole === 'guest'"
+>
+  <button
+    class="btn btn-bids"
+    data-bs-toggle="modal"
+    data-bs-target="#bidModal"
   >
-    <div class="modal-dialog">
-      <div class="modal-content p-3">
-        <form (ngSubmit)="onSubmitBid()">
-          <div class="modal-header">
-            <h5 class="modal-title ss-details" id="bidModalLabel">Place Your Bid</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    Place a Bid
+  </button>
+</div>
+
+ <div
+  *ngIf="userRole === 'FreeLancer'"
+  class="modal fade"
+  id="bidModal"
+  tabindex="-1"
+  aria-labelledby="bidModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content p-3">
+      <form (ngSubmit)="onSubmitBid()">
+        <div class="modal-header">
+          <h5 class="modal-title ss-details" id="bidModalLabel">Place Your Bid</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="bidAmount" class="form-label">Bid Amount</label>
+            <input
+              type="number"
+              id="bidAmount"
+              class="form-control"
+              [(ngModel)]="bidAmount"
+              name="bidAmount"
+              required
+            />
           </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="bidAmount" class="form-label">Bid Amount</label>
-              <input
-                type="number"
-                id="bidAmount"
-                class="form-control"
-                [(ngModel)]="bidAmount"
-                name="bidAmount"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="workTimeline" class="form-label">Work Timeline</label>
-              <textarea
-                id="workTimeline"
-                class="form-control"
-                [(ngModel)]="workTimeline"
-                name="workTimeline"
-                rows="3"
-                required
-              ></textarea>
-            </div>
+          <div class="mb-3">
+            <label for="workTimeline" class="form-label">Work Timeline</label>
+            <textarea
+              id="workTimeline"
+              class="form-control"
+              [(ngModel)]="workTimeline"
+              name="workTimeline"
+              rows="3"
+              required
+            ></textarea>
           </div>
-          <div class="modal-footer">
-            <button
-              type="submit"
-              class="btn btn-success"
-              [disabled]="!bidAmount || !workTimeline || hasBid()"
-            >
-              Submit Bid
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!bidAmount || !workTimeline || hasBid()"
+          >
+            Submit Bid
+          </button>
+        </div>
+      </form>
     </div>
   </div>
+</div>
 </div>

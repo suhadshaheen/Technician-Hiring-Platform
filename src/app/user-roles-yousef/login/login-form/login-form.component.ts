@@ -35,7 +35,7 @@ export class LoginFormComponent {
 
         // ✅ Store token and user info
         localStorage.setItem('token', token);
-        localStorage.setItem('role', role);
+        localStorage.setItem('role', res.user.role);
         localStorage.setItem('userId', res.user.id.toString());
         localStorage.setItem('username', res.user.username);
 
