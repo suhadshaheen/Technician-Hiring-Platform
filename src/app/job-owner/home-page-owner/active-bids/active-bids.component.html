@@ -15,13 +15,12 @@
 
         <div class="d-flex justify-content-between">
           <button class="btn custom-login-btn px-2 py-1" [routerLink]="['./Bids']">Bids</button>
-          <button class="btn custom-login-btn px-2 py-1" [disabled]="!job.canEdit" [routerLink]="['/jobOwner/Edit']">Edit</button>
+          <button class="btn custom-login-btn px-2 py-1"  [routerLink]="['/jobOwner/Edit']">Edit</button>
           <button class="btn custom-login-btn px-2 py-1" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">Delete</button>
         </div>
       </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -39,7 +38,7 @@
         </div>
       </div>
     </div>
- 
+
   </div>
   <div class="text-center mt-4">
     <button class="btn custom-login-btn px-4 py-2" [routerLink]="['./OwnerJobs']">View All</button>

@@ -55,11 +55,16 @@ export class AuthService {
   }
   getUserRole(): string {
     const role = localStorage.getItem('role');
-    return role ? role : 'guest'; // Treat unauthenticated users as 'guest'
+    return role ? role : 'guest';
   }
 
   getUserId(): number {
     return Number(localStorage.getItem('userId') || 0);
   }
+  hasRole(allowedRoles: string[]): boolean {
+    const userRole = this.getUserRole();
+    return allowedRoles.includes(userRole);
+  }
+
 
 }

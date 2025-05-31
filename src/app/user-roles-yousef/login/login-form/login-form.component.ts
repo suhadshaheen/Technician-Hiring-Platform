@@ -1,8 +1,5 @@
-
-
 import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {AuthService} from '../../services/AuthService';
 import {Router} from '@angular/router';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 
@@ -32,30 +29,36 @@ export class LoginFormComponent {
     this.http.post<any>(url, body).subscribe({
       next: (res) => {
         console.log('Login successful:', res);
-        localStorage.setItem('token', res.access_token);
-        localStorage.setItem('role', res.user.role.toLowerCase());
 
-        localStorage.setItem('userId', res.user.id);
-        localStorage.setItem('username', res.user.username);
+        const token = res.access_token;
         const role = (res.user.role || '').toLowerCase();
-        localStorage.setItem('role', role);
-        if (role === 'admin') {
-          this.router.navigate(['/admin']);
-        } else if (role === 'jobowner') {
-          this.router.navigate(['/jobOwner']);
-        } else if (role === 'freelancer') {
-          this.router.navigate(['/freelancer']);
-        } else {
-          this.router.navigate(['/']);
-        }
 
+        // ✅ Store token and user info
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
+        localStorage.setItem('userId', res.user.id.toString());
+        localStorage.setItem('username', res.user.username);
+
+        // ✅ Redirect to route with JWT as ?key=
+        const routeKey = { queryParams: { key: token } };
+
+        if (role === 'admin') {
+          this.router.navigate(['/admin'], routeKey);
+        } else if (role === 'jobowner') {
+          this.router.navigate(['/jobOwner'], routeKey);
+        } else if (role === 'freelancer') {
+          this.router.navigate(['/freelancer'], routeKey);
+        } else {
+          this.router.navigate(['/'], routeKey);
+        }
       },
+
       error: (err) => {
         console.error('Login error:', err);
-
         const message = err.error?.message || 'Unexpected error occurred.';
         alert('Login failed: ' + message);
       }
     });
   }
+
 }
