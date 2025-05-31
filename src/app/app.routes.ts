@@ -23,23 +23,25 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import {FreelancerHomePageYComponent} from './freelancer/home-page-freelancer/home-page-y/home-page-y.component';
 import { FreelancerProfileComponent } from './freelancer/freelancer-profile/freelancer-profile.component';
 import { JobsComponent } from './admin/dashboard/jobs/jobs.component';
+import {KeyGuard} from './user-roles-yousef/gurds/auth.guard';
+
 export const routes: Routes = [
-  { path: 'profile', component: UserProfileComponent },
-  {path:'dashboard',component:AdminLayoutComponent},
-  {path:'users',component:UsersComponent},
-  {path:'jobs',component:JobsComponent},
-  { path: 'job-list', component: JopListComponent },
-  {path: 'chat',component: ChatComponent,},
-  {path: 'PostPage' , component:PostJobPageComponent},
+  { path: 'profile', component: UserProfileComponent ,canActivate: [KeyGuard]},
+  {path:'dashboard',component:AdminLayoutComponent ,canActivate: [KeyGuard]},
+  {path:'users',component:UsersComponent ,canActivate: [KeyGuard]},
+  {path:'jobs',component:JobsComponent ,canActivate: [KeyGuard]},
+  { path: 'job-list', component: JopListComponent ,canActivate: [KeyGuard]},
+  {path: 'chat',component: ChatComponent,canActivate: [KeyGuard]},
+  {path: 'PostPage' , component:PostJobPageComponent ,canActivate: [KeyGuard]},
   {path: 'Sign' , component:SignInPageComponent},
   {path:'Forgot-page' ,component:ForgotPasswordPageComponent},
-  {path: 'adit' , component:AditJobPageComponent},
+  {path: 'adit' , component:AditJobPageComponent ,canActivate: [KeyGuard]},
   {path:'',component:GuestComponent},
   {path:'login',component:LoginPageComponent},
-  {path: 'Bids', component:JobBidsPageComponent},
-  {path:'OwnerJobs', component:OwnerJobsPageComponent},
-  {path: 'job-details/:id', component: JobDetailsComponent},
-  {path:'admin', component:AdminComponent,
+  {path: 'Bids', component:JobBidsPageComponent ,canActivate: [KeyGuard]},
+  {path:'OwnerJobs', component:OwnerJobsPageComponent ,canActivate: [KeyGuard]},
+  {path: 'job-details/:id', component: JobDetailsComponent ,canActivate: [KeyGuard]},
+  {path:'admin', component:AdminComponent,canActivate: [KeyGuard],
     children : [
       {path: '',component:AdminLayoutComponent},
       {path:'jobs',component:JobsComponent},
@@ -49,7 +51,7 @@ export const routes: Routes = [
       {path: 'profile', component: UserProfileComponent},
     ]
   },
-  {path:'jobOwner', component:JobOwnerComponent ,
+  {path:'jobOwner', component:JobOwnerComponent ,canActivate: [KeyGuard],
     children : [
       {path: '',component:HomePageYComponent},
       {path: 'PostJob',component:PostJobPageComponent},
@@ -62,7 +64,7 @@ export const routes: Routes = [
       {path: 'freelancers/:id', component: FreelancerProfileComponent}
      ]
   },
-  {path:'freelancer', component:FreelancerComponent ,
+  {path:'freelancer', component:FreelancerComponent ,canActivate: [KeyGuard],
     children : [
       {path: '',component:FreelancerHomePageYComponent},
       { path: 'job-list', component: JopListComponent},
