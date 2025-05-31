@@ -19,6 +19,10 @@ export class AuthService {
     });
 
     localStorage.removeItem('token');
+    localStorage.removeItem('session_key');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
+
     return this.http.post(`${this.API_URL}/logout`, {}, { headers });
   }
 
@@ -26,8 +30,11 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  storeToken(token: string): void {
-    localStorage.setItem('token', token);
+  storeToken(response: any): void {
+    localStorage.setItem('token', response.access_token);
+    localStorage.setItem('session_key', response.user.session_key);
+    localStorage.setItem('role', response.user.role);
+    localStorage.setItem('userId', response.user.id.toString());
   }
 
   isAuthenticated(): boolean {

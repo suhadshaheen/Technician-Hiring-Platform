@@ -33,18 +33,20 @@ export class LoginFormComponent {
       next: (res) => {
         console.log('Login successful:', res);
         localStorage.setItem('token', res.access_token);
+        localStorage.setItem('session_key', res.user.session_key);
         localStorage.setItem('role', res.user.role.toLowerCase());
-
         localStorage.setItem('userId', res.user.id);
         localStorage.setItem('username', res.user.username);
+
         const role = (res.user.role || '').toLowerCase();
+        const sessionKey = res.user.session_key;
         localStorage.setItem('role', role);
         if (role === 'admin') {
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/admin'], { queryParams: { key: sessionKey } });
         } else if (role === 'jobowner') {
-          this.router.navigate(['/jobOwner']);
+          this.router.navigate(['/jobOwner'] ,{ queryParams: { key: sessionKey } });
         } else if (role === 'freelancer') {
-          this.router.navigate(['/freelancer']);
+          this.router.navigate(['/freelancer'] ,{ queryParams: { key: sessionKey } });
         } else {
           this.router.navigate(['/']);
         }

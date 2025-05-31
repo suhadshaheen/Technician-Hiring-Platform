@@ -23,23 +23,25 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import {FreelancerHomePageYComponent} from './freelancer/home-page-freelancer/home-page-y/home-page-y.component';
 import { FreelancerProfileComponent } from './freelancer/freelancer-profile/freelancer-profile.component';
 import { JobsComponent } from './admin/dashboard/jobs/jobs.component';
+import {SessionKeyGuard} from './user-roles-yousef/guards/session-key.guard';
+
 export const routes: Routes = [
-  { path: 'profile', component: UserProfileComponent },
-  {path:'dashboard',component:AdminLayoutComponent},
-  {path:'users',component:UsersComponent},
-  {path:'jobs',component:JobsComponent},
-  { path: 'job-list', component: JopListComponent },
-  {path: 'chat',component: ChatComponent,},
-  {path: 'PostPage' , component:PostJobPageComponent},
-  {path: 'Sign' , component:SignInPageComponent},
-  {path:'Forgot-page' ,component:ForgotPasswordPageComponent},
-  {path: 'adit' , component:AditJobPageComponent},
-  {path:'',component:GuestComponent},
-  {path:'login',component:LoginPageComponent},
-  {path: 'Bids', component:JobBidsPageComponent},
-  {path:'OwnerJobs', component:OwnerJobsPageComponent},
-  {path: 'job-details/:id', component: JobDetailsComponent},
-  {path:'admin', component:AdminComponent,
+  { path: 'profile', component: UserProfileComponent ,canActivate: [SessionKeyGuard],},
+  {path:'dashboard',component:AdminLayoutComponent ,canActivate: [SessionKeyGuard],},
+  {path:'users',component:UsersComponent ,canActivate: [SessionKeyGuard],},
+  {path:'jobs',component:JobsComponent ,canActivate: [SessionKeyGuard],},
+  { path: 'job-list', component: JopListComponent ,canActivate: [SessionKeyGuard],},
+  {path: 'chat',component: ChatComponent ,canActivate: [SessionKeyGuard],},
+  {path: 'PostPage' , component:PostJobPageComponent ,canActivate: [SessionKeyGuard], },
+  {path: 'Sign' , component:SignInPageComponent ,canActivate: [SessionKeyGuard],},
+  {path:'Forgot-page' ,component:ForgotPasswordPageComponent ,canActivate: [SessionKeyGuard],},
+  {path: 'adit' , component:AditJobPageComponent ,canActivate: [SessionKeyGuard],},
+  {path:'',component:GuestComponent ,canActivate: [SessionKeyGuard],},
+  {path:'login',component:LoginPageComponent ,canActivate: [SessionKeyGuard],},
+  {path: 'Bids', component:JobBidsPageComponent ,canActivate: [SessionKeyGuard],},
+  {path:'OwnerJobs', component:OwnerJobsPageComponent ,canActivate: [SessionKeyGuard],},
+  {path: 'job-details/:id', component: JobDetailsComponent ,canActivate: [SessionKeyGuard],},
+  {path:'admin', component:AdminComponent,canActivate: [SessionKeyGuard],
     children : [
       {path: '',component:AdminLayoutComponent},
       {path:'jobs',component:JobsComponent},
@@ -49,7 +51,7 @@ export const routes: Routes = [
       {path: 'profile', component: UserProfileComponent},
     ]
   },
-  {path:'jobOwner', component:JobOwnerComponent ,
+  {path:'jobOwner', component:JobOwnerComponent ,canActivate: [SessionKeyGuard],
     children : [
       {path: '',component:HomePageYComponent},
       {path: 'PostJob',component:PostJobPageComponent},
@@ -62,7 +64,7 @@ export const routes: Routes = [
       {path: 'freelancers/:id', component: FreelancerProfileComponent}
      ]
   },
-  {path:'freelancer', component:FreelancerComponent ,
+  {path:'freelancer', component:FreelancerComponent ,canActivate: [SessionKeyGuard],
     children : [
       {path: '',component:FreelancerHomePageYComponent},
       { path: 'job-list', component: JopListComponent},
