@@ -46,15 +46,34 @@ export class JobDetailsComponent implements OnInit {
     this.userRole = 'freelancer';
   }
 
+  // loadJob() {
+  //   this.jobService.getJobById(this.jobId).subscribe({
+  //     next: (data) => {
+  //       this.job = data;
+  //       try {
+  //         const requirementsObj = JSON.parse(this.job.job_requirements ?? '{}');
+  //         this.jobPoints = Object.values(requirementsObj);
+  //       } catch (e) {
+  //         this.jobPoints = this.job.job_requirements ? [this.job.job_requirements] : [];
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.error('Failed to load job:', err);
+  //     }
+  //   });
+  // }
+
   loadJob() {
     this.jobService.getJobById(this.jobId).subscribe({
       next: (data) => {
         this.job = data;
-        try {
-          const requirementsObj = JSON.parse(this.job.job_requirements ?? '{}');
-          this.jobPoints = Object.values(requirementsObj);
-        } catch (e) {
-          this.jobPoints = this.job.job_requirements ? [this.job.job_requirements] : [];
+        if (this.job?.job_requirements) {
+          this.jobPoints = this.job.job_requirements
+            .split(',')
+            .map(req => req.trim())
+            .filter(req => req.length > 0);
+        } else {
+          this.jobPoints = [];
         }
       },
       error: (err) => {
@@ -62,7 +81,7 @@ export class JobDetailsComponent implements OnInit {
       }
     });
   }
-
+ 
   // loadBids() {
   //   this.bidService.getBidsForJob(this.jobId).subscribe({
   //     next: (data) => {

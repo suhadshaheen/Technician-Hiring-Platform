@@ -54,9 +54,10 @@ export const routes: Routes = [
       {path: '',component:HomePageYComponent},
       {path: 'PostJob',component:PostJobPageComponent},
       {path:'OwnerJobs', component:OwnerJobsPageComponent},
-      {path: 'Bids', component:JobBidsPageComponent},
-      {path: 'Edit' , component:AditJobPageComponent},
+      {path: 'job-bids/:jobId', component:JobBidsPageComponent},
+      {path: 'Edit/:id' , component:AditJobPageComponent},
       {path: 'profile', component: UserProfileComponent},
+      {path: 'chat/:freelancerId',component: ChatComponent},
       {path: 'chat',component: ChatComponent},
       {path: 'job-details/:id', component: JobDetailsComponent},
       {path: 'freelancers/:id', component: FreelancerProfileComponent}

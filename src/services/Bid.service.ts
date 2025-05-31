@@ -20,9 +20,14 @@ export class BidService {
     return this.http.post(this.API_URL, bidData, { headers });
   }
 
- getMyBids(): Observable<any> {
+  getMyBids(): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.get(this.API_URL, { headers });
+  }
+
+changeBidStatus(id: number, status: 'accepted' | 'rejected'): Observable<any> {
   const headers = this.getAuthHeaders();
-  return this.http.get(this.API_URL, { headers });
+  return this.http.put(`${this.API_URL}/${id}/status`, { status }, { headers });
 }
 
 
