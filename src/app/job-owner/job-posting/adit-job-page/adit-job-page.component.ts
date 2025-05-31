@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { EditJobFormComponent } from './edit-job-form/edit-job-form.component';
+import { CreateJobFormComponent } from '../post-job-page/create-job-form/create-job-form.component';
 @Component({
   selector: 'app-adit-job-page',
-  imports: [EditJobFormComponent],
+  imports: [CreateJobFormComponent],
   templateUrl: './adit-job-page.component.html',
   styleUrl: './adit-job-page.component.css'
 })

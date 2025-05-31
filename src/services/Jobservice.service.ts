@@ -56,6 +56,11 @@ updateJob(id: number, jobData: any): Observable<any> {
     });
   }
 
+   getMyJobs(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/my-jobs`, {
+      headers: this.getAuthHeaders()
+    });
+  }
 
   deleteJob(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/jobs/${id}`, {
@@ -71,7 +76,10 @@ updateJob(id: number, jobData: any): Observable<any> {
   }
 
  updateJobStatus(id: number, status: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}/status`, { status });
-  }
+  return this.http.put(`${this.apiUrl}/jobs/${id}/status`, { status }, {
+    headers: this.getAuthHeaders()
+  });
+}
+
 
 }

@@ -41,7 +41,7 @@
     opacity: 1;
   }
   
-  .btn {
+/* .btn {
     position: absolute;
     bottom: 20px;
     right: 20px;
@@ -50,7 +50,7 @@
     color: white;
     width: 100px;
     font-size: 20px;
-  }
+  } */
   .attach_file{
     padding-left: 55px;
     padding-top: 15px;
@@ -59,3 +59,25 @@
   .dropzone{
     width: 200px;
   }
+.JobForm  .post{
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 20px;
+  background: #40189D;
+  color: white;
+  width: 100px;
+  font-size: 20px;
+}
+
+.JobForm  .Cancel{
+  position: absolute;
+  bottom: 20px;
+  right: 150px;
+  border-radius: 20px;
+  border:#8c8797;
+  background: #8c8797;
+  color: white;
+  width: 100px;
+  font-size: 20px;
+}

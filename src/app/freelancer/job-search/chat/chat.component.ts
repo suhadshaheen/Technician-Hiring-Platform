@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ChatService } from '../../../../services/ChatService.service';
 import { Message, MessageWithMeta } from '../../../../models/message';
 import { User } from '../../../../models/User';
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -29,16 +29,25 @@ export class ChatComponent implements OnInit {
   sidebarOpen= true;
   isMobile = false;
 
-  constructor(private chatService: ChatService) {}
+  constructor(private chatService: ChatService ,private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    const routeFreelancerId = this.route.snapshot.paramMap.get('freelancerId');
+
     this.chatService.getRecentContacts().subscribe((data) => {
       this.recentContacts = data;
-      if (data.length > 0) {
+      // if (data.length > 0) {
+      //   this.openChat(data[0].id);
+      // } else {
+      //   console.log('No recent contacts found for user:', this.currentUserId);
+
+      // }
+      if (routeFreelancerId) {
+        this.openChat(Number(routeFreelancerId));
+      } else if (data.length > 0) {
         this.openChat(data[0].id);
       } else {
         console.log('No recent contacts found for user:', this.currentUserId);
-
       }
     });
 

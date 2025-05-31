@@ -6,12 +6,7 @@
         <label for="jobTitle" class="form-label">Job Title</label>
       </div>
       <div class="col-12 col-md-6 d-flex flex-column">
-        <select id="category" formControlName="category" class="form-control ">
-          <option value=""></option>
-          <option value="Plumbing">Plumbing</option>
-          <option value="Painting">Painting</option>
-          <option value="Electrical">Electrical</option>
-        </select>
+        <input id="category" type="text" formControlName="category" class="form-control ">
         <label for="category" class="form-label">Category</label>
       </div>
     </div>
@@ -57,10 +52,30 @@
         <label for="Budget" class="form-label">Budget</label>
       </div>
     </div>
-    <div class="attach_file ">
+    
+    <!-- Cancel Edit Confirmation Modal -->
+      <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="cancelModalLabel">Cancel Confirmation</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body ">
+                Are you sure you want to cancel your updates?
+              </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button type="button" class="btn btn-danger"  data-bs-dismiss="modal" (click)="confirmCancel()">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="attach_file ">
       <input type="file" class="form-control" (change)="onImageSelected($event)">
     </div>
-    <button type="submit" class="btn" (click)="onSubmit()">Post</button>
+    <button type="button" class="cancel btn btn-secondary Cancel" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+    <button type="submit" class="post btn" >{{ isEditMode ? 'Re-Post' : 'Post' }}</button>
   
   </form>
   
