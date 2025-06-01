@@ -11,7 +11,7 @@ export class KeyGuard implements CanActivate {
     const key = route.queryParamMap.get('key');
     const token = localStorage.getItem('token');
 
-    if (token && key === token) {
+    if (token && (!key || key === token)) {
       return true;
     }
 

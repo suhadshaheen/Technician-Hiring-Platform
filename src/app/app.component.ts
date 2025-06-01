@@ -10,7 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { filter } from 'rxjs';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginPageComponent, HomePageYComponent, SidenavComponent, NgStyle, NgIf,NavbarComponent],
+  imports: [RouterOutlet,  NgIf,NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -23,7 +23,7 @@ export class AppComponent {
   //   return authRoutes.includes(this.router.url);}
 
   //   isSidebarCollapsed = false;
-    
+
   //   handleSidebarToggle() {
   //   this.isSidebarCollapsed = !this.isSidebarCollapsed;
   // }
@@ -36,6 +36,16 @@ constructor(public router: Router) {
     .subscribe((event: NavigationEnd) => {
       this.showNavbar = !this.authRoutes.includes(event.urlAfterRedirects);
     });
+  const token = localStorage.getItem('token');
+  const currentUrl = new URL(window.location.href);
+  const hasKey = currentUrl.searchParams.get('key');
+
+  if (token && !hasKey) {
+    const pathname = currentUrl.pathname;
+
+
+    this.router.navigateByUrl(`${pathname}?key=${token}`);
+  }
 }
 
     isSidebarCollapsed = false;
