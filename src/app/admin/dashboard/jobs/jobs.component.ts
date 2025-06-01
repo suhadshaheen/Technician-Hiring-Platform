@@ -1,28 +1,36 @@
-import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgForOf, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {  JobDetailsComponent } from '../../../freelancer/job-search/job-details/job-details.component';
+import { JobDetailsComponent } from '../../../freelancer/job-search/job-details/job-details.component';
 import { RouterLink, RouterModule } from '@angular/router';
 import { JobsService } from '../../../../services/adminJob.service';
 
 @Component({
   selector: 'app-jobs',
-  imports: [RouterModule,RouterLink, NgClass, NgForOf,JobDetailsComponent,NgIf],
+  imports: [RouterModule, RouterLink, NgClass, NgForOf, JobDetailsComponent, NgIf, CommonModule],
   templateUrl: './jobs.component.html',
   styleUrl: './jobs.component.css'
 })
 export class JobsComponent implements OnInit {
- searchTerm: string = '';
+  searchTerm: string = '';
   jobs: any[] = [];
   filteredJobs: any[] = [];
-   message: string = '';
+  message: string = '';
   errorMessage: string = '';
+  newJobs: any[] = [];
 
-  constructor(private jobsService: JobsService) {}
+  constructor(private jobsService: JobsService) { }
   ngOnInit(): void {
     this.jobsService.getJobs().subscribe(data => {
       this.jobs = data;
       this.filteredJobs = data;
-    });
+       const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+        this.jobs.sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+        this.newJobs = this.jobs.filter(a => new Date(a.created_at) >= oneWeekAgo);
+    }
+  );
   }
   onSearch(event: any): void {
     const query = event.target.value.toLowerCase();
@@ -36,7 +44,7 @@ export class JobsComponent implements OnInit {
 
 
 
- updateStatus(job: any, newStatus: string): void {
+  updateStatus(job: any, newStatus: string): void {
     this.jobsService.updateJobStatus(job.id, newStatus).subscribe({
       next: () => {
         job.status = newStatus;
