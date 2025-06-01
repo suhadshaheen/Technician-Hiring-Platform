@@ -30,7 +30,9 @@ export class UsersComponent implements OnInit {
 
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-
+this.artisans.sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
         this.newArtisans = artisans.filter(a => new Date(a.created_at) >= oneWeekAgo);
 
         this.filteredArtisans = [...this.artisans];
