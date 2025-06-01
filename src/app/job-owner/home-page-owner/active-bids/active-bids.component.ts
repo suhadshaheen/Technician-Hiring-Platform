@@ -1,33 +1,42 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {RouterLink} from '@angular/router';
-import {NgForOf} from '@angular/common';
 
 @Component({
   selector: 'app-active-bids',
-  imports: [
-    RouterLink,
-    NgForOf
-  ],
   templateUrl: './active-bids.component.html',
-  styleUrl: './active-bids.component.css'
+  imports: [
+    RouterLink
+  ],
+  styleUrls: ['./active-bids.component.css']
 })
-export class ActiveBidsComponent {
-  jobPosts = [
-    { title: 'Fix Plumbing', budget: 120, deadline: 'April 28', canEdit: true },
-    { title: 'Paint Room', budget: 250, deadline: 'May 5', canEdit: false },
-    { title: 'Install Outlets', budget: 300, deadline: 'May 10', canEdit: true }
+export class ActiveBidsComponent implements OnInit {
+  jobPosts: any[] = [];
 
-  ];
+  constructor(private http: HttpClient) {}
 
-  onDelete(jobTitle: string) {
-    console.log(`Delete clicked for ${jobTitle}`);
-
+  ngOnInit(): void {
+    console.log('ActiveBidsComponent initialized');
+    this.loadMyJobs();
   }
-  @Output() delete = new EventEmitter<void>();
 
-  confirmDelete() {
-    // Perform actual delete logic here
-    console.log("Deleting job...");
-    
+
+  loadMyJobs(): void {
+    const userId = localStorage.getItem('userId');
+    console.log('userId:', userId);
+    this.http.get<any[]>(`http://127.0.0.1:8000/api/users/${userId}/jobs`).subscribe({
+      next: (res) => {
+        this.jobPosts = res;
+      },
+      error: (err) => {
+        console.error('Failed to fetch jobs:', err);
+      }
+    });
   }
+
+  confirmDelete(jobId: number): void {
+    this.jobPosts = this.jobPosts.filter(j => j.id !== jobId);
+    // You can also add: this.http.delete(...) to hit the backend if you want
+  }
+
 }

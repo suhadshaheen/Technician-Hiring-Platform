@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, Router , RouterStateSnapshot} from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,15 +8,25 @@ import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 export class KeyGuard implements CanActivate {
   constructor(private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot): boolean {
+  canActivate(route: ActivatedRouteSnapshot , state: RouterStateSnapshot): boolean {
     const key = route.queryParamMap.get('key');
     const token = localStorage.getItem('token');
+    const expectedRole = route.data['role'];
+    const userRole = localStorage.getItem('role');
 
-    if (token && (!key || key === token)) {
-      return true;
+    if (expectedRole) {
+      if (token && userRole && userRole.toLowerCase() === expectedRole.toLowerCase()) {
+        return true;
+      }
+    } else {
+      if (token && (!key || key === token)) {
+        return true;
+      }
     }
 
-    this.router.navigate(['/login']);
+
+
+      this.router.navigate(['/login']);
     return false;
   }
 }
