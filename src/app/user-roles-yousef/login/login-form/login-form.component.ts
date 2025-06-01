@@ -33,13 +33,13 @@ export class LoginFormComponent {
         const token = res.access_token;
         const role = (res.user.role || '').toLowerCase();
 
-        // ✅ Store token and user info
+
         localStorage.setItem('token', token);
         localStorage.setItem('role', res.user.role);
         localStorage.setItem('userId', res.user.id.toString());
         localStorage.setItem('username', res.user.username);
 
-        // ✅ Redirect to route with JWT as ?key=
+
         const routeKey = { queryParams: { key: token } };
 
         if (role === 'admin') {
