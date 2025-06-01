@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FreelancerDataService {
+  constructor(private http: HttpClient) {}
+  
   private freelancer = {
       fullName: 'Suhad Shaheen',
       role: 'freelancer',
@@ -26,5 +30,10 @@ export class FreelancerDataService {
 
   updateFreelancer(updatedData: any) {
     this.freelancer = { ...this.freelancer, ...updatedData };
+  }
+  getFreelancerRatings(freelancerId: number): Observable<{ averageRating: number, ratingCount: number }> {
+    return this.http.get<{ averageRating: number, ratingCount: number }>(
+      `http://127.0.0.1:8000/api/freelancer-ratings/${freelancerId}`
+    );
   }
 }

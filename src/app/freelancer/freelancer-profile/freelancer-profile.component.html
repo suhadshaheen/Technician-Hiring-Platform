@@ -29,6 +29,20 @@
         <p><strong>About Me:</strong> {{ freelancerProfile.profile?.bio }}</p> <h6 class="mt-4">Skills</h6>
         <ul>
           <li *ngFor="let skill of skillsArray">{{ skill }}</li> </ul>
+          
+          <div *ngIf="averageRating !== null" class="rating-section mt-3">
+          <h6>Rating</h6>
+          <div class="stars">
+            <ng-container *ngFor="let star of getStarsArray()">
+              <i 
+                class="bi" 
+                [ngClass]="star <= roundRating(averageRating) ? 'bi-star-fill text-warning' : 'bi-star text-secondary'">
+              </i>
+            </ng-container>
+            <span class="ms-2">({{ ratingCount }} review{{ ratingCount !== 1 ? 's' : '' }})</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
