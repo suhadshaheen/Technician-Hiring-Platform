@@ -42,6 +42,7 @@ export const routes: Routes = [
   {path:'OwnerJobs', component:OwnerJobsPageComponent ,canActivate: [KeyGuard]},
   {path: 'job-details/:id', component: JobDetailsComponent ,canActivate: [KeyGuard]},
   {path:'admin', component:AdminComponent,canActivate: [KeyGuard],
+    data: { role: 'admin' },
     children : [
       {path: '',component:AdminLayoutComponent},
       {path:'jobs',component:JobsComponent},
@@ -52,6 +53,7 @@ export const routes: Routes = [
     ]
   },
   {path:'jobOwner', component:JobOwnerComponent ,canActivate: [KeyGuard],
+    data: { role: 'jobowner' },
     children : [
       {path: '',component:HomePageYComponent},
       {path: 'PostJob',component:PostJobPageComponent},
@@ -66,6 +68,7 @@ export const routes: Routes = [
      ]
   },
   {path:'freelancer', component:FreelancerComponent ,canActivate: [KeyGuard],
+    data: { role: 'freelancer' },
     children : [
       {path: '',component:FreelancerHomePageYComponent},
       { path: 'job-list', component: JopListComponent},
