@@ -1,7 +1,7 @@
 <div class="job-card d-flex justify-content-between align-items-center p-3 rounded-3 shadow-sm mb-3">
   <div class="d-flex align-items-center">
     <div class="avatar fw-bold rounded-circle me-3 d-flex justify-content-center align-items-center">
-      {{ name.charAt(0).toUpperCase() }}
+      B
     </div>
     <a class="mb-0 link-underline link-underline-opacity-0" 
        style="color: black; font-size: 20px; font-weight: 600;" 
@@ -35,5 +35,44 @@
 </span>
 
     </ng-template>
+
+<!-- modal button -->
+<button *ngIf="status === 'accepted' && jobStatus === 'completed'" class="badge border-0 bg-secondary  " style="cursor: pointer;" (click)="showModal = true">Rating here</button>
+<!-- rating modal -->
+<div class="modal fade show d-block" tabindex="-1" role="dialog" *ngIf="showModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content p-3">
+      <div class="modal-header">
+        <h5 class="modal-title">Freelancer work rating</h5>
+        <button type="button" class="btn-close" (click)="showModal = false"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="submitRating()">
+          <div class="mb-3">
+            <label>Rating</label>
+              <div>
+              <ng-container *ngFor="let star of [1,2,3,4,5]">
+                <i 
+                  class="fa-star"
+                  [ngClass]="ratingValue >= star ? 'fas text-warning' : 'far text-muted'"
+                  (click)="setRating(star)"
+                  style="cursor: pointer; font-size: 1.5rem; margin-right: 5px;">
+                </i>
+              </ng-container>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label>Comment (optional)</label>
+            <textarea class="form-control" [(ngModel)]="comment" name="comment"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success">Submit rating</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop fade show" *ngIf="showModal"></div>
+
   </div>
 </div>
