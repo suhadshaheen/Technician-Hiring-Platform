@@ -60,3 +60,15 @@
 .stars i {
   font-size: 1.2rem;
 }
+.animate-profile {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInSlide 0.6s ease forwards;
+}
+
+@keyframes fadeInSlide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

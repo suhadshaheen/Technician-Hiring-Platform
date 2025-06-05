@@ -23,11 +23,9 @@
     [date]="bid.Bid_Date | date:'yyyy-MM-dd'"
     [bidId]="bid.id"
     [freelancerId]="bid.Freelancer_id"
-    [jobId]="job.id"
     [canEdit]="true"
     [status]="bid.status"
     [jobStatus]="job.status"
-    [isRated]="bid.isRated"
     (approveBid)="approveBid($event)"
     (delete)="rejectBid($event)"
   ></app-job-bid>
