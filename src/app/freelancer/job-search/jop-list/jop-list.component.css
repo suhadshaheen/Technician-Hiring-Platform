@@ -3,10 +3,11 @@ body{
 }
 
 
-input.search-ss  {
+.search-ss  {
+  /* width: 500px; */
   border-radius: 25px;
   padding: 10px;
-  border: 1px solid #ccc;
+  /* border: 2px solid #40189d; */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   outline-color: #40189d;
 }

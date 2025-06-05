@@ -22,33 +22,6 @@
   }
 }
 
-.message-animate {
-  animation: fadeInSlide 0.4s ease-in-out;
-}
-
-@media (max-width: 768px) {
-  .chat-container {
-    flex-direction: column;
-    height: 90vh;
-    max-width: 100%;
-  }
-
-  .chat-sidebar {
-    width: 100% !important;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-
-  .chat-window {
-    flex-grow: 1;
-    height: 100%;
-  }
-}
-.chat-messages {
-  scroll-behavior: smooth;
-}
-
-@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css";
 .chat-container {
   transition: all 0.3s ease-in-out;
   border: 1px solid #ddd;
@@ -80,5 +53,17 @@
 @media (max-width: 768px) {
   .chat-container.sidebar-closed .chat-sidebar {
     display: none !important;
+  }
+}
+.animate-chat {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInSlide 0.6s ease forwards;
+}
+
+@keyframes fadeInSlide {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
