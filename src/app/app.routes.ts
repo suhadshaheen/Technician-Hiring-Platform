@@ -74,6 +74,7 @@ export const routes: Routes = [
       { path: 'job-list', component: JopListComponent},
       { path: 'job-details/:id', component: JobDetailsComponent },
       {path: 'chat',component: ChatComponent},
+      {path: 'chat/:freelancerId',component: ChatComponent},
       { path: 'freelancer-bids', component: FreelancerBidsComponent },
       {path: 'profile', component: UserProfileComponent},
       {

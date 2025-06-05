@@ -1,5 +1,6 @@
-<div class="container my-5 p-4 bg-white shadow rounded animate-card">
-  <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-4">
+<div class="container my-5 p-4 bg-white shadow rounded ">
+  <div class = "animate-zoom">
+  <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-4 ">
     <div>
       <h2 class="fw-bold ss-details">{{ job?.title }}</h2>
       <p class="text-muted">Posted at : {{ job?.posting_date }}</p>
@@ -12,8 +13,8 @@
       *ngFor="let field of [
         { icon: 'fa-clock', label: 'Deadline', value: job?.deadline },
         { icon: 'fa-coins', label: 'Salary', value: job?.budget },
-        { icon: 'fa-solid fa-briefcase', label: 'experience', value: job?.experience},
-        { icon: 'a-solid fa-layer-group', label: 'work_level', value: job?.work_level},
+        { icon: 'fa-location-dot', label: 'experience', value: job?.experience},
+        { icon: 'fa-location-dot', label: 'work_level', value: job?.work_level},
       ]"
     >
       <div class="p-3 bg-light rounded">
@@ -39,7 +40,7 @@
       </li>
     </ul>
   </div>
-
+</div>
   <div
   *ngIf="userRole === 'JobOwner'"
   class="d-flex justify-content-between align-items-center bg-light p-3 rounded mb-4"

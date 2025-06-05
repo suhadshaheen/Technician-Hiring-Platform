@@ -98,11 +98,12 @@ export class JobDetailsComponent implements OnInit {
         this.bidAmount = 0;
         this.workTimeline = '';
 
-        const modalEl = document.getElementById('bidModal');
-        if (modalEl) {
-          const modal = bootstrap.Modal.getInstance(modalEl);
-          modal?.hide();
-        }
+       const modalEl = document.getElementById('bidModal');
+if (modalEl) {
+  const existingModal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+  existingModal.hide();
+}
+
       },
       error: (error: any) => {
 
@@ -146,4 +147,13 @@ export class JobDetailsComponent implements OnInit {
       });
     }
   }
+  openModal() {
+  const modalEl = document.getElementById('bidModal');
+  if (modalEl) {
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+  }
+}
+
+
 }

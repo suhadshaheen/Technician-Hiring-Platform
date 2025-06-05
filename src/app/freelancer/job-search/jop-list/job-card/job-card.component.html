@@ -1,12 +1,15 @@
-<div class="card shadow-sm rounded-4 p-3 h-100 animate-card">
+<div class="card shadow-sm rounded-4 p-3 h-100  animate-zoom">
   <div class="d-flex justify-content-between align-items-start">
     <div>
       <h5 class="fw-bold mt-1">{{ job.title }}</h5>
       <p class="fw-semibold salary">{{ job.salary }}</p>
     </div>
-    <div>
-      <img [src]="job.JobPhoto" width="40" class="rounded-circle" />
-    </div>
+     <p class="text-muted small">
+        <a *ngIf="job.job_owner" [routerLink]="['/freelancer/chat', job.job_owner.id]" class="username-jo">
+          {{ job.job_owner.username }}
+        </a>
+        <span *ngIf="!job.job_owner">N/A</span>
+    </p>
   </div>
 
   <p class="text-muted small">{{ job.description }}</p>
