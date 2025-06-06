@@ -1,46 +1,10 @@
+
 <div class="container my-5">
-  <h4 class="fw-bold mb-4">Your Job Posts</h4>
-
-  <div class="row g-4">
-    <div class="col-md-4" *ngFor="let job of jobPosts">
-      <div class="p-3 bg-light rounded shadow-sm h-100 d-flex flex-column justify-content-between">
-        <div class="d-flex align-items-center mb-3">
-          <div>
-            <h6 class="mb-1">{{ job.title }}</h6>
-            <small class="text-muted">Budget: ${{ job.budget }}</small><br />
-            <small class="text-muted">Deadline: {{ job.deadline }}</small>
-          </div>
-        </div>
-
-        <div class="d-flex justify-content-between">
-          <button class="btn custom-login-btn px-2 py-1" [routerLink]="['/jobOwner/job-bids', job.id]">Bids</button>
-          <button class="btn custom-login-btn px-2 py-1" [routerLink]="['/jobOwner/Edit', job.id]">Edit</button>
-          <button class="btn custom-login-btn px-2 py-1 btn-danger" data-bs-toggle="modal" [attr.data-bs-target]="'#deleteModal' + job.id">Delete</button>
-        </div>
-      </div>
-
-      <!-- Delete Modal for this job -->
-      <div class="modal fade" [id]="'deleteModal' + job.id" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Confirm Deletion</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-              Are you sure you want to delete this job?
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button class="btn btn-danger" (click)="confirmDelete(job.id)" data-bs-dismiss="modal">Delete</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h4 class="fw-bold mb-4">Your Job Posts :`</h4>
+<app-owner-jobs-page [maxJobs] = "4" [showHeader] = "false"></app-owner-jobs-page>
 
   <div class="text-center mt-4">
     <button class="btn custom-login-btn px-4 py-2" [routerLink]="['/jobOwner/OwnerJobs']">View All</button>
   </div>
 </div>
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { YourJobComponent } from './your-job/your-job.component';
 import { JobService } from '../../../../services/Jobservice.service';
@@ -10,6 +10,13 @@ import { JobService } from '../../../../services/Jobservice.service';
 })
 export class OwnerJobsPageComponent implements OnInit {
   jobs : any [] = [];
+  @Input() maxJobs: number | null = null;
+  @Input() showHeader: boolean = true;
+
+
+  get visibleJobs() {
+    return this.maxJobs ? this.jobs.slice(0, this.maxJobs) : this.jobs;
+  }
   constructor(private jobService: JobService) {}
 
   ngOnInit(): void {

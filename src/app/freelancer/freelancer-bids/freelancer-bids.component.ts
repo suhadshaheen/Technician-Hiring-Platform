@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { BidService } from '../../../services/Bid.service';
 import { AuthService } from '../../user-roles-yousef/services/AuthService';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,11 @@ import { RouterModule } from '@angular/router';
 })
 export class FreelancerBidsComponent implements OnInit {
   myBids: any[] = [];
+  @Input() maxBids: number | null = null;
+
+  get visibleBids() {
+    return this.maxBids ? this.myBids.slice(0, this.maxBids) : this.myBids;
+  }
 
   constructor(
     private bidService: BidService,

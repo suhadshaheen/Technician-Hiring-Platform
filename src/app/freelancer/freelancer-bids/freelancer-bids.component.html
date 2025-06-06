@@ -2,7 +2,9 @@
   <h2 class="text-center mb-5">My Bids</h2>
 
   <div class="row">
-    <div class="col-md-4 mb-4 animate-zoom" *ngFor="let bid of myBids">
+
+    <div class="col-md-4 mb-4 animate-card" *ngFor="let bid of visibleBids">
+
       <div class="card shadow-sm h-100">
         <div class="card-body">
           <h5 class="card-title" style="color: #40189d;">{{ bid.job?.title }}</h5>
