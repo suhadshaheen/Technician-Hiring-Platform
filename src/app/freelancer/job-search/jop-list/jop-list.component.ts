@@ -15,6 +15,7 @@ import { JobService } from '../../../../services/Jobservice.service';
 export class JopListComponent implements OnInit {
   @Input() jobs: any[] = [];
   @Input() showSearchBar: boolean = true;
+  @Input() jobsPerPage: number = 9;
 
   showFilters = false;
 
@@ -24,7 +25,7 @@ export class JopListComponent implements OnInit {
   searchText = '';
 
   currentPage = 1;
-  jobsPerPage = 9;
+
 
   constructor(private jobService: JobService, private router: Router) {}
 

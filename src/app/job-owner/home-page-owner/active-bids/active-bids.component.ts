@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {RouterLink} from '@angular/router';
+import {YourJobComponent} from '../../job-posting/owner-jobs-page/your-job/your-job.component';
+import {OwnerJobsPageComponent} from '../../job-posting/owner-jobs-page/owner-jobs-page.component';
 
 @Component({
   selector: 'app-active-bids',
   templateUrl: './active-bids.component.html',
   imports: [
-    RouterLink
+    RouterLink,
+    YourJobComponent,
+    OwnerJobsPageComponent
   ],
   styleUrls: ['./active-bids.component.css']
 })

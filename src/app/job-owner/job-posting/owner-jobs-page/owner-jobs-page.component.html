@@ -1,5 +1,5 @@
-<header>Your Jobs</header>
-<div *ngFor="let job of jobs">
+<header *ngIf="showHeader" >Your Jobs</header>
+<div *ngFor="let job of visibleJobs">
     <app-your-job  [title]="job.title" [jobId]="job.id" [job]="job" (delete)="deleteJob($event)"></app-your-job>
 </div>
 
