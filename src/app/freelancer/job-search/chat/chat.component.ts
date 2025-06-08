@@ -5,6 +5,7 @@ import { ChatService } from '../../../../services/ChatService.service';
 import { Message, MessageWithMeta } from '../../../../models/message';
 import { User } from '../../../../models/User';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../../../user-roles-yousef/services/User';
 
 @Component({
   selector: 'app-chat',
@@ -22,29 +23,49 @@ export class ChatComponent implements OnInit {
   currentOwnerName = '';
   currentReceiverId = 0;
 
-
   currentUserId = Number(localStorage.getItem('userId') || '0');
 
   sidebarOpen = true;
   isMobile = false;
 
-  constructor(private chatService: ChatService, private route: ActivatedRoute) {}
+  constructor(
+    private chatService: ChatService,
+    private route: ActivatedRoute,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
-
     const routeFreelancerId = this.route.snapshot.paramMap.get('freelancerId');
 
     this.chatService.getRecentContacts().subscribe((data) => {
       this.recentContacts = data;
 
       if (routeFreelancerId) {
+        const freelancerIdNum = Number(routeFreelancerId);
+        const existingContact = this.recentContacts.find(contact => contact.id === freelancerIdNum);
 
-        this.openChat(Number(routeFreelancerId));
+        if (existingContact) {
+          this.openChat(freelancerIdNum);
+        } else {
+
+          this.userService.getUser(freelancerIdNum).subscribe({
+            next: (user: User) => {
+              this.recentContacts.unshift(user);
+              this.openChat(user.id);
+            },
+            error: (err) => {
+              console.error('Error fetching freelancer details:', err);
+              if (data.length > 0) {
+                this.openChat(data[0].id);
+              } else {
+                console.log('No recent contacts or specific chat ID found for user:', this.currentUserId);
+              }
+            }
+          });
+        }
       } else if (data.length > 0) {
-
         this.openChat(data[0].id);
       } else {
-
         console.log('No recent contacts or specific chat ID found for user:', this.currentUserId);
       }
     });
@@ -72,7 +93,6 @@ export class ChatComponent implements OnInit {
     this.currentReceiverId = id;
     this.currentChatId = id;
 
-
     const owner = this.recentContacts.find(user => user.id === id);
     this.currentOwnerName = owner?.username || 'Unknown User';
 
@@ -80,7 +100,6 @@ export class ChatComponent implements OnInit {
       this.messages = msgs.map(msg => ({
         ...msg,
         from: msg.sender_id === this.currentUserId ? 'me' : 'other',
-
         avatar: msg.sender_id !== this.currentUserId
                   ? (msg.sender?.profile?.User_photo || 'assets/default.jpg')
                   : ''
@@ -113,7 +132,6 @@ export class ChatComponent implements OnInit {
         },
         error: err => {
           console.error('Error sending message:', err);
-
         }
       });
     }
