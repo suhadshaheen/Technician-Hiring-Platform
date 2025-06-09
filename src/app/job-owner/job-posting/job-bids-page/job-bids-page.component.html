@@ -2,7 +2,7 @@
 <div *ngFor="let bid of bids">
     <app-job-bid
       [name]="bid.freelancer ? (bid.freelancer.firstname + ' ' + bid.freelancer.lastname) : 'Unknown Freelancer'"
-      [date]="bid.Bid_Date | date:'yyyy-MM-dd'"
+      [date]="bid.created_at | date:'yyyy-MM-dd'"
       [bidId]="bid.id"
       [freelancerId]="bid.Freelancer_id"
       [bid_amount]="bid.bid_amount"
