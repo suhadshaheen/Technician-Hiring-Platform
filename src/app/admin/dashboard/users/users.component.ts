@@ -6,7 +6,7 @@ import { AdminArtisanService, Artisan } from '../../../../services/adminArtisan.
 
 @Component({
   selector: 'app-users',
-  imports: [NgClass, NgForOf, RouterModule, FreelancerProfileComponent, RouterLink,CommonModule],
+  imports: [NgClass, NgForOf, RouterModule, FreelancerProfileComponent, RouterLink, CommonModule],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
@@ -30,9 +30,9 @@ export class UsersComponent implements OnInit {
 
         const oneWeekAgo = new Date();
         oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-this.artisans.sort(
-      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-    );
+        this.artisans.sort(
+          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
         this.newArtisans = artisans.filter(a => new Date(a.created_at) >= oneWeekAgo);
 
         this.filteredArtisans = [...this.artisans];
@@ -73,6 +73,8 @@ this.artisans.sort(
 
 
   deleteArtisan(artisan: Artisan): void {
+    const confirmed = window.confirm('Are you sure you want to delete this user?');
+    if (!confirmed) return;
     this.artisanService.deleteArtisan(artisan.id).subscribe({
       next: () => {
         this.artisans = this.artisans.filter(a => a.id !== artisan.id);
