@@ -1,15 +1,15 @@
 <div class="container mt-4">
-  <h2 class="fw-bold text-center mb-4">Manage Artisans</h2>
+  <h2 class="fw-bold text-center mb-4">Manage Registered Users</h2>
 
   <div class="row g-4">
     <div class="col-12 mb-4">
       <input type="text" (input)="onSearch($event)" class="form-control" placeholder="Search for an artisan" />
     </div>
 
-     <h4>New Artisans (Added in the last 7 days)</h4>
+     <!-- <h4>New Artisans (Added in the last 7 days)</h4>
   <div class="row g-4 mb-4">
     <div class="col-md-4" *ngFor="let artisan of newArtisans">
-      <div class="card shadow rounded h-100 position-relative border border-primary">
+      <div class="card shadow rounded h-100 position-relative border border-primary animate-zoom">
          <button [routerLink]="['/admin/freelancers', artisan.id]"
           class="btn btn-sm bg-white text-purple-600 border border-purple-600 rounded-pill position-absolute top-0 end-0 m-2">
           Details
@@ -26,20 +26,21 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <h4>All Artisans</h4>
+  <h4>All Registered Users</h4>
   <div class="row g-4">
     <div class="col-md-4" *ngFor="let artisan of filteredArtisans">
-      <div class="card shadow rounded h-100 position-relative">
+      <div class="card shadow rounded h-100 position-relative animate-zoom">
          <button [routerLink]="['/admin/freelancers', artisan.id]"
           class="btn btn-sm bg-white text-purple-600 border border-purple-600 rounded-pill position-absolute top-0 end-0 m-2">
           Details
         </button>
         <div class="card-body d-flex flex-column justify-content-between">
-          <div>
+           <div>
             <h5 class="card-title">{{ artisan.firstname }} {{ artisan.lastname }}</h5>
             <p class="card-text">Location: {{ artisan.city }}, {{ artisan.country }}</p>
+            <p class="text-info"><small>Added on: {{ artisan.created_at | date:'mediumDate' }}</small></p>
           </div>
           <div class="d-flex flex-column gap-2 mt-3">
             <button class="btn btn-danger" (click)="deleteArtisan(artisan)">Delete</button>
@@ -48,7 +49,7 @@
       </div>
     </div>
       <div *ngIf="filteredArtisans.length === 0" class="alert alert-warning mt-4">
-                No jobs found.
+                No artisans found.
             </div>
   </div>
 </div>
