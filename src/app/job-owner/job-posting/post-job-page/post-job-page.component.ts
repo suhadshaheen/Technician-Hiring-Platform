@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-// import { CreateJobFormComponent } from './create-job-form/create-job-form.component';
 import { CreateJobFormComponent } from './create-job-form/create-job-form.component';
 @Component({
   selector: 'app-post-job-page',

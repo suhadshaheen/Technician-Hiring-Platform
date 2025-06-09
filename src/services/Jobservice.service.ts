@@ -51,7 +51,8 @@ getJobById(id: number): Observable<Job> {
 }
 
 updateJob(id: number, jobData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/jobs/${id}`, jobData, {
+  jobData.append('_method', 'PUT');
+    return this.http.post(`${this.apiUrl}/jobs/${id}`, jobData, {
       headers: this.getAuthHeaders()
     });
   }

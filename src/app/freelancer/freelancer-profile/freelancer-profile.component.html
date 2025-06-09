@@ -30,7 +30,7 @@
         <ul>
           <li *ngFor="let skill of skillsArray">{{ skill }}</li> </ul>
 
-          <div *ngIf="averageRating !== null" class="rating-section mt-3">
+        <div *ngIf="averageRating !== null" class="rating-section mt-3">
           <h6>Rating</h6>
           <div class="stars">
             <ng-container *ngFor="let star of getStarsArray()">

@@ -41,9 +41,33 @@
     </ul>
   </div>
 </div>
-<div>
-  <h4 class="fw-bold mb-3 ss-details">Job Files:</h4>
+
+<div class="mb-4">
+  <h4 class="fw-bold mb-3 ss-details">Job Photos:</h4>
+  <ng-container *ngIf="jobPhotos && jobPhotos.length > 0; else noPhotos">
+    <div id="jobPhotosCarousel" class="carousel slide" data-bs-ride="carousel" *ngIf="jobPhotos.length > 1" >
+      <div class="carousel-inner">
+        <div *ngFor="let photo of jobPhotos; let i = index" class="carousel-item" [class.active]="i === 0" >
+          <img [src]="getPhotoUrl(photo?.photo_path)" class="d-block w-100" alt="Job Photo" style="max-height: 400px; object-fit: contain;" />
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#jobPhotosCarousel" data-bs-slide="prev" >
+        <i class="fa fa-chevron-left fa-2x text-body"></i>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#jobPhotosCarousel" data-bs-slide="next" >
+       <i class="fa fa-chevron-right fa-2x text-body"></i>
+      </button>
+    </div>
+
+    <img *ngIf="jobPhotos.length === 1" [src]="getPhotoUrl(jobPhotos[0]?.photo_path)" alt="Job Photo" class="img-fluid rounded" style="max-height: 400px; object-fit: contain;" />
+  </ng-container>
+
+  <ng-template #noPhotos>
+    <p class="text-muted">No photos available for this job.</p>
+  </ng-template>
 </div>
+
   <div
   *ngIf="userRole === 'JobOwner'"
   class="d-flex justify-content-between align-items-center bg-light p-3 rounded mb-4"
