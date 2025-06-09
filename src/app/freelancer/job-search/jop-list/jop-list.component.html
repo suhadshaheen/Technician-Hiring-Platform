@@ -3,6 +3,7 @@
     <input
   type="text"
   class="form-control search-ss rounded-pill ps-4 "
+  *ngIf="showSearchBar"
   [(ngModel)]="searchText"
   (ngModelChange)="onFilterChange()"
   placeholder="Search For Job..."
@@ -62,8 +63,8 @@
   <ng-template #notFound>
     <div class="text-center text-muted mt-5 fs-5">No jobs found</div>
   </ng-template>
-
-  <div class="d-flex justify-content-center mt-4" *ngIf="totalPages > 1">
+<div *ngIf="showSearchBar">
+  <div class="d-flex justify-content-center mt-4" *ngIf="totalPages > 1" >
     <nav>
       <ul class="pagination">
         <li class="page-item" [class.disabled]="currentPage === 1">
@@ -80,4 +81,5 @@
       </ul>
     </nav>
   </div>
+</div>
 </div>

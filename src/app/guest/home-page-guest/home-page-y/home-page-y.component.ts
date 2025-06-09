@@ -4,8 +4,9 @@ import { Component } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {HeroSectionComponent} from '../hero-section/hero-section.component';
 import {HowItWorksGComponent} from '../how-it-works-g/how-it-works-g.component';
-import {BestRatingsComponent} from '../best-ratings/best-ratings.component';
+
 import {GuestJobsComponent} from '../guest-jobs/guest-jobs.component';
+import {RatingSummaryComponent} from '../../../freelancer/home-page-freelancer/rating-summary/rating-summary.component';
 
 @Component({
   selector: 'app-home-page-y',
@@ -15,8 +16,8 @@ import {GuestJobsComponent} from '../guest-jobs/guest-jobs.component';
     RouterLink,
     HeroSectionComponent,
     HowItWorksGComponent,
-    BestRatingsComponent,
-    GuestJobsComponent
+    GuestJobsComponent,
+    RatingSummaryComponent
   ],
   templateUrl: './home-page-y.component.html',
   styleUrl: './home-page-y.component.css'
