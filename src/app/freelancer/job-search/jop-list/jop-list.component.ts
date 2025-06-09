@@ -44,7 +44,7 @@ export class JopListComponent implements OnInit {
     this.jobService.getAllJobs(filters).subscribe({
       next: (jobs: any[]) => {
         this.jobs = jobs;
-        this.currentPage = 1; //عشان كل مرة بحمل يرجع لاول صفحة
+        this.currentPage = 1;
       },
       error: (err) => {
         console.error('Failed to load jobs:', err);
