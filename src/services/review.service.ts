@@ -10,7 +10,7 @@ export interface ReviewData {
 }
 
 @Injectable({
-  providedIn: 'root' 
+  providedIn: 'root'
 })
 export class ReviewService {
   private apiUrl = 'http://127.0.0.1:8000/api/reviews';
@@ -24,4 +24,8 @@ export class ReviewService {
 
     return this.http.post(this.apiUrl, reviewData, { headers });
   }
+  TopRated(): Observable<any[]> {
+    return this.http.get<any[]>('http://127.0.0.1:8000/api/top-artisans');
+  }
+
 }

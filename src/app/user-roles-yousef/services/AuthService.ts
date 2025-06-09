@@ -27,13 +27,12 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  storeToken(token: string): void {
-    localStorage.setItem('token', token);
+
+
+  getUserRoleId(): number {
+    return Number(localStorage.getItem('roleId') || 0);
   }
 
-  isAuthenticated(): boolean {
-    return !!this.getToken();
-  }
 
   getUser(): Observable<any> {
     const token = this.getToken();

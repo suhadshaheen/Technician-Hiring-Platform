@@ -46,7 +46,7 @@ export class JobDetailsComponent implements OnInit {
   this.jobId = Number(this.route.snapshot.paramMap.get('id'));
   this.loadJob();
 
-  this.userId = this.authService.getUserId();
+  this.userId = this.authService.getUserRoleId();
   this.userRole = this.authService.getUserRole();
 }
 

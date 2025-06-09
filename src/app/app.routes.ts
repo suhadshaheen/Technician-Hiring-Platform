@@ -40,7 +40,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'Bids', component: JobBidsPageComponent, canActivate: [KeyGuard] },
   { path: 'OwnerJobs', component: OwnerJobsPageComponent, canActivate: [KeyGuard] },
-  { path: 'job-details/:id', component: JobDetailsComponent, canActivate: [KeyGuard] },
+  { path: 'job-details/:id', component: JobDetailsComponent,  },
   {
     path: 'admin', component: AdminComponent, canActivate: [KeyGuard],
     data: { role: 'admin' },
