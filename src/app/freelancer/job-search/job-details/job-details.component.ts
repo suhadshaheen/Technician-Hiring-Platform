@@ -10,7 +10,7 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Bid} from '../../../../models/Bid';
 import { CommonModule } from '@angular/common';
-
+import { JobPhotoService } from '../../../../services/jobPhotos.service';
 declare var bootstrap: any;
 
 
@@ -32,12 +32,14 @@ export class JobDetailsComponent implements OnInit {
   userId!: number;
   userRole!: string;
   jobPoints: string[] = [];
+  jobPhotos: { id: number; photo_path: string }[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private jobService: JobService,
     private bidService: BidService,
-    private authService: AuthService
+    private authService: AuthService,
+    private jobPhotoService: JobPhotoService
   ) {}
 
   ngOnInit(): void {
@@ -70,11 +72,33 @@ export class JobDetailsComponent implements OnInit {
         } else {
           this.jobPoints = [];
         }
+
+        // job photos upload
+      this.loadJobPhotos();
+
       },
       error: (err) => {
         console.error('Failed to load job:', err);
       }
     });
+  }
+
+  loadJobPhotos() {
+    this.jobPhotoService.getPhotosByJobId(this.jobId).subscribe({
+      next: (photos) => {
+        this.jobPhotos = photos;
+      },
+      error: (err) => {
+        console.error('Failed to load job photos:', err);
+      }
+    });
+  }
+
+  getPhotoUrl(photoPath?: string): string {
+    if (!photoPath) {
+      return 'assets/images/no-image.png'; // default photo when no job photos
+    }
+    return `http://127.0.0.1:8000/storage/${photoPath}`;
   }
 
 

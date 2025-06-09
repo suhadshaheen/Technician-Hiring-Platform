@@ -1,17 +1,21 @@
 <div class="job-card d-flex justify-content-between align-items-center p-3 rounded-3 shadow-sm mb-3">
-  <div class="d-flex align-items-center">
+  <div class="d-flex align-items-center animate-zoom">
     <div class="avatar fw-bold rounded-circle me-3 d-flex justify-content-center align-items-center">
       B
     </div>
-    <a class="mb-0 link-underline link-underline-opacity-0" 
+    <a class="mb-0 link-underline link-underline-opacity-0 me-lg-5" 
        style="color: black; font-size: 20px; font-weight: 600;" 
        [routerLink]="['/jobOwner/freelancers', freelancerId]">
       {{ name }}
     </a>
-    <span class="ms-2">{{ date }}</span>
+    <div class="d-flex flex-column  ms-lg-5 ">
+      <span class="p-1"><strong>Bid Date:</strong> {{ date }}</span>
+      <span class="p-1"><strong> Time Line:</strong> {{ work_time_line }}</span>
+      <span class="p-1"><strong> Amount:</strong> {{ bid_amount }}</span>
+    </div>
   </div>
 
-  <div>
+  <div class="animate-zoom">
     <a [routerLink]="['/jobOwner/chat', freelancerId]" routerLinkActive="active-link">
       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
            class="bi bi-people-fill" viewBox="0 0 512 512">
@@ -20,8 +24,8 @@
     </a>
   </div>
 
-  <div class="d-flex gap-2 align-items-center">
-    <ng-container *ngIf="status === 'pending'; else statusLabel">
+  <div class="d-flex gap-3 align-items-center">
+    <ng-container *ngIf="status === 'pending'; else statusLabel" class="animate-zoom">
       <button class="btn btn-success" [disabled]="!canEdit" (click)="approve()">Approve</button>
       <button class="btn btn-danger" [disabled]="!canEdit" (click)="reject()">Reject</button>
     </ng-container>
@@ -36,10 +40,14 @@
 
     </ng-template>
 
-<!-- modal button -->
-<button *ngIf="status === 'accepted' && jobStatus === 'completed'" class="badge border-0 bg-secondary  " style="cursor: pointer;" (click)="showModal = true">Rating here</button>
+  <!-- modal button -->
+  <button *ngIf="status === 'accepted' && jobStatus === 'completed'" class="badge border-0 bg-secondary  " style="cursor: pointer;" (click)="showModal = true">Rating here</button>
+  <div class="modal-backdrop fade show" *ngIf="showModal"></div>
+
+  </div>
+</div>
 <!-- rating modal -->
-<div class="modal fade show d-block" tabindex="-1" role="dialog" *ngIf="showModal">
+<div class="modal fade show d-block animate-zoom" tabindex="-1" role="dialog" *ngIf="showModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content p-3">
       <div class="modal-header">
@@ -69,10 +77,5 @@
         </form>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="modal-backdrop fade show" *ngIf="showModal"></div>
-
   </div>
 </div>

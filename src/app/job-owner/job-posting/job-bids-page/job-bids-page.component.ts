@@ -111,13 +111,11 @@ export class JobBidsPageComponent implements OnInit {
     }
   }
 
-  // ✅ تحميل معلومات الوظيفة والعروض
   loadJobAndBids() {
     this.jobService.getJobById(this.jobId).subscribe({
       next: (jobData) => {
         this.job = jobData;
 
-        // بعد جلب معلومات الوظيفة، نحضر العروض
         this.jobService.getJobBids(this.jobId).subscribe({
           next: (bidsData) => {
             this.bids = bidsData;

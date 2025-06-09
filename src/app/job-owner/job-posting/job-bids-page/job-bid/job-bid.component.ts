@@ -15,6 +15,8 @@ import { ReviewData, ReviewService } from '../../../../../services/review.servic
 export class JobBidComponent {
   @Input() name!: string;
   @Input() date: string | null = null;
+  @Input() work_time_line!: string;
+  @Input() bid_amount!: number;
   @Input() freelancerId!: number;
   @Input() bidId!: number;
   @Input() canEdit: boolean = false;
@@ -44,82 +46,41 @@ export class JobBidComponent {
     this.ratingValue = value;
   }
 
-//   submitRating() {
-//   if (this.ratingValue < 1 || this.ratingValue > 5) {
-//     alert('Please enter a rating between 1 and 5');
-//     return;
-//   }
-
-//   if (!this.bidId || !this.freelancerId) {
-//     alert('The requested data is incomplete');
-//     return;
-//   }
-
-//   const ratingData = {
-//     bidId: this.bidId,
-//     freelancerId: this.freelancerId,
-//     rating: this.ratingValue,
-//     review_text: this.comment
-//   };
-
-//   const token = localStorage.getItem('token');
-//   if (!token) {
-//     alert('not authenticated. Please log in');
-//     return;
-//   }
-
-//   this.http.post('http://127.0.0.1:8000/api/reviews', ratingData, {
-//     headers: {
-//       Authorization: `Bearer ${token}`
-//     }
-//   }).subscribe({
-//     next: (res) => {
-//       this.showModal = false;
-//       this.ratingValue = 5;
-//       this.comment = '';
-//       alert('The rating was saved successfully.');
-//     },
-//     error: (err) => {
-//       alert('Failed to submit review, please try again later');
-//     }
-//   });
-// }
-submitRating() {
-    if (this.ratingValue < 1 || this.ratingValue > 5) {
-      alert('Please enter a rating between 1 and 5');
-      return;
-    }
-
-    if (!this.bidId || !this.freelancerId) {
-      alert('The requested data is incomplete');
-      return;
-    }
-
-    const ratingData: ReviewData = {
-      bidId: this.bidId,
-      freelancerId: this.freelancerId,
-      rating: this.ratingValue,
-      comment: this.comment
-    };
-
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert('Not authenticated. Please log in.');
-      return;
-    }
-
-    this.reviewService.submitReview(ratingData, token).subscribe({
-      next: (res) => {
-        this.showModal = false;
-        this.ratingValue = 5;
-        this.comment = '';
-        alert('The rating was saved successfully.');
-      },
-      error: (err) => {
-        console.error('Failed to submit review:', err);
-        alert('Failed to submit review, please try again later.');
+  submitRating() {
+      if (this.ratingValue < 1 || this.ratingValue > 5) {
+        alert('Please enter a rating between 1 and 5');
+        return;
       }
-    });
-  }
+
+      if (!this.bidId || !this.freelancerId) {
+        alert('The requested data is incomplete');
+        return;
+      }
+
+      const ratingData: ReviewData = {
+        bidId: this.bidId,
+        freelancerId: this.freelancerId,
+        rating: this.ratingValue,
+        comment: this.comment
+      };
+
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Not authenticated. Please log in.');
+        return;
+      }
+
+      this.reviewService.submitReview(ratingData, token).subscribe({
+        next: (res) => {
+          this.showModal = false;
+          this.ratingValue = 5;
+          this.comment = '';
+          alert('The rating was saved successfully.');
+        },
+        error: (err) => {
+          alert('You already rated this bid.');
+        }
+      });
+    }
 
 }
