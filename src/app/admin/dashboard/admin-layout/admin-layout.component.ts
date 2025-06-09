@@ -166,7 +166,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
               fill: true
             },
             {
-              label: 'New Artisans',
+              label: 'Registered Users',
               data: artisansPerMonth,
               borderColor: '#9966ff',
               backgroundColor: 'rgba(153, 102, 255, 0.2)',
