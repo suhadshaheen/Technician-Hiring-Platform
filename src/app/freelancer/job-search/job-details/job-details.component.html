@@ -90,7 +90,7 @@
 
 <div
   class="d-flex gap-3 mb-4"
-  *ngIf="userId === 3  || userId === 0"
+  *ngIf="userRole === 'FreeLancer' || userRole === 'guest'"
 >
   <button
     class="btn btn-bids"
