@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgIf, NgFor, CommonModule } from '@angular/common';
-import { ActivatedRoute, ParamMap } from '@angular/router'; // لجلب الـ ID من الـ URL
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UserService } from '../../user-roles-yousef/services/User';
 import { User } from '../../../models/User';
 import { HttpClient } from '@angular/common/http';
