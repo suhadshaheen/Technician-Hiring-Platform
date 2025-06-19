@@ -73,7 +73,7 @@ export class JobDetailsComponent implements OnInit {
           this.jobPoints = [];
         }
 
-        // job photos upload
+
       this.loadJobPhotos();
 
       },
@@ -82,7 +82,7 @@ export class JobDetailsComponent implements OnInit {
       }
     });
   }
-
+//doaa
   loadJobPhotos() {
     this.jobPhotoService.getPhotosByJobId(this.jobId).subscribe({
       next: (photos) => {
@@ -96,7 +96,7 @@ export class JobDetailsComponent implements OnInit {
 
   getPhotoUrl(photoPath?: string): string {
     if (!photoPath) {
-      return 'assets/images/no-image.png'; // default photo when no job photos
+      return 'assets/images/no-image.png';
     }
     return `http://127.0.0.1:8000/storage/${photoPath}`;
   }
@@ -162,7 +162,7 @@ if (modalEl) {
       this.jobService.updateJobStatus(this.jobId, newStatus).subscribe({
         next: () => {
           if (this.job) this.job.status = newStatus;
-          alert(`Job status updated to ${newStatus.replace(/_/g, ' ')}`);
+          alert(`Job status updated`);
         },
         error: (err) => {
           console.error('Failed to update job status:', err);
@@ -171,13 +171,4 @@ if (modalEl) {
       });
     }
   }
-  openModal() {
-  const modalEl = document.getElementById('bidModal');
-  if (modalEl) {
-    const modal = new bootstrap.Modal(modalEl);
-    modal.show();
-  }
-}
-
-
 }

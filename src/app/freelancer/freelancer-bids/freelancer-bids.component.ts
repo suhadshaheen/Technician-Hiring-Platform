@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { BidService } from '../../../services/Bid.service';
-import { AuthService } from '../../user-roles-yousef/services/AuthService';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -21,7 +20,6 @@ export class FreelancerBidsComponent implements OnInit {
 
   constructor(
     private bidService: BidService,
-    private authService: AuthService
   ) {}
 
 ngOnInit() {

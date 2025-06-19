@@ -18,7 +18,7 @@ export class JobService {
       Authorization: `Bearer ${token}`
     });
   }
-  
+
   constructor(private http: HttpClient) {}
 
   getAllJobs(filters?: any): Observable<Job[]> {
@@ -42,12 +42,8 @@ export class JobService {
   }
 
 getJobById(id: number): Observable<Job> {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
 
-  return this.http.get<Job>(`${this.apiUrl}/jobs/${id}`, { headers });
+  return this.http.get<Job>(`${this.apiUrl}/jobs/${id}`, { headers: this.getAuthHeaders() });
 }
 
 updateJob(id: number, jobData: any): Observable<any> {

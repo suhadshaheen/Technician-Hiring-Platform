@@ -9,7 +9,6 @@ export interface Job {
   deadline?: string;
   posting_date?: string;
   job_owner_id: number;
-  JobPhoto?: string;
   budget: number;
   attempts?: number;
   available_at?: string;

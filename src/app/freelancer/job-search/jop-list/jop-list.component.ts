@@ -56,41 +56,37 @@ export class JopListComponent implements OnInit {
     this.showFilters = !this.showFilters;
   }
 
-  goToDetails(id: number) {
-    this.router.navigate(['/job-details', id]);
-  }
+  // goToDetails(id: number) {
+  //   this.router.navigate(['/job-details', id]);
+  // }
 
-  get categories(): string[] {
+getCategories(): string[] {
   return Array.from(new Set(this.jobs
     .filter(job => job.category)
     .map(job => job.category)));
 }
 
-get locations(): string[] {
+getLocations(): string[] {
   return Array.from(new Set(this.jobs
     .filter(job => job.location)
     .map(job => job.location)));
 }
 
 
-get budgets(): string[] {
+getBudgets(): string[] {
   return Array.from(new Set(this.jobs
     .filter(job => job.budget !== null && job.budget !== undefined)
     .map(job => job.budget.toString())));
 }
 
 
-  get filteredJobs() {
-    return this.jobs; //بترجع الجوبس اللي من السيرفر
+  getTotalPages(): number {
+    return Math.ceil(this.jobs.length / this.jobsPerPage);
   }
 
-  get totalPages(): number {
-    return Math.ceil(this.filteredJobs.length / this.jobsPerPage);
-  }
-
-  get paginatedJobs() {
+  getPaginatedJobs() {
     const startIndex = (this.currentPage - 1) * this.jobsPerPage;
-    return this.filteredJobs.slice(startIndex, startIndex + this.jobsPerPage);
+    return this.jobs.slice(startIndex, startIndex + this.jobsPerPage);
   }
 
   goToPage(page: number) {
@@ -98,7 +94,7 @@ get budgets(): string[] {
   }
 
   nextPage() {
-    if (this.currentPage < this.totalPages) this.currentPage++;
+    if (this.currentPage < this.getTotalPages()) this.currentPage++;
   }
 
   prevPage() {
@@ -106,11 +102,9 @@ get budgets(): string[] {
   }
 
   get paginationPages() {
-    return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+    return Array(this.getTotalPages()).fill(0).map((_, i) => i + 1);
   }
 
-  // لما الفلترة تتغير بستدعي هاد الميثود
-  // عشان تحمل الجوبس من السيرفر حسب الفلتر
   onFilterChange() {
     this.loadJobs();
   }
