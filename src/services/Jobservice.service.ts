@@ -11,7 +11,6 @@ import { Job } from '../models/Job';
 })
 export class JobService {
   private apiUrl = 'http://127.0.0.1:8000/api';
-  token = localStorage.getItem('token');
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
