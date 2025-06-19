@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { AuthService} from '../../services/AuthService';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class LoginFormComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router ,private authService: AuthService) {}
 
   onLogin() {
     const url = 'http://127.0.0.1:8000/api/login';
@@ -26,7 +27,7 @@ export class LoginFormComponent {
       password: this.password
     };
 
-    this.http.post<any>(url, body).subscribe({
+    this.authService.login(this.username, this.password).subscribe({
       next: (res) => {
         console.log('Login successful:', res);
 
