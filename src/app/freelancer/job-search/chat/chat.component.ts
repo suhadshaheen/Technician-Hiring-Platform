@@ -15,6 +15,7 @@ import { UserService } from '../../../user-roles-yousef/services/User';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
+
   newMessage = '';
   messages: MessageWithMeta[] = [];
   recentContacts: User[] = [];
@@ -24,19 +25,15 @@ export class ChatComponent implements OnInit {
   currentReceiverId = 0;
 
   currentUserId = Number(localStorage.getItem('userId') || '0');
-
   sidebarOpen = true;
   isMobile = false;
-
   constructor(
     private chatService: ChatService,
     private route: ActivatedRoute,
     private userService: UserService
   ) {}
-
   ngOnInit(): void {
     const routeFreelancerId = this.route.snapshot.paramMap.get('freelancerId');
-
     this.chatService.getRecentContacts().subscribe((data) => {
       this.recentContacts = data;
 
@@ -72,7 +69,6 @@ export class ChatComponent implements OnInit {
 
     this.checkScreenSize();
   }
-
   @HostListener('window:resize')
   checkScreenSize() {
     this.isMobile = window.innerWidth <= 768;

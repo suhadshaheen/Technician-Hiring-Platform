@@ -11,14 +11,13 @@ import { Job } from '../models/Job';
 })
 export class JobService {
   private apiUrl = 'http://127.0.0.1:8000/api';
-  token = localStorage.getItem('token');
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
   }
-  
+
   constructor(private http: HttpClient) {}
 
   getAllJobs(filters?: any): Observable<Job[]> {
@@ -42,12 +41,8 @@ export class JobService {
   }
 
 getJobById(id: number): Observable<Job> {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
 
-  return this.http.get<Job>(`${this.apiUrl}/jobs/${id}`, { headers });
+  return this.http.get<Job>(`${this.apiUrl}/jobs/${id}`, { headers: this.getAuthHeaders() });
 }
 
 updateJob(id: number, jobData: any): Observable<any> {
